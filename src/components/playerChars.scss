@@ -1,0 +1,31 @@
+.player1char {
+  grid-row-start: 10;
+  grid-row-end: 12;
+  grid-column-start: 3;
+  grid-column-end: 4;
+  background-color: firebrick;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+}
+
+.player2char {
+  grid-row-start: 10;
+  grid-row-end: 12;
+  grid-column-start: 8;
+  grid-column-end: 9;
+  background-color: gold;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+}
+
+.waitingGrassBall {
+  z-index: 3;
+  position: absolute;
+  top: 60%;
+  left: 0%;
+  background-color: gray;
+  height: 10vh;
+  width: 10vh;
+}
