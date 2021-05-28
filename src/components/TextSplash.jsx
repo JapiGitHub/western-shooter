@@ -1,4 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
+import useSound from "use-sound";
+import pistolShot1 from "../sounds/pistol.shot.1.mp3";
 import "./textsplash.scss";
 
 export default function TextSplash({ playerReady, setPlayerReady }) {
@@ -6,6 +8,9 @@ export default function TextSplash({ playerReady, setPlayerReady }) {
   const [reactionTime, setReactionTime] = useState(7777);
   const [startTime, setStartTime] = useState(888);
   const [randomTime, setRandomTime] = useState(0);
+  const [gunLoaded, setGunLoaded] = useState(true);
+
+  const [pistolShot1Play] = useSound(pistolShot1);
 
   useEffect(() => {
     setRandomTime(5000 + Math.floor(Math.random() * 3000));
@@ -38,11 +43,21 @@ export default function TextSplash({ playerReady, setPlayerReady }) {
 
     //SHOOTING
     if (playerReady === true) {
-      const pullTriggerTime = new Date();
-      setReactionTime(pullTriggerTime - startTime);
-      console.log("reac", pullTriggerTime - startTime);
-      console.log(reactionTime);
-      console.log("startTime:", startTime);
+      if (gunLoaded === true) {
+        const pullTriggerTime = new Date();
+        const reactTimeConst = pullTriggerTime - startTime;
+
+        setReactionTime(reactTimeConst);
+        console.log(reactTimeConst / 1000, " seconds reaction time");
+        setGunLoaded(false);
+
+        if (reactTimeConst < 500) {
+          setInfoText("Win!");
+          pistolShot1Play();
+        } else {
+          setInfoText("Lost!");
+        }
+      }
     }
   };
 
