@@ -11,6 +11,11 @@
     grid-template-columns: repeat(10, 1fr);
     grid-template-rows: repeat(16, 1fr);
     z-index: 0;
+    overflow: hidden;
+
+    image-rendering: pixelated;
+    image-rendering: -moz-crisp-edges;
+    image-rendering: crisp-edges;
 
     .ground {
       grid-column-start: 1;
@@ -21,12 +26,19 @@
       z-index: 0;
     }
 
+    .horizon {
+      grid-column-start: 1;
+      grid-column-end: 11;
+      grid-row-start: 7;
+      grid-row-end: 11;
+      height: 100%;
+    }
+
     .textSplashFrame {
-      background-color: rgba(156, 206, 99, 0);
-      grid-column-start: 2;
-      grid-column-end: 10;
-      grid-row-start: 5;
-      grid-row-end: 13;
+      grid-column-start: 1;
+      grid-column-end: 11;
+      grid-row-start: 1;
+      grid-row-end: 17;
       z-index: 7;
 
       display: grid;

@@ -5,10 +5,12 @@ export default function PlayerChars() {
   return (
     <>
       <article className="player1char">
-        <img src="./assets/offle.gif"></img>
+        <img className="playerGif" src="./assets/cowboy.left.gif"></img>
       </article>
-      <article className="player2char">@</article>
-      <aside className="waitingGrassBall">#</aside>
+      <article className="player2char">
+        <img className="playerGif" src="./assets/sheriff.right.gif"></img>
+      </article>
+      <aside className="waitingGrassBall"></aside>
     </>
   );
 }

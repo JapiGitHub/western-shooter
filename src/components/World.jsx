@@ -16,6 +16,7 @@ export default function World() {
     <>
       <main className="background-world-arena">
         <section className="ground"></section>
+        <img className="horizon" src="./assets/horizon.gif"></img>
         <TextSplash playerReady={playerReady} setPlayerReady={setPlayerReady} />
         <PlayerChars />
         <Cactus />

@@ -1,41 +1,48 @@
 import React, { useEffect, useRef, useState } from "react";
+
 import useSound from "use-sound";
-import pistolShot1 from "../sounds/pistol.shot.1.mp3";
+import pistolShot2 from "../sounds/pistol.shot.2.mp3";
+import pistolCock1 from "../sounds/cock.pistol.1.mp3";
+import ding from "../sounds/ding.mp3";
+import holster from "../sounds/holster.mp3";
+
 import "./textsplash.scss";
 
 export default function TextSplash({ playerReady, setPlayerReady }) {
   const [infoText, setInfoText] = useState("Ready?");
-  const [reactionTime, setReactionTime] = useState(7777);
   const [startTime, setStartTime] = useState(888);
   const [randomTime, setRandomTime] = useState(0);
   const [gunLoaded, setGunLoaded] = useState(true);
 
-  const [pistolShot1Play] = useSound(pistolShot1);
+  const [pistolShot2Play] = useSound(pistolShot2);
+  const [pistolCock1Play] = useSound(pistolCock1);
+  const [dingPlay] = useSound(ding);
+  const [holsterPlay] = useSound(holster);
 
   useEffect(() => {
-    setRandomTime(5000 + Math.floor(Math.random() * 3000));
-    console.log(randomTime);
+    setRandomTime(3500 + Math.floor(Math.random() * 3000));
   }, []);
 
   useEffect(() => {
-    setStartTime(5000 + Math.floor(Math.random() * 3000));
-    console.log("R", randomTime);
+    setStartTime(3500 + Math.floor(Math.random() * 3000));
   }, [randomTime]);
 
-  const readyClick = () => {
+  const actionClick = () => {
     //START TIMER
     if (playerReady === false) {
       setPlayerReady(true);
-      //3000ms kohdalla tulee "set..."
+      //1500ms kohdalla tulee "set..."
 
       setInfoText("Ready!");
+      pistolCock1Play();
 
       setTimeout(() => {
         setInfoText("Set ...");
-      }, 3000);
+      }, 1500);
 
       setTimeout((startTime) => {
         setInfoText("BANG!");
+        holsterPlay();
         console.log(randomTime);
         setStartTime(new Date());
       }, randomTime);
@@ -47,13 +54,12 @@ export default function TextSplash({ playerReady, setPlayerReady }) {
         const pullTriggerTime = new Date();
         const reactTimeConst = pullTriggerTime - startTime;
 
-        setReactionTime(reactTimeConst);
         console.log(reactTimeConst / 1000, " seconds reaction time");
         setGunLoaded(false);
 
         if (reactTimeConst < 500) {
           setInfoText("Win!");
-          pistolShot1Play();
+          pistolShot2Play();
         } else {
           setInfoText("Lost!");
         }
@@ -62,7 +68,7 @@ export default function TextSplash({ playerReady, setPlayerReady }) {
   };
 
   return (
-    <div className="textSplashFrame" onClick={readyClick}>
+    <div className="textSplashFrame" onClick={actionClick}>
       <div className="infoText">{infoText}</div>
     </div>
   );
