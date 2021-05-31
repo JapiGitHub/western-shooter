@@ -1,8 +1,9 @@
 .infoText {
   font-size: 10rem;
   color: #1a0403;
-  text-shadow: 0 0 20px #ffffff;
+  text-shadow: 0 0 30px #ffffff;
 
+  //disable text highlighting
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;

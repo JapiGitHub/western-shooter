@@ -8,7 +8,12 @@ import holster from "../sounds/holster.mp3";
 
 import "./textsplash.scss";
 
-export default function TextSplash({ playerReady, setPlayerReady }) {
+export default function TextSplash({
+  playerReady,
+  setPlayerReady,
+  playerAnim,
+  setPlayerAnim,
+}) {
   const [infoText, setInfoText] = useState("Ready?");
   const [startTime, setStartTime] = useState(888);
   const [randomTime, setRandomTime] = useState(0);
@@ -18,6 +23,8 @@ export default function TextSplash({ playerReady, setPlayerReady }) {
   const [pistolCock1Play] = useSound(pistolCock1);
   const [dingPlay] = useSound(ding);
   const [holsterPlay] = useSound(holster);
+
+  const infoRef = useRef();
 
   useEffect(() => {
     setRandomTime(3500 + Math.floor(Math.random() * 3000));
@@ -58,6 +65,7 @@ export default function TextSplash({ playerReady, setPlayerReady }) {
         setGunLoaded(false);
 
         if (reactTimeConst < 500) {
+          setPlayerAnim("shooting");
           setInfoText("Win!");
           pistolShot2Play();
         } else {
