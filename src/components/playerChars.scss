@@ -1,9 +1,8 @@
 .player1char {
   grid-row-start: 10;
   grid-row-end: 14;
-  grid-column-start: 2;
-  grid-column-end: 5;
-
+  grid-column-start: 7;
+  grid-column-end: 10;
   //background-color: rgba(255, 0, 0, 0.05);
 
   z-index: 1;
@@ -14,8 +13,8 @@
 .player2char {
   grid-row-start: 10;
   grid-row-end: 14;
-  grid-column-start: 7;
-  grid-column-end: 10;
+  grid-column-start: 2;
+  grid-column-end: 5;
 
   //background-color: rgba(0, 255, 0, 0.05);
   // border-style: dotted;

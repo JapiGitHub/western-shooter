@@ -41,16 +41,5 @@
       grid-row-end: 11;
       height: 100%;
     }
-
-    .textSplashFrame {
-      grid-column-start: 1;
-      grid-column-end: 11;
-      grid-row-start: 1;
-      grid-row-end: 17;
-      z-index: 7;
-
-      display: grid;
-      place-items: center;
-    }
   }
 }
