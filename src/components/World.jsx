@@ -2,10 +2,13 @@ import React, { useEffect, useState } from "react";
 import PlayerChars from "./PlayerChars";
 import Cactus from "./Cactus";
 import TextSplash from "./TextSplash";
+import HeroSelector from "./HeroSelector";
 
 export default function World() {
   const [playerAnim, setPlayerAnim] = useState("waiting");
   const [player2Anim, setPlayer2Anim] = useState("waiting");
+  const [player2Hero, setPlayer2Hero] = useState("cowboy");
+  const [playerHero, setPlayerHero] = useState("sheriff");
 
   //playerAnim vaihtoehdot:
   //waiting
@@ -30,7 +33,17 @@ export default function World() {
           player2Anim={playerAnim}
           setPlayer2Anim={setPlayer2Anim}
         />
-        <PlayerChars playerAnim={playerAnim} player2Anim={player2Anim} />
+        <PlayerChars
+          playerAnim={playerAnim}
+          player2Anim={player2Anim}
+          player2Hero={player2Hero}
+        />
+        <HeroSelector
+          setPlayerHero={setPlayerHero}
+          setPlayer2Hero={setPlayer2Hero}
+          playerHero={playerHero}
+          player2Hero={player2Hero}
+        />
         <Cactus />
       </main>
     </>

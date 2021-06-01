@@ -13,6 +13,8 @@ export default function TextSplash({
   setPlayerAnim,
   player2Anim,
   setPlayer2Anim,
+  setLeftGroundMiss,
+  setRightGroundMiss,
 }) {
   const [playerOneReady, setPlayerOneReady] = useState(false);
   const [playerTwoReady, setPlayerTwoReady] = useState(false);
@@ -22,15 +24,15 @@ export default function TextSplash({
   const [player2Reaction, setPlayer2Reaction] = useState(0);
 
   const [shotFired, setShotFired] = useState(false);
-  //onko mahdollista enää ampua? set false kun kumpi vaan on ehtinyt ampua
 
   const [infoText, setInfoText] = useState("Ready?");
+
   const [startTime, setStartTime] = useState(888);
   const [randomTime, setRandomTime] = useState(0);
+  const [ok2Shoot, setOk2Shoot] = useState(false);
 
   const [pistolShot2Play] = useSound(pistolShot2);
   const [pistolCock1Play] = useSound(pistolCock1);
-  const [dingPlay] = useSound(ding);
   const [holsterPlay] = useSound(holster);
 
   const playerTwoReadyCheckBox = useRef();
@@ -50,7 +52,6 @@ export default function TextSplash({
 
   //kun pelaajat valmiita, niin aloita timeri
   useEffect(() => {
-    console.log("alkaaa!!");
     if (playerOneReady === true && playerTwoReady === true) {
       setInfoText("Ready!");
       pistolCock1Play();
@@ -61,8 +62,8 @@ export default function TextSplash({
 
       setTimeout((startTime) => {
         setInfoText("BANG!");
+        setOk2Shoot(true);
         holsterPlay();
-        console.log(randomTime);
         setStartTime(new Date());
       }, randomTime);
     }
@@ -97,13 +98,22 @@ export default function TextSplash({
     playerTwoReadyCheckBox.current.focus();
 
     //SHOOTING
-    if (playerOneReady === true) {
+    if (playerOneReady === true && playerTwoReady === true) {
       if (gun1Loaded === true && shotFired === false) {
-        setShotFired(true);
-        setPlayerAnim("shooting");
-        setPlayer2Anim("die");
-        pistolShot2Play();
-        setInfoText("player 1 wins");
+        if (ok2Shoot === false) {
+          //varaslähtö
+          pistolShot2Play();
+          setPlayerAnim("shooting");
+          setGun1Loaded(false);
+        } else {
+          //onnistunut laukaus
+          setShotFired(true);
+          setPlayerAnim("shooting");
+          setPlayer2Anim("die");
+          pistolShot2Play();
+          setInfoText("player 1 wins");
+        }
+
         /*         const pullTriggerTime = new Date();
         const reactTimeConst = pullTriggerTime - startTime;
 
@@ -126,13 +136,21 @@ export default function TextSplash({
   const actionKey = (e) => {
     setPlayerTwoReady(true);
 
-    if (playerTwoReady === true) {
+    if (playerTwoReady === true && playerOneReady === true) {
       if (gun2Loaded === true && shotFired === false) {
-        setShotFired(true);
-        setPlayer2Anim("shooting");
-        setPlayerAnim("die");
-        pistolShot2Play();
-        setInfoText("player 2 wins");
+        if (ok2Shoot === false) {
+          //varaslähtö
+          pistolShot2Play();
+          setPlayer2Anim("shooting");
+          setGun2Loaded(false);
+        } else {
+          //onnistunut laukaus
+          setShotFired(true);
+          setPlayer2Anim("shooting");
+          setPlayerAnim("die");
+          pistolShot2Play();
+          setInfoText("player 2 wins");
+        }
         /*         const pullTriggerTime = new Date();
         const reactTimeConst = pullTriggerTime - startTime;
 
@@ -161,7 +179,7 @@ export default function TextSplash({
   return (
     <div className="textSplashFrame" onClick={actionClick}>
       <label className="player2ReadyLabel" htmlFor="p2">
-        player 2
+        Keyboard
         <input
           className="readyCheckBox p2check"
           type="checkbox"
@@ -173,11 +191,11 @@ export default function TextSplash({
           id="p2"
           name="p2"
         />
-        <span className="checkMark"></span>
+        <span className="checkMark2"></span>
       </label>
 
       <label className="player1ReadyLabel" htmlFor="p1">
-        player 1
+        Mouse
         <input
           className="readyCheckBox p1check"
           type="checkbox"
@@ -187,8 +205,9 @@ export default function TextSplash({
           id="p1"
           name="p1"
         />
-        <span className="checkMark"></span>
+        <span className="checkMark1"></span>
       </label>
+
       <div className="infoText">{infoText}</div>
     </div>
   );

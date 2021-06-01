@@ -1,13 +1,13 @@
 import React from "react";
 import "./playerChars.scss";
 
-export default function PlayerChars({ playerAnim, player2Anim }) {
+export default function PlayerChars({ playerAnim, player2Anim, player2Hero }) {
   return (
     <>
       <article className="player2char">
         <img
           className="playerGif"
-          src={`./assets/cowboy.left.${player2Anim}.gif`}
+          src={`./assets/${player2Hero}.left.${player2Anim}.gif`}
         ></img>
       </article>
 
