@@ -64,6 +64,8 @@
     width: 400px;
     background-color: crimson;
     transition: all 0.2s ease;
+
+    z-index: 12;
   }
 
   .checkMark2 {
@@ -79,13 +81,23 @@
     width: 400px;
     background-color: crimson;
     transition: all 0.2s ease;
+
+    z-index: 12;
   }
 
-  .checkMark:hover {
+  .checkMark1:hover {
     background-color: rgb(195, 209, 117);
   }
 
-  input:checked ~ .checkMark {
+  .checkMark2:hover {
+    background-color: rgb(195, 209, 117);
+  }
+
+  input:checked ~ .checkMark1 {
+    background-color: #1ed65c;
+  }
+
+  input:checked ~ .checkMark2 {
     background-color: #1ed65c;
   }
 

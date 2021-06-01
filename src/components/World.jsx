@@ -8,7 +8,7 @@ export default function World() {
   const [playerAnim, setPlayerAnim] = useState("waiting");
   const [player2Anim, setPlayer2Anim] = useState("waiting");
   const [player2Hero, setPlayer2Hero] = useState("cowboy");
-  const [playerHero, setPlayerHero] = useState("sheriff");
+  const [player1Hero, setPlayer1Hero] = useState("sheriff");
 
   //playerAnim vaihtoehdot:
   //waiting
@@ -37,12 +37,11 @@ export default function World() {
           playerAnim={playerAnim}
           player2Anim={player2Anim}
           player2Hero={player2Hero}
+          player1Hero={player1Hero}
         />
         <HeroSelector
-          setPlayerHero={setPlayerHero}
+          setPlayer1Hero={setPlayer1Hero}
           setPlayer2Hero={setPlayer2Hero}
-          playerHero={playerHero}
-          player2Hero={player2Hero}
         />
         <Cactus />
       </main>
