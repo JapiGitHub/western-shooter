@@ -1,0 +1,37 @@
+.menuContainer {
+  height: 100vh;
+  width: 100vw;
+  background: linear-gradient(45deg, rgb(224, 213, 175), rgb(206, 176, 5));
+
+  font-size: 11rem;
+  color: #fff;
+  text-shadow: 2px 2px 9px #000000;
+
+  display: grid;
+  place-items: center;
+
+  padding-top: 30px;
+
+  .buttonContainer {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 40px;
+
+    button {
+      background-color: white;
+      border-radius: 10px;
+      border-style: none;
+      padding: 20px 70px;
+      margin-bottom: 60px;
+      font-size: 5rem;
+      transition: all 0.2s ease;
+      color: rgb(56, 29, 13);
+    }
+
+    button:hover {
+      color: #fff;
+      background-color: rgb(56, 29, 13);
+      transform: scale(1.2);
+    }
+  }
+}

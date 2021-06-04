@@ -6,9 +6,9 @@ import pistolCock1 from "../sounds/cock.pistol.1.mp3";
 import ding from "../sounds/ding.mp3";
 import holster from "../sounds/holster.mp3";
 
-import "./textsplash.scss";
+import "./gameLocalSplitScreen.scss";
 
-export default function TextSplash({
+export default function GameLocalSplitScreen({
   playerAnim,
   setPlayerAnim,
   player2Anim,
@@ -111,7 +111,7 @@ export default function TextSplash({
           setPlayerAnim("shooting");
           setPlayer2Anim("die");
           pistolShot2Play();
-          setInfoText("player 1 wins");
+          setInfoText("mouse wins");
         }
 
         /*         const pullTriggerTime = new Date();
@@ -149,7 +149,7 @@ export default function TextSplash({
           setPlayer2Anim("shooting");
           setPlayerAnim("die");
           pistolShot2Play();
-          setInfoText("player 2 wins");
+          setInfoText("keyboard wins");
         }
         /*         const pullTriggerTime = new Date();
         const reactTimeConst = pullTriggerTime - startTime;
