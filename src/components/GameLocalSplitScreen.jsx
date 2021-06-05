@@ -189,7 +189,9 @@ export default function GameLocalSplitScreen({
           id="p1"
           name="p1"
         />
-        <span className="checkMark1"></span>
+        <span className="checkMark1">
+          {playerOneReady ? "Ready!" : "Click to ready"}
+        </span>
       </label>
       <label className="player2ReadyLabel" htmlFor="p2">
         Keyboard
@@ -204,7 +206,9 @@ export default function GameLocalSplitScreen({
           id="p2"
           name="p2"
         />
-        <span className="checkMark2"></span>
+        <span className="checkMark2">
+          {playerTwoReady ? "Ready!" : "Press any key"}
+        </span>
       </label>
 
       <div className="infoText">{infoText}</div>

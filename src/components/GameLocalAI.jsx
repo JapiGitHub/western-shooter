@@ -67,7 +67,7 @@ export default function GameLocalAI({
 
       setTimeout(() => {
         if (aiAlive) {
-          setPlayer1Reaction(randomTime + 501);
+          setPlayer1Reaction(501);
         }
       }, randomTime + 500);
     }
@@ -85,6 +85,7 @@ export default function GameLocalAI({
         setPlayer2Anim("die");
       } else {
         if (aiAlive) {
+          setGun1Loaded(false);
           setInfoText("AI wins");
           setPlayer2Anim("shooting");
           pistolShot2Play();
@@ -106,11 +107,6 @@ export default function GameLocalAI({
           setGun1Loaded(false);
         } else {
           //onnistunut laukaus
-
-          setShotFired(true);
-          setPlayerAnim("shooting");
-          setPlayer2Anim("die");
-          pistolShot2Play();
           setInfoText("mouse wins");
 
           const pullTriggerTime = new Date();
@@ -145,7 +141,9 @@ export default function GameLocalAI({
           id="p1"
           name="p1"
         />
-        <span className="checkMarkPlayer"></span>
+        <span className="checkMarkPlayer">
+          {playerOneReady ? "Ready!" : "Click to ready"}
+        </span>
       </label>
 
       <label className="aiReadyLabel" htmlFor="p2">
@@ -159,7 +157,7 @@ export default function GameLocalAI({
           id="p2"
           name="p2"
         />
-        <span className="checkMarkAI"></span>
+        <span className="checkMarkAI">Ready!</span>
       </label>
 
       <div className="infoText">{infoText}</div>

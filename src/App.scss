@@ -4,6 +4,14 @@
   box-sizing: border-box;
   font-family: "Rye", cursive;
 
+  //disable highlighti selection
+  -ms-user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+  -khtml-user-select: none;
+  user-select: none;
+
   .background-world-arena {
     //background-color: rgb(116, 204, 255);
     background: radial-gradient(
