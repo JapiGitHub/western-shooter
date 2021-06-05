@@ -3,7 +3,8 @@ import { useState } from "react";
 
 import Menu from "./components/Menu";
 import LocalSplitScreenMode from "./components/LocalSplitScreenMode";
-import AiMode from "./components/AiMode";
+import LocalAiMode from "./components/LocalAiMode";
+import GameLocalAI from "./components/GameLocalAI";
 
 function App() {
   const [gameMode, setGameMode] = useState("menu");
@@ -16,7 +17,7 @@ function App() {
       {gameMode === "split" ? (
         <LocalSplitScreenMode setGameMode={setGameMode} />
       ) : null}
-      {gameMode === "ai" ? <AiMode /> : null}
+      {gameMode === "ai" ? <LocalAiMode setGameMode={setGameMode} /> : null}
     </div>
   );
 }

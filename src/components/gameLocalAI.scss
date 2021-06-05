@@ -1,0 +1,124 @@
+.textSplashFrame {
+  grid-column-start: 1;
+  grid-column-end: 11;
+  grid-row-start: 1;
+  grid-row-end: 17;
+  z-index: 7;
+
+  display: grid;
+  place-items: center;
+  grid-template-columns: (repeat(2), 1fr);
+  grid-template-rows: (repeat(4), 1fr);
+
+  .readyCheckBox {
+    opacity: 0;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 15px;
+  }
+
+  //mouse
+  .playerReadyLabel {
+    font-size: 2rem;
+    font-family: "Press Start 2P", cursive;
+    grid-column-start: 1;
+    grid-column-end: 2;
+    grid-row-start: 1;
+    grid-row-end: 2;
+    width: 400px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    margin-top: 40px;
+    margin-bottom: auto;
+  }
+
+  //keyboard
+  .aiReadyLabel {
+    font-size: 2rem;
+    font-family: "Press Start 2P", cursive;
+    grid-column-start: 3;
+    grid-column-end: 4;
+    grid-row-start: 1;
+    grid-row-end: 2;
+    width: 400px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    margin-top: 40px;
+    margin-bottom: auto;
+  }
+
+  .checkMarkPlayer {
+    position: absolute;
+    top: 90px;
+    left: 80px;
+
+    border-radius: 9px;
+    border-style: solid;
+    border-width: 5px;
+    border-color: rgb(0, 0, 0);
+    height: 70px;
+    width: 400px;
+    background-color: crimson;
+    transition: all 0.2s ease;
+
+    z-index: 12;
+  }
+
+  .checkMarkAI {
+    position: absolute;
+    top: 90px;
+    right: 80px;
+
+    border-radius: 9px;
+    border-style: solid;
+    border-width: 5px;
+    border-color: rgb(0, 0, 0);
+    height: 70px;
+    width: 400px;
+    background-color: crimson;
+    transition: all 0.2s ease;
+
+    z-index: 12;
+  }
+
+  .checkMarkPlayer:hover {
+    background-color: rgb(195, 209, 117);
+  }
+
+  .checkMarkAI:hover {
+    background-color: rgb(195, 209, 117);
+  }
+
+  input:checked ~ .checkMarkPlayer {
+    background-color: #1ed65c;
+  }
+
+  input:checked ~ .checkMarkAI {
+    background-color: #1ed65c;
+  }
+
+  .infoText {
+    grid-column-start: 2;
+    grid-column-end: 3;
+    grid-row-start: 1;
+    grid-row-end: 3;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-size: 10rem;
+    color: #1a0403;
+    text-shadow: 0 0 30px #ffffff;
+
+    //disable text highlighting
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+}

@@ -12,14 +12,14 @@ export default function PlayerChars({
       <article className="player2char">
         <img
           className="playerGif"
-          src={`./assets/${player2Hero}.right.${player2Anim}.gif`}
+          src={`./assets/${player2Hero}.left.${player2Anim}.gif`}
         ></img>
       </article>
 
       <article className="player1char">
         <img
           className="playerGif"
-          src={`./assets/${player1Hero}.left.${playerAnim}.gif`}
+          src={`./assets/${player1Hero}.right.${playerAnim}.gif`}
         ></img>
       </article>
       <aside className="waitingGrassBall"></aside>

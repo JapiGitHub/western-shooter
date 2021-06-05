@@ -1,11 +1,11 @@
 .heroes-box-keyboard {
   position: absolute;
   top: 190px;
-  left: 0;
+  right: 0;
   width: 400px;
   height: 250px;
 
-  margin-left: 80px;
+  margin-right: 80px;
 
   display: flex;
 
@@ -36,11 +36,11 @@
 .heroes-box-mouse {
   position: absolute;
   top: 190px;
-  right: 0;
+  left: 0;
   width: 400px;
   height: 250px;
 
-  margin-right: 80px;
+  margin-left: 80px;
 
   display: flex;
 

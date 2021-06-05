@@ -1,0 +1,32 @@
+.heroes-box-human {
+  position: absolute;
+  top: 190px;
+  left: 80px;
+  width: 400px;
+  height: 250px;
+
+  display: flex;
+
+  border-radius: 9px;
+  border-style: solid;
+  border-width: 5px;
+  border-color: rgb(0, 0, 0);
+
+  .hero-avatar-human {
+    height: 100%;
+    width: 100%;
+
+    display: grid;
+    place-items: center;
+
+    img {
+      height: 50%;
+      z-index: 11;
+      transition: all 0.2s ease;
+    }
+
+    img:hover {
+      height: 70%;
+    }
+  }
+}

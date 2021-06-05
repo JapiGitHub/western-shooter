@@ -103,13 +103,13 @@ export default function GameLocalSplitScreen({
         if (ok2Shoot === false) {
           //varaslähtö
           pistolShot2Play();
-          setPlayerAnim("shooting");
+          setPlayer2Anim("shooting");
           setGun1Loaded(false);
         } else {
           //onnistunut laukaus
           setShotFired(true);
-          setPlayerAnim("shooting");
-          setPlayer2Anim("die");
+          setPlayer2Anim("shooting");
+          setPlayerAnim("die");
           pistolShot2Play();
           setInfoText("mouse wins");
         }
@@ -141,13 +141,13 @@ export default function GameLocalSplitScreen({
         if (ok2Shoot === false) {
           //varaslähtö
           pistolShot2Play();
-          setPlayer2Anim("shooting");
+          setPlayerAnim("shooting");
           setGun2Loaded(false);
         } else {
           //onnistunut laukaus
           setShotFired(true);
-          setPlayer2Anim("shooting");
-          setPlayerAnim("die");
+          setPlayerAnim("shooting");
+          setPlayer2Anim("die");
           pistolShot2Play();
           setInfoText("keyboard wins");
         }
@@ -178,6 +178,19 @@ export default function GameLocalSplitScreen({
 
   return (
     <div className="textSplashFrame" onClick={actionClick}>
+      <label className="player1ReadyLabel" htmlFor="p1">
+        Mouse
+        <input
+          className="readyCheckBox p1check"
+          type="checkbox"
+          checked={playerOneReady}
+          ref={playerOneReadyCheckBox}
+          onClick={playerOneReadyClick}
+          id="p1"
+          name="p1"
+        />
+        <span className="checkMark1"></span>
+      </label>
       <label className="player2ReadyLabel" htmlFor="p2">
         Keyboard
         <input
@@ -192,20 +205,6 @@ export default function GameLocalSplitScreen({
           name="p2"
         />
         <span className="checkMark2"></span>
-      </label>
-
-      <label className="player1ReadyLabel" htmlFor="p1">
-        Mouse
-        <input
-          className="readyCheckBox p1check"
-          type="checkbox"
-          checked={playerOneReady}
-          ref={playerOneReadyCheckBox}
-          onClick={playerOneReadyClick}
-          id="p1"
-          name="p1"
-        />
-        <span className="checkMark1"></span>
       </label>
 
       <div className="infoText">{infoText}</div>
