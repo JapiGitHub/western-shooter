@@ -10,7 +10,7 @@ function App() {
   const [gameMode, setGameMode] = useState("menu");
 
   return (
-    <div className="App">
+    <div className="App" style={{ cursor: "url(knife.cur),auto" }}>
       {gameMode === "menu" ? (
         <Menu gameMode={gameMode} setGameMode={setGameMode} />
       ) : null}
