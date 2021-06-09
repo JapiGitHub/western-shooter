@@ -6,21 +6,22 @@ import pistolCock1 from "../sounds/cock.pistol.1.mp3";
 import ding from "../sounds/ding.mp3";
 import holster from "../sounds/holster.mp3";
 
-import "./gameLocalAI.scss";
+import "./gameMulti.scss";
 
-export default function GameLocalAI({
+export default function GameMulti({
   playerAnim,
   setPlayerAnim,
   player2Anim,
   setPlayer2Anim,
-  setLeftGroundMiss,
-  setRightGroundMiss,
+  firestore,
+  auth,
 }) {
   const [playerOneReady, setPlayerOneReady] = useState(false);
+  const [playerTwoReady, setPlayerTwoReady] = useState(false);
   const [gun1Loaded, setGun1Loaded] = useState(true);
-  const [aiAlive, setAiAlive] = useState(true);
-
+  const [gun2Loaded, setGun2Loaded] = useState(true);
   const [player1Reaction, setPlayer1Reaction] = useState(0);
+  const [player2Reaction, setPlayer2Reaction] = useState(0);
 
   const [shotFired, setShotFired] = useState(false);
 
@@ -37,20 +38,30 @@ export default function GameLocalAI({
   const playerTwoReadyCheckBox = useRef();
   const playerOneReadyCheckBox = useRef();
 
+  const [playerAvatar, setPlayerAvatar] = useState(auth.currentUser.photoURL);
+  const dataMessagesRef = firestore.collection("dataMessages");
+
+  const sendii = async () => {
+    await dataMessagesRef.add({
+      test: "toimii",
+    });
+  };
+
+  //määritä randomtime
   useEffect(() => {
     setRandomTime(3500 + Math.floor(Math.random() * 3000));
     setPlayerOneReady(false);
-    console.log(randomTime);
-  }, []);
 
-  //onko tää ihan turha?
-  useEffect(() => {
-    setStartTime(3500 + Math.floor(Math.random() * 3000));
-  }, [randomTime]);
+    const { uid, photoURL } = auth.currentUser;
+    console.log("initialize");
+    console.log("id", uid, "  url", photoURL);
+
+    sendii();
+  }, []);
 
   //kun pelaajat valmiita, niin aloita timeri
   useEffect(() => {
-    if (playerOneReady) {
+    if (playerOneReady === true && playerTwoReady === true) {
       setInfoText("Ready!");
       pistolCock1Play();
 
@@ -64,79 +75,72 @@ export default function GameLocalAI({
         holsterPlay();
         setStartTime(new Date());
       }, randomTime);
-
-      setTimeout(() => {
-        if (aiAlive) {
-          setPlayer1Reaction(501);
-        }
-      }, randomTime + 500);
     }
-  }, [playerOneReady]);
+  }, [playerTwoReady, playerOneReady]);
 
   //voiton checkaus
   useEffect(() => {
-    if (player1Reaction > 0) {
-      console.log("reactio: ", player1Reaction);
-      if (player1Reaction < 500) {
-        setAiAlive(false);
-        setInfoText("You won");
+    if (player1Reaction > 0 && player2Reaction > 0) {
+      if (player1Reaction < player2Reaction) {
+        setInfoText("player 1 won");
+        //ampumis anim 1
         setPlayerAnim("shooting");
         pistolShot2Play();
-        setPlayer2Anim("die");
+        //kuolemisanim 2
       } else {
-        if (aiAlive) {
-          setGun1Loaded(false);
-          setInfoText("AI wins");
-          setPlayer2Anim("shooting");
-          pistolShot2Play();
-          setPlayerAnim("die");
-        }
+        setInfoText("player 2 wins");
+        //ampumis anim 2
+        pistolShot2Play();
+        //kuolemisanim 1
       }
     }
-  }, [player1Reaction]);
+  }, [player1Reaction, player2Reaction]);
 
   //mouse player1
   const actionClick = () => {
     //SHOOTING
-    if (playerOneReady) {
-      if (gun1Loaded === true) {
+    if (playerOneReady === true && playerTwoReady === true) {
+      if (gun1Loaded === true && shotFired === false) {
         if (ok2Shoot === false) {
           //varaslähtö
           pistolShot2Play();
-          setPlayerAnim("shooting");
+          setPlayer2Anim("shooting");
           setGun1Loaded(false);
         } else {
           //onnistunut laukaus
+          setShotFired(true);
+          setPlayer2Anim("shooting");
+          setPlayerAnim("die");
+          pistolShot2Play();
           setInfoText("mouse wins");
-
-          const pullTriggerTime = new Date();
-          const reactTimeConst = pullTriggerTime - startTime;
-
-          console.log(reactTimeConst / 1000, " seconds reaction time player1");
-          setGun1Loaded(false);
-
-          setPlayer1Reaction(reactTimeConst);
         }
+
+        /*         const pullTriggerTime = new Date();
+        const reactTimeConst = pullTriggerTime - startTime;
+
+        console.log(reactTimeConst / 1000, " seconds reaction time player1");
+        setGun1Loaded(false);
+
+        setPlayer1Reaction(reactTimeConst); */
+        /*         if (reactTimeConst < 500) {
+          setPlayerAnim("shooting");
+          setInfoText("Win!");
+          pistolShot2Play();
+        } else {
+          setInfoText("Lost!");
+        } */
       }
     }
   };
 
   const playerOneReadyClick = () => {
-    console.log("klikattu ykköstä");
-    //focus takaisin p2 key listeneriin
-    playerTwoReadyCheckBox.current.focus();
     setPlayerOneReady(true);
   };
 
   return (
-    <div
-      className={
-        playerOneReady ? "textSplashFrame touchAreaOn" : "textSplashFrame"
-      }
-      onClick={actionClick}
-    >
-      <label className="playerReadyLabel" htmlFor="p1">
-        You (mouse)
+    <div className="textSplashFrame" onClick={actionClick}>
+      <label className="playerLocalReadyLabel" htmlFor="p1">
+        <span className="localPlayerText">You</span>
         <input
           className="readyCheckBox p1check"
           type="checkbox"
@@ -146,23 +150,25 @@ export default function GameLocalAI({
           id="p1"
           name="p1"
         />
-        <span className="checkMarkPlayer">
+        <span className="checkMarkLocal">
           {playerOneReady ? "Ready!" : "Click to ready"}
         </span>
+        <img src={playerAvatar} alt="playerAvatar"></img>
       </label>
 
-      <label className="aiReadyLabel" htmlFor="p2">
-        AI
+      <label className="playerNetworkReadyLabel" htmlFor="p2">
+        Enemy
         <input
           className="readyCheckBox p2check"
           type="checkbox"
-          checked={true}
+          checked={playerTwoReady}
           ref={playerTwoReadyCheckBox}
-          onClick={playerOneReadyClick}
           id="p2"
           name="p2"
         />
-        <span className="checkMarkAI">Ready!</span>
+        <span className="checkMarkNetwork">
+          {playerTwoReady ? "Ready!" : "Press any key"}
+        </span>
       </label>
 
       <div className="infoText">{infoText}</div>

@@ -1,11 +1,19 @@
 .menuContainer {
   height: 100vh;
   width: 100vw;
-  background: linear-gradient(45deg, rgb(224, 213, 175), rgb(206, 176, 5));
+  background: linear-gradient(
+    0deg,
+    #dec787,
+    #dec787,
+    #dec787,
+    rgb(158, 222, 238),
+    rgb(158, 222, 238),
+    rgb(158, 222, 238)
+  );
 
   font-size: 11rem;
-  color: #fff;
-  text-shadow: 2px 2px 9px #000000;
+  color: rgb(0, 0, 0);
+  text-shadow: 2px 2px 9px #ffffff;
 
   display: grid;
   place-items: center;
@@ -18,14 +26,15 @@
     margin-bottom: 40px;
 
     button {
-      background-color: white;
-      border-radius: 10px;
-      border-style: none;
+      border-radius: 9px;
+      border-width: 5px;
+      border-color: black;
+      background-color: burlywood;
       padding: 20px 70px;
-      margin-bottom: 60px;
-      font-size: 5rem;
+      margin-bottom: 30px;
+      font-size: 3rem;
       transition: all 0.2s ease;
-      color: rgb(56, 29, 13);
+      color: rgb(0, 0, 0);
 
       cursor: pointer;
     }

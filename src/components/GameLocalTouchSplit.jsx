@@ -6,15 +6,13 @@ import pistolCock1 from "../sounds/cock.pistol.1.mp3";
 import ding from "../sounds/ding.mp3";
 import holster from "../sounds/holster.mp3";
 
-import "./gameLocalSplitScreen.scss";
+import "./gameLocalTouchSplit.scss";
 
-export default function GameLocalSplitScreen({
+export default function GameLocalTouchSplit({
   playerAnim,
   setPlayerAnim,
   player2Anim,
   setPlayer2Anim,
-  setLeftGroundMiss,
-  setRightGroundMiss,
 }) {
   const [playerOneReady, setPlayerOneReady] = useState(false);
   const [playerTwoReady, setPlayerTwoReady] = useState(false);
@@ -185,8 +183,23 @@ export default function GameLocalSplitScreen({
       }
       onClick={actionClick}
     >
+      <section
+        className={
+          playerOneReady === true && playerTwoReady === true
+            ? "leftTouchArea touchAreaOn"
+            : "leftTouchArea"
+        }
+      ></section>
+      <section
+        className={
+          playerOneReady === true && playerTwoReady === true
+            ? "rightTouchArea touchAreaOn"
+            : "rightTouchArea"
+        }
+      ></section>
+
       <label className="player1ReadyLabel" htmlFor="p1">
-        Mouse
+        Right
         <input
           className="readyCheckBox p1check"
           type="checkbox"
@@ -201,7 +214,7 @@ export default function GameLocalSplitScreen({
         </span>
       </label>
       <label className="player2ReadyLabel" htmlFor="p2">
-        Keyboard
+        Left
         <input
           className="readyCheckBox p2check"
           type="checkbox"

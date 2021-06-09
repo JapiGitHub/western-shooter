@@ -1,29 +1,16 @@
 import React, { useEffect, useState } from "react";
 import PlayerChars from "./PlayerChars";
 import Cactus from "./Cactus";
-import GameLocalSplitScreen from "./GameLocalSplitScreen";
+import GameLocalTouchSplit from "./GameLocalTouchSplit";
 import HeroSelector from "./HeroSelector";
 
-export default function LocalSplitScreenMode({ setGameMode }) {
+export default function TouchSplitMode({ setGameMode }) {
   const [playerAnim, setPlayerAnim] = useState("waiting");
   const [player2Anim, setPlayer2Anim] = useState("waiting");
   const [player2Hero, setPlayer2Hero] = useState("cowboy");
   const [player1Hero, setPlayer1Hero] = useState("sheriff");
 
-  //playerAnim vaihtoehdot:
-  //waiting
-  //shooting
-  //shot
-  //dead
-
-  // useEffect(() => {
-  //   const timeout = setTimeout(() => {
-
-  //   }, 3000);
-  // }, []);
-
   const backToMenu = () => {
-    console.log(setGameMode);
     setGameMode("menu");
   };
 
@@ -35,7 +22,7 @@ export default function LocalSplitScreenMode({ setGameMode }) {
         <button onClick={backToMenu} className="menuButton">
           Menu
         </button>
-        <GameLocalSplitScreen
+        <GameLocalTouchSplit
           playerAnim={playerAnim}
           setPlayerAnim={setPlayerAnim}
           player2Anim={playerAnim}

@@ -7,12 +7,37 @@
   grid-column-end: 11;
   grid-row-start: 1;
   grid-row-end: 17;
-  z-index: 7;
+  z-index: 6;
 
   display: grid;
   place-items: center;
   grid-template-columns: (repeat(2), 1fr);
   grid-template-rows: (repeat(4), 1fr);
+
+  //pitäiskö tän z-indexi muuttaa vasta readyn jälkeen isoksi?
+  .leftTouchArea {
+    position: absolute;
+    left: 0;
+    top: 0;
+
+    background-color: rgba(136, 255, 0, 0.7);
+    z-index: 4;
+
+    width: 50vw;
+    height: 100vh;
+  }
+
+  .rightTouchArea {
+    position: absolute;
+    right: 0;
+    top: 0;
+
+    background-color: rgba(255, 0, 221, 0.7);
+    z-index: 4;
+
+    width: 50vw;
+    height: 100vh;
+  }
 
   .readyCheckBox {
     opacity: 0;
@@ -21,7 +46,7 @@
     margin-top: 15px;
   }
 
-  //mouse
+  //right
   .player1ReadyLabel {
     font-size: 2rem;
     font-family: "Press Start 2P", cursive;
@@ -36,9 +61,11 @@
     top: 40px;
     right: 0;
     padding-right: 80px;
+
+    z-index: 6;
   }
 
-  //keyboard
+  //left
   .player2ReadyLabel {
     font-size: 2rem;
     font-family: "Press Start 2P", cursive;
@@ -46,13 +73,15 @@
     width: 400px;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
     justify-content: flex-start;
 
     position: absolute;
     top: 40px;
-    left: 0;
-    padding-left: 15px;
+    left: 0px;
+    padding-left: 80px;
+
+    z-index: 6;
   }
 
   .checkMark1 {

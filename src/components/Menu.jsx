@@ -10,13 +10,22 @@ export default function Menu({ gameMode, setGameMode }) {
     setGameMode("ai");
   };
 
+  const modeLobby = () => {
+    setGameMode("lobby");
+  };
+
+  const modeTouch = () => {
+    setGameMode("touch");
+  };
+
   return (
     <div className="menuContainer">
       <p>Shoot 'em</p>
       <section className="buttonContainer">
         <button onClick={modeKvM}>Keyboard vs Mouse</button>
+        <button onClick={modeTouch}>Touchscreen Splitscreen</button>
         <button onClick={modeAI}>Single Player vs AI</button>
-        <button>Multiplayer</button>
+        <button onClick={modeLobby}>Multiplayer</button>
       </section>
     </div>
   );
