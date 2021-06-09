@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import PlayerCharsAI from "./PlayerChars";
 import Cactus from "./Cactus";
 
@@ -17,12 +17,6 @@ export default function LocalAiMode({ setGameMode }) {
   //shot
   //dead
 
-  // useEffect(() => {
-  //   const timeout = setTimeout(() => {
-
-  //   }, 3000);
-  // }, []);
-
   const backToMenu = () => {
     setGameMode("menu");
   };
@@ -31,7 +25,7 @@ export default function LocalAiMode({ setGameMode }) {
     <>
       <main className="background-world-arena">
         <section className="ground"></section>
-        <img className="horizon" src="./assets/horizon.gif"></img>
+        <img className="horizon" src="./assets/horizon.gif" alt="horizon"></img>
         <button onClick={backToMenu} className="menuButton">
           Menu
         </button>

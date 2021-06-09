@@ -14,10 +14,10 @@ export default function HeroSelectorAI({ setPlayer1Hero }) {
     <>
       <div className="heroes-box-human">
         <div className="hero-avatar-human" onClick={playersheriff}>
-          <img src="./assets/sheriff.avatar.gif"></img>
+          <img src="./assets/sheriff.avatar.gif" alt="sheriff"></img>
         </div>
         <div className="hero-avatar-human" onClick={playercowboy}>
-          <img src="./assets/cowboy.avatar.gif"></img>
+          <img src="./assets/cowboy.avatar.gif" alt="cowboy"></img>
         </div>
       </div>
     </>

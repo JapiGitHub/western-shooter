@@ -3,15 +3,12 @@ import React, { useEffect, useRef, useState } from "react";
 import useSound from "use-sound";
 import pistolShot2 from "../sounds/pistol.shot.2.mp3";
 import pistolCock1 from "../sounds/cock.pistol.1.mp3";
-import ding from "../sounds/ding.mp3";
 import holster from "../sounds/holster.mp3";
 
 import "./gameMulti.scss";
 
 export default function GameMulti({
-  playerAnim,
   setPlayerAnim,
-  player2Anim,
   setPlayer2Anim,
   firestore,
   auth,

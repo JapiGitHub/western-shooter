@@ -14,7 +14,6 @@
   grid-template-columns: (repeat(2), 1fr);
   grid-template-rows: (repeat(4), 1fr);
 
-  //pitäiskö tän z-indexi muuttaa vasta readyn jälkeen isoksi?
   .leftTouchArea {
     position: absolute;
     left: 0;

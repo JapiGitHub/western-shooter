@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import PlayerChars from "./PlayerChars";
 import Cactus from "./Cactus";
 import GameLocalSplitScreen from "./GameLocalSplitScreen";
@@ -16,14 +16,7 @@ export default function LocalSplitScreenMode({ setGameMode }) {
   //shot
   //dead
 
-  // useEffect(() => {
-  //   const timeout = setTimeout(() => {
-
-  //   }, 3000);
-  // }, []);
-
   const backToMenu = () => {
-    console.log(setGameMode);
     setGameMode("menu");
   };
 
@@ -31,14 +24,12 @@ export default function LocalSplitScreenMode({ setGameMode }) {
     <>
       <main className="background-world-arena">
         <section className="ground"></section>
-        <img className="horizon" src="./assets/horizon.gif"></img>
+        <img className="horizon" src="./assets/horizon.gif" alt="horizon"></img>
         <button onClick={backToMenu} className="menuButton">
           Menu
         </button>
         <GameLocalSplitScreen
-          playerAnim={playerAnim}
           setPlayerAnim={setPlayerAnim}
-          player2Anim={playerAnim}
           setPlayer2Anim={setPlayer2Anim}
         />
         <PlayerChars

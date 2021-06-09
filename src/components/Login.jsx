@@ -13,7 +13,7 @@ export default function Login({ auth }) {
 
   return (
     <div className="signInContainer">
-      <button onClick={googleLogin} className="googleSignButt">
+      <button onClick={googleLogin} className="googleSignButt btn">
         Sign in with Google ✍
       </button>
     </div>

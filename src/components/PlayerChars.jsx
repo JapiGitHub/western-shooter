@@ -13,6 +13,7 @@ export default function PlayerChars({
         <img
           className="playerGif"
           src={`./assets/${player2Hero}.right.${player2Anim}.gif`}
+          alt="character"
         ></img>
       </article>
 
@@ -20,6 +21,7 @@ export default function PlayerChars({
         <img
           className="playerGif"
           src={`./assets/${player1Hero}.left.${playerAnim}.gif`}
+          alt="character"
         ></img>
       </article>
       <aside className="waitingGrassBall"></aside>

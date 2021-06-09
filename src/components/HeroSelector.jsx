@@ -22,19 +22,19 @@ export default function HeroSelector({ setPlayer1Hero, setPlayer2Hero }) {
     <>
       <div className="heroes-box-keyboard">
         <div className="hero-avatar-keyboard" onClick={player2sheriff}>
-          <img src="./assets/sheriff.avatar.gif"></img>
+          <img src="./assets/sheriff.avatar.gif" alt="sheriff"></img>
         </div>
         <div className="hero-avatar-keyboard" onClick={player2cowboy}>
-          <img src="./assets/cowboy.avatar.gif"></img>
+          <img src="./assets/cowboy.avatar.gif" alt="cowboy"></img>
         </div>
       </div>
 
       <div className="heroes-box-mouse">
         <div className="hero-avatar-mouse" onClick={player1cowboy}>
-          <img src="./assets/cowboy.avatar.gif"></img>
+          <img src="./assets/cowboy.avatar.gif" alt="cowboy"></img>
         </div>
         <div className="hero-avatar-mouse" onClick={player1sheriff}>
-          <img src="./assets/sheriff.avatar.gif"></img>
+          <img src="./assets/sheriff.avatar.gif" alt="sheriff"></img>
         </div>
       </div>
     </>

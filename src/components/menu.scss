@@ -11,7 +11,7 @@
     rgb(158, 222, 238)
   );
 
-  font-size: 11rem;
+  font-size: 8rem;
   color: rgb(0, 0, 0);
   text-shadow: 2px 2px 9px #ffffff;
 
@@ -26,23 +26,9 @@
     margin-bottom: 40px;
 
     button {
-      border-radius: 9px;
-      border-width: 5px;
-      border-color: black;
-      background-color: burlywood;
       padding: 20px 70px;
       margin-bottom: 30px;
       font-size: 3rem;
-      transition: all 0.2s ease;
-      color: rgb(0, 0, 0);
-
-      cursor: pointer;
-    }
-
-    button:hover {
-      color: #fff;
-      background-color: rgb(56, 29, 13);
-      transform: scale(1.2);
     }
   }
 }

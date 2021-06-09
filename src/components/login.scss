@@ -16,22 +16,8 @@
   );
 
   .googleSignButt {
-    border-radius: 9px;
-    border-width: 5px;
-    border-color: black;
-    background-color: burlywood;
-
     padding: 20px 40px;
 
     font-size: 5rem;
-    cursor: pointer;
-
-    transition: all 0.2s ease;
-  }
-
-  .googleSignButt:hover {
-    transform: scale(1.2);
-    background-color: rgb(56, 29, 13);
-    color: #fff;
   }
 }

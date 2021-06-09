@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import PlayerChars from "./PlayerChars";
 import Cactus from "./Cactus";
 import GameLocalTouchSplit from "./GameLocalTouchSplit";
@@ -18,7 +18,7 @@ export default function TouchSplitMode({ setGameMode }) {
     <>
       <main className="background-world-arena">
         <section className="ground"></section>
-        <img className="horizon" src="./assets/horizon.gif"></img>
+        <img className="horizon" src="./assets/horizon.gif" alt="horizon"></img>
         <button onClick={backToMenu} className="menuButton">
           Menu
         </button>

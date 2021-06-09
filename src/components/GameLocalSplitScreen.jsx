@@ -3,25 +3,18 @@ import React, { useEffect, useRef, useState } from "react";
 import useSound from "use-sound";
 import pistolShot2 from "../sounds/pistol.shot.2.mp3";
 import pistolCock1 from "../sounds/cock.pistol.1.mp3";
-import ding from "../sounds/ding.mp3";
 import holster from "../sounds/holster.mp3";
 
 import "./gameLocalSplitScreen.scss";
 
 export default function GameLocalSplitScreen({
-  playerAnim,
   setPlayerAnim,
-  player2Anim,
   setPlayer2Anim,
-  setLeftGroundMiss,
-  setRightGroundMiss,
 }) {
   const [playerOneReady, setPlayerOneReady] = useState(false);
   const [playerTwoReady, setPlayerTwoReady] = useState(false);
   const [gun1Loaded, setGun1Loaded] = useState(true);
   const [gun2Loaded, setGun2Loaded] = useState(true);
-  const [player1Reaction, setPlayer1Reaction] = useState(0);
-  const [player2Reaction, setPlayer2Reaction] = useState(0);
 
   const [shotFired, setShotFired] = useState(false);
 
@@ -42,13 +35,7 @@ export default function GameLocalSplitScreen({
     setRandomTime(3500 + Math.floor(Math.random() * 3000));
     playerTwoReadyCheckBox.current.focus();
     setPlayerOneReady(false);
-    console.log("initialize");
   }, []);
-
-  //onko tää ihan turha?
-  useEffect(() => {
-    setStartTime(3500 + Math.floor(Math.random() * 3000));
-  }, [randomTime]);
 
   //kun pelaajat valmiita, niin aloita timeri
   useEffect(() => {
@@ -68,30 +55,6 @@ export default function GameLocalSplitScreen({
       }, randomTime);
     }
   }, [playerTwoReady, playerOneReady]);
-
-  //
-  useEffect(() => {
-    if (gun1Loaded === false && gun2Loaded === false) {
-    }
-  }, [gun1Loaded, gun2Loaded]);
-
-  //voiton checkaus
-  useEffect(() => {
-    if (player1Reaction > 0 && player2Reaction > 0) {
-      if (player1Reaction < player2Reaction) {
-        setInfoText("player 1 won");
-        //ampumis anim 1
-        setPlayerAnim("shooting");
-        pistolShot2Play();
-        //kuolemisanim 2
-      } else {
-        setInfoText("player 2 wins");
-        //ampumis anim 2
-        pistolShot2Play();
-        //kuolemisanim 1
-      }
-    }
-  }, [player1Reaction, player2Reaction]);
 
   //mouse player1
   const actionClick = () => {
@@ -113,21 +76,6 @@ export default function GameLocalSplitScreen({
           pistolShot2Play();
           setInfoText("mouse wins");
         }
-
-        /*         const pullTriggerTime = new Date();
-        const reactTimeConst = pullTriggerTime - startTime;
-
-        console.log(reactTimeConst / 1000, " seconds reaction time player1");
-        setGun1Loaded(false);
-
-        setPlayer1Reaction(reactTimeConst); */
-        /*         if (reactTimeConst < 500) {
-          setPlayerAnim("shooting");
-          setInfoText("Win!");
-          pistolShot2Play();
-        } else {
-          setInfoText("Lost!");
-        } */
       }
     }
   };
@@ -151,26 +99,11 @@ export default function GameLocalSplitScreen({
           pistolShot2Play();
           setInfoText("keyboard wins");
         }
-        /*         const pullTriggerTime = new Date();
-        const reactTimeConst = pullTriggerTime - startTime;
-
-        console.log(reactTimeConst / 1000, " seconds reaction time player2");
-        setGun2Loaded(false);
-
-        setPlayer2Reaction(reactTimeConst); */
-        /*         if (reactTimeConst < 500) {
-          setPlayerAnim("shooting");
-          setInfoText("Win2!");
-          pistolShot2Play();
-        } else {
-          setInfoText("Lost2!");
-        } */
       }
     }
   };
 
   const playerOneReadyClick = () => {
-    console.log("klikattu ykköstä");
     //focus takaisin p2 key listeneriin
     playerTwoReadyCheckBox.current.focus();
     setPlayerOneReady(true);

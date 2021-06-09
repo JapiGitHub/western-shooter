@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import PlayerCharsMulti from "./PlayerCharsMulti";
 import Cactus from "./Cactus";
 
@@ -19,14 +19,12 @@ export default function MultiPlayerMode({ setGameMode, auth, firestore }) {
     <>
       <main className="background-world-arena">
         <section className="ground"></section>
-        <img className="horizon" src="./assets/horizon.gif"></img>
+        <img className="horizon" src="./assets/horizon.gif" alt="horizon"></img>
         <button onClick={backToMenu} className="menuButton">
           Menu
         </button>
         <GameMulti
-          playerAnim={playerAnim}
           setPlayerAnim={setPlayerAnim}
-          player2Anim={playerAnim}
           setPlayer2Anim={setPlayer2Anim}
           auth={auth}
           firestore={firestore}

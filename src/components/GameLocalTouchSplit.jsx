@@ -1,25 +1,17 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import useSound from "use-sound";
 import pistolShot2 from "../sounds/pistol.shot.2.mp3";
 import pistolCock1 from "../sounds/cock.pistol.1.mp3";
-import ding from "../sounds/ding.mp3";
 import holster from "../sounds/holster.mp3";
 
 import "./gameLocalTouchSplit.scss";
 
-export default function GameLocalTouchSplit({
-  playerAnim,
-  setPlayerAnim,
-  player2Anim,
-  setPlayer2Anim,
-}) {
+export default function GameLocalTouchSplit({ setPlayerAnim, setPlayer2Anim }) {
   const [playerOneReady, setPlayerOneReady] = useState(false);
   const [playerTwoReady, setPlayerTwoReady] = useState(false);
   const [gun1Loaded, setGun1Loaded] = useState(true);
   const [gun2Loaded, setGun2Loaded] = useState(true);
-  const [player1Reaction, setPlayer1Reaction] = useState(0);
-  const [player2Reaction, setPlayer2Reaction] = useState(0);
 
   const [shotFired, setShotFired] = useState(false);
 
@@ -33,20 +25,9 @@ export default function GameLocalTouchSplit({
   const [pistolCock1Play] = useSound(pistolCock1);
   const [holsterPlay] = useSound(holster);
 
-  const playerTwoReadyCheckBox = useRef();
-  const playerOneReadyCheckBox = useRef();
-
   useEffect(() => {
     setRandomTime(3500 + Math.floor(Math.random() * 3000));
-    playerTwoReadyCheckBox.current.focus();
-    setPlayerOneReady(false);
-    console.log("initialize");
   }, []);
-
-  //onko tää ihan turha?
-  useEffect(() => {
-    setStartTime(3500 + Math.floor(Math.random() * 3000));
-  }, [randomTime]);
 
   //kun pelaajat valmiita, niin aloita timeri
   useEffect(() => {
@@ -66,12 +47,6 @@ export default function GameLocalTouchSplit({
       }, randomTime);
     }
   }, [playerTwoReady, playerOneReady]);
-
-  //
-  useEffect(() => {
-    if (gun1Loaded === false && gun2Loaded === false) {
-    }
-  }, [gun1Loaded, gun2Loaded]);
 
   //Right
   const actionClickRight = () => {
@@ -156,13 +131,12 @@ export default function GameLocalTouchSplit({
           className="readyCheckBox p1check"
           type="checkbox"
           checked={playerOneReady}
-          ref={playerOneReadyCheckBox}
           onClick={playerOneReadyClick}
           id="p1"
           name="p1"
         />
         <span className="checkMark1">
-          {playerOneReady ? "Ready!" : "Click to ready"}
+          {playerOneReady ? "Ready!" : "Tap to ready"}
         </span>
       </label>
       <label className="player2ReadyLabel" htmlFor="p2">
@@ -171,13 +145,12 @@ export default function GameLocalTouchSplit({
           className="readyCheckBox p2check"
           type="checkbox"
           checked={playerTwoReady}
-          ref={playerTwoReadyCheckBox}
           onClick={playerTwoReadyClick}
           id="p2"
           name="p2"
         />
         <span className="checkMark2">
-          {playerTwoReady ? "Ready!" : "Press any key"}
+          {playerTwoReady ? "Ready!" : "Tap to ready"}
         </span>
       </label>
 
