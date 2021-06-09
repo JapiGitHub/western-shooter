@@ -73,28 +73,8 @@ export default function GameLocalTouchSplit({
     }
   }, [gun1Loaded, gun2Loaded]);
 
-  //voiton checkaus
-  useEffect(() => {
-    if (player1Reaction > 0 && player2Reaction > 0) {
-      if (player1Reaction < player2Reaction) {
-        setInfoText("player 1 won");
-        //ampumis anim 1
-        setPlayerAnim("shooting");
-        pistolShot2Play();
-        //kuolemisanim 2
-      } else {
-        setInfoText("player 2 wins");
-        //ampumis anim 2
-        pistolShot2Play();
-        //kuolemisanim 1
-      }
-    }
-  }, [player1Reaction, player2Reaction]);
-
-  //mouse player1
-  const actionClick = () => {
-    playerTwoReadyCheckBox.current.focus();
-
+  //Right
+  const actionClickRight = () => {
     //SHOOTING
     if (playerOneReady === true && playerTwoReady === true) {
       if (gun1Loaded === true && shotFired === false) {
@@ -109,32 +89,16 @@ export default function GameLocalTouchSplit({
           setPlayer2Anim("shooting");
           setPlayerAnim("die");
           pistolShot2Play();
-          setInfoText("mouse wins");
+          setInfoText("Right wins");
         }
-
-        /*         const pullTriggerTime = new Date();
-        const reactTimeConst = pullTriggerTime - startTime;
-
-        console.log(reactTimeConst / 1000, " seconds reaction time player1");
-        setGun1Loaded(false);
-
-        setPlayer1Reaction(reactTimeConst); */
-        /*         if (reactTimeConst < 500) {
-          setPlayerAnim("shooting");
-          setInfoText("Win!");
-          pistolShot2Play();
-        } else {
-          setInfoText("Lost!");
-        } */
       }
     }
   };
 
-  //keyboard player2
-  const actionKey = (e) => {
-    setPlayerTwoReady(true);
-
-    if (playerTwoReady === true && playerOneReady === true) {
+  //left
+  const actionClickLeft = () => {
+    //SHOOTING
+    if (playerOneReady === true && playerTwoReady === true) {
       if (gun2Loaded === true && shotFired === false) {
         if (ok2Shoot === false) {
           //varaslähtö
@@ -147,30 +111,17 @@ export default function GameLocalTouchSplit({
           setPlayerAnim("shooting");
           setPlayer2Anim("die");
           pistolShot2Play();
-          setInfoText("keyboard wins");
+          setInfoText("Left wins");
         }
-        /*         const pullTriggerTime = new Date();
-        const reactTimeConst = pullTriggerTime - startTime;
-
-        console.log(reactTimeConst / 1000, " seconds reaction time player2");
-        setGun2Loaded(false);
-
-        setPlayer2Reaction(reactTimeConst); */
-        /*         if (reactTimeConst < 500) {
-          setPlayerAnim("shooting");
-          setInfoText("Win2!");
-          pistolShot2Play();
-        } else {
-          setInfoText("Lost2!");
-        } */
       }
     }
   };
 
+  const playerTwoReadyClick = () => {
+    setPlayerTwoReady(true);
+  };
+
   const playerOneReadyClick = () => {
-    console.log("klikattu ykköstä");
-    //focus takaisin p2 key listeneriin
-    playerTwoReadyCheckBox.current.focus();
     setPlayerOneReady(true);
   };
 
@@ -181,9 +132,9 @@ export default function GameLocalTouchSplit({
           ? "textSplashFrame touchAreaOn"
           : "textSplashFrame"
       }
-      onClick={actionClick}
     >
       <section
+        onClick={actionClickLeft}
         className={
           playerOneReady === true && playerTwoReady === true
             ? "leftTouchArea touchAreaOn"
@@ -191,6 +142,7 @@ export default function GameLocalTouchSplit({
         }
       ></section>
       <section
+        onClick={actionClickRight}
         className={
           playerOneReady === true && playerTwoReady === true
             ? "rightTouchArea touchAreaOn"
@@ -220,9 +172,7 @@ export default function GameLocalTouchSplit({
           type="checkbox"
           checked={playerTwoReady}
           ref={playerTwoReadyCheckBox}
-          onKeyPress={(e) => {
-            actionKey(e);
-          }}
+          onClick={playerTwoReadyClick}
           id="p2"
           name="p2"
         />
