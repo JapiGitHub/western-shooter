@@ -42,16 +42,18 @@ export default function LocalAiMode({
           Menu
         </button>
         <GameLocalAI
-          playerAnim={playerAnim}
           setPlayerAnim={setPlayerAnim}
-          player2Anim={playerAnim}
           setPlayer2Anim={setPlayer2Anim}
+          showMenu={showMenu}
+          slideGame={slideGame}
+          setSlideGame={setSlideGame}
         />
         <PlayerCharsAI
           playerAnim={playerAnim}
           player2Anim={player2Anim}
           player2Hero={player2Hero}
           player1Hero={player1Hero}
+          showMenu={showMenu}
           slideGame={slideGame}
           setSlideGame={setSlideGame}
         />

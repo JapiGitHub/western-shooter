@@ -39,6 +39,8 @@ export default function TouchSplitMode({
           setPlayerAnim={setPlayerAnim}
           player2Anim={playerAnim}
           setPlayer2Anim={setPlayer2Anim}
+          slideGame={slideGame}
+          setSlideGame={setSlideGame}
         />
         <PlayerChars
           playerAnim={playerAnim}

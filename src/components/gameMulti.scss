@@ -141,8 +141,13 @@
     justify-content: center;
     align-items: center;
 
-    font-size: 10rem;
+    font-size: 15vh;
     color: #1a0403;
     text-shadow: 0 0 30px #ffffff;
+  }
+
+  .hideInfo {
+    opacity: 0;
+    transform: scale(0.1);
   }
 }

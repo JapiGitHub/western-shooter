@@ -55,12 +55,15 @@ export default function GameLocalSplitScreen({
         holsterPlay();
         setStartTime(new Date());
       }, randomTime);
+      playerTwoReadyCheckBox.current.focus();
     }
+    playerTwoReadyCheckBox.current.focus();
   }, [playerTwoReady, playerOneReady]);
 
   //mouse player1
-  const actionClick = () => {
+  const actionClick = (e) => {
     playerTwoReadyCheckBox.current.focus();
+    e.stopPropagation();
 
     //SHOOTING
     if (playerOneReady === true && playerTwoReady === true) {
@@ -84,6 +87,9 @@ export default function GameLocalSplitScreen({
 
   //keyboard player2
   const actionKey = (e) => {
+    playerTwoReadyCheckBox.current.focus();
+    e.stopPropagation();
+
     setPlayerTwoReady(true);
 
     if (playerTwoReady === true && playerOneReady === true) {
@@ -107,8 +113,8 @@ export default function GameLocalSplitScreen({
 
   const playerOneReadyClick = () => {
     //focus takaisin p2 key listeneriin
-    playerTwoReadyCheckBox.current.focus();
     setPlayerOneReady(true);
+    playerTwoReadyCheckBox.current.focus();
   };
 
   return (
@@ -118,7 +124,7 @@ export default function GameLocalSplitScreen({
           ? "textSplashFrame touchAreaOn"
           : "textSplashFrame"
       }
-      onClick={actionClick}
+      onMouseDown={actionClick}
     >
       <label className="player1ReadyLabel" htmlFor="p1">
         Mouse

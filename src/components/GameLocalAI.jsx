@@ -9,12 +9,11 @@ import holster from "../sounds/holster.mp3";
 import "./gameLocalAI.scss";
 
 export default function GameLocalAI({
-  playerAnim,
   setPlayerAnim,
-  player2Anim,
   setPlayer2Anim,
-  setLeftGroundMiss,
-  setRightGroundMiss,
+  showMenu,
+  slideGame,
+  setSlideGame,
 }) {
   const [playerOneReady, setPlayerOneReady] = useState(false);
   const [gun1Loaded, setGun1Loaded] = useState(true);
@@ -165,7 +164,9 @@ export default function GameLocalAI({
         <span className="checkMarkAI">Ready!</span>
       </label>
 
-      <div className="infoText">{infoText}</div>
+      <div className={slideGame ? "infoText" : "infoText hideInfo"}>
+        {infoText}
+      </div>
     </div>
   );
 }
