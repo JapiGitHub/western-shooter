@@ -12,6 +12,11 @@
   -khtml-user-select: none;
   user-select: none;
 
+  //keep pixels sharp
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
+
   .background-world-arena {
     //background-color: rgb(116, 204, 255);
     background: radial-gradient(
@@ -28,11 +33,6 @@
     z-index: 0;
     overflow: hidden;
 
-    //keep pixels sharp
-    image-rendering: pixelated;
-    image-rendering: -moz-crisp-edges;
-    image-rendering: crisp-edges;
-
     .ground {
       grid-column-start: 1;
       grid-column-end: 11;
@@ -43,11 +43,24 @@
     }
 
     .horizon {
+      /*
       grid-column-start: 1;
       grid-column-end: 11;
       grid-row-start: 7;
       grid-row-end: 11;
       height: 100%;
+      */
+
+      position: absolute;
+      top: 38vh;
+      left: -2vw;
+      height: 25vh;
+
+      transition: all 0.7s ease;
+    }
+
+    .hideHorizon {
+      left: -400px;
     }
 
     .menuButton {
@@ -115,5 +128,14 @@
 
   .avatar:hover {
     transform: scale(1.1);
+  }
+
+  .screen {
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+    overflow: hidden;
   }
 }

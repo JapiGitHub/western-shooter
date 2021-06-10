@@ -1,24 +1,49 @@
 .cactus1 {
+  /*
   grid-row-start: 8;
   grid-row-end: 12;
   grid-column-start: 9;
   grid-column-end: 10;
+*/
+  position: absolute;
+  top: 45vh;
+  right: -2vw;
+  height: 25vh;
+
   z-index: 1;
+
+  transition: all 0.7s ease;
 }
+
+.hideCactus1 {
+  right: 1000px;
+}
+
 .cactus2 {
-  grid-row-start: 12;
-  grid-row-end: 16;
-  grid-column-start: 8;
-  grid-column-end: 9;
+  position: absolute;
+  top: 70vh;
+  right: 6vw;
+  height: 25vh;
+
   z-index: 3;
+  transition: all 0.7s ease;
 }
+
+.hideCactus2 {
+  right: 3000px;
+}
+
 .cactus3 {
-  grid-row-start: 13;
-  grid-row-end: 17;
-  grid-column-start: 1;
-  grid-column-end: 2;
+  position: absolute;
+  top: 73vh;
+  left: 0vw;
+  height: 25vh;
 
   z-index: 5;
+  transition: all 0.7s ease;
+}
+.hideCactus3 {
+  left: -4500px;
 }
 
 .cactusGif {

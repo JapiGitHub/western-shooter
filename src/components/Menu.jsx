@@ -3,7 +3,13 @@ import "./menu.scss";
 import useSound from "use-sound";
 import MenuMusicLoboGlueWorm from "../sounds/LoboLocoGlueworm.mp3";
 
-export default function Menu({ gameMode, setGameMode, auth }) {
+export default function Menu({
+  gameMode,
+  setGameMode,
+  auth,
+  showMenu,
+  setShowMenu,
+}) {
   const [playerAvatar, setPlayerAvatar] = useState(auth.currentUser.photoURL);
   const [profileMenuOpen, setProfileMenuOpen] = useState(false);
 
@@ -14,7 +20,7 @@ export default function Menu({ gameMode, setGameMode, auth }) {
   useEffect(() => {
     console.log(gameMode);
     if (menuMusic) {
-      play();
+      //play();
     } else {
       stop();
     }
@@ -23,29 +29,36 @@ export default function Menu({ gameMode, setGameMode, auth }) {
   const modeKvM = () => {
     stop();
     setGameMode("split");
+    setShowMenu(false);
   };
 
   const modeAI = () => {
     stop();
     setGameMode("ai");
+    setShowMenu(false);
   };
 
   const modeLobby = () => {
     stop();
     setGameMode("lobby");
+    setShowMenu(false);
   };
 
   const modeTouch = () => {
     stop();
     setGameMode("touch");
+    setShowMenu(false);
   };
 
   const profileClick = () => {
-    setProfileMenuOpen(true);
+    setProfileMenuOpen(!profileMenuOpen);
   };
 
   return (
-    <div className="menuContainer">
+    <div className={showMenu ? "menuContainer" : "menuContainer hideMenu"}>
+      <aside className="sky"></aside>
+      <img src="./assets/horizon.gif" className="menuHorizon"></img>
+      <aside className="dirt"></aside>
       <p>Shoot first // Die last</p>
       <section className="buttonContainer">
         <button onClick={modeKvM} className="btn">
@@ -70,7 +83,11 @@ export default function Menu({ gameMode, setGameMode, auth }) {
         src={playerAvatar}
         onClick={profileClick}
       ></img>
-      <div className="profileMenu"></div>
+      <button
+        className={profileMenuOpen ? "profileMenu btn" : "profileMenu hide btn"}
+      >
+        Logout
+      </button>
     </div>
   );
 }

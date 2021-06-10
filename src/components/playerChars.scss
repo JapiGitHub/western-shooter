@@ -1,21 +1,39 @@
 .player1char {
+  /*
   grid-row-start: 10;
   grid-row-end: 14;
   grid-column-start: 2;
   grid-column-end: 5;
+  */
   //background-color: rgba(255, 0, 0, 0.05);
+  position: absolute;
+  left: 240px;
+  top: 57vh;
+  height: 25vh;
 
   z-index: 1;
   display: grid;
   place-items: center;
+
+  transition: all 0.7s ease;
+}
+
+.hidePlayer1 {
+  left: -2000px;
 }
 
 .player2char {
+  /*
   grid-row-start: 10;
   grid-row-end: 14;
   grid-column-start: 7;
   grid-column-end: 10;
+*/
 
+  position: absolute;
+  right: 240px;
+  top: 57vh;
+  height: 25vh;
   //background-color: rgba(0, 255, 0, 0.05);
   // border-style: dotted;
   // border-radius: 1px;
@@ -24,6 +42,12 @@
   z-index: 2;
   display: grid;
   place-items: center;
+
+  transition: all 0.7s ease;
+}
+
+.hidePlayer2 {
+  right: 2000px;
 }
 
 .waitingGrassBall {

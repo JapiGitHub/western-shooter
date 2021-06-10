@@ -10,6 +10,8 @@ import "./gameLocalSplitScreen.scss";
 export default function GameLocalSplitScreen({
   setPlayerAnim,
   setPlayer2Anim,
+  slideGame,
+  setSlideGame,
 }) {
   const [playerOneReady, setPlayerOneReady] = useState(false);
   const [playerTwoReady, setPlayerTwoReady] = useState(false);
@@ -151,7 +153,9 @@ export default function GameLocalSplitScreen({
         </span>
       </label>
 
-      <div className="infoText">{infoText}</div>
+      <div className={slideGame ? "infoText" : "infoText hideInfo"}>
+        {infoText}
+      </div>
     </div>
   );
 }

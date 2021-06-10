@@ -131,5 +131,13 @@
     font-size: 10rem;
     color: #1a0403;
     text-shadow: 0 0 30px #ffffff;
+
+    transition: all 0.9s ease;
+    transform: scale(1);
+  }
+
+  .hideInfo {
+    opacity: 0;
+    transform: scale(0.1);
   }
 }

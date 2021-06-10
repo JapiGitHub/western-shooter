@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./playerChars.scss";
 
 export default function PlayerChars({
@@ -6,10 +6,18 @@ export default function PlayerChars({
   player2Anim,
   player2Hero,
   player1Hero,
+  slideGame,
+  setSlideGame,
 }) {
+  useEffect(() => {
+    setSlideGame(true);
+  }, []);
+
   return (
     <>
-      <article className="player2char">
+      <article
+        className={slideGame ? "player2char" : "player2char hidePlayer2"}
+      >
         <img
           className="playerGif"
           src={`./assets/${player2Hero}.right.${player2Anim}.gif`}
@@ -17,7 +25,9 @@ export default function PlayerChars({
         ></img>
       </article>
 
-      <article className="player1char">
+      <article
+        className={slideGame ? "player1char" : "player1char hidePlayer1"}
+      >
         <img
           className="playerGif"
           src={`./assets/${player1Hero}.left.${playerAnim}.gif`}

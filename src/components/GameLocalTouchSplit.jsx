@@ -7,7 +7,12 @@ import holster from "../sounds/holster.mp3";
 
 import "./gameLocalTouchSplit.scss";
 
-export default function GameLocalTouchSplit({ setPlayerAnim, setPlayer2Anim }) {
+export default function GameLocalTouchSplit({
+  setPlayerAnim,
+  setPlayer2Anim,
+  slideGame,
+  setSlideGame,
+}) {
   const [playerOneReady, setPlayerOneReady] = useState(false);
   const [playerTwoReady, setPlayerTwoReady] = useState(false);
   const [gun1Loaded, setGun1Loaded] = useState(true);
@@ -154,7 +159,9 @@ export default function GameLocalTouchSplit({ setPlayerAnim, setPlayer2Anim }) {
         </span>
       </label>
 
-      <div className="infoText">{infoText}</div>
+      <div className={slideGame ? "infoText" : "infoText hideInfo"}>
+        {infoText}
+      </div>
     </div>
   );
 }
