@@ -1,9 +1,9 @@
 .heroes-box-human {
   position: absolute;
-  top: 190px;
-  left: 80px;
-  width: 400px;
-  height: 250px;
+  top: 20vh;
+  left: 7vw;
+  width: 25vw;
+  height: 20vh;
 
   display: flex;
 
@@ -15,7 +15,7 @@
   .hero-avatar-human {
     height: 100%;
     width: 100%;
-
+    margin-top: 3vh;
     display: grid;
     place-items: center;
 

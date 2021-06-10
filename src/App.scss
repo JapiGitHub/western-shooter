@@ -64,12 +64,10 @@
     }
 
     .menuButton {
-      grid-column-start: 5;
-      grid-column-end: 7;
-      grid-row-start: 2;
-      grid-row-end: 3;
-
-      margin: 0px 90px;
+      position: absolute;
+      top: 10vh;
+      left: 40vw;
+      padding: 1vh 4vh;
 
       background-color: #dec787;
       border-radius: 9px;
@@ -77,13 +75,14 @@
       border-color: #000;
 
       font-family: "Press Start 2P", cursive;
-      font-size: 2rem;
+      font-size: 4vh;
       transition: all 0.2s ease;
       z-index: 11;
 
       cursor: pointer;
 
-      width: 200px;
+      width: 20vw;
+      height: auto;
     }
 
     .menuButton:hover {

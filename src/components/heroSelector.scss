@@ -1,11 +1,11 @@
 .heroes-box-keyboard {
   position: absolute;
-  top: 190px;
+  top: 20vh;
   right: 0;
-  width: 400px;
-  height: 250px;
+  width: 25vw;
+  height: 20vh;
 
-  margin-right: 80px;
+  margin-right: 7vw;
 
   display: flex;
 
@@ -17,7 +17,7 @@
   .hero-avatar-keyboard {
     height: 100%;
     width: 100%;
-
+    margin-top: 3vh;
     display: grid;
     place-items: center;
 
@@ -35,12 +35,12 @@
 
 .heroes-box-mouse {
   position: absolute;
-  top: 190px;
+  top: 20vh;
   left: 0;
-  width: 400px;
-  height: 250px;
+  width: 25vw;
+  height: 20vh;
 
-  margin-left: 80px;
+  margin-left: 7vw;
 
   display: flex;
 
@@ -52,7 +52,7 @@
   .hero-avatar-mouse {
     height: 100%;
     width: 100%;
-
+    margin-top: 3vh;
     display: grid;
     place-items: center;
 

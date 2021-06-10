@@ -45,7 +45,7 @@
 
   //right
   .player1ReadyLabel {
-    font-size: 2rem;
+    font-size: 4vh;
     font-family: "Press Start 2P", cursive;
 
     width: 400px;
@@ -64,7 +64,7 @@
 
   //left
   .player2ReadyLabel {
-    font-size: 2rem;
+    font-size: 4vh;
     font-family: "Press Start 2P", cursive;
 
     width: 400px;
@@ -83,10 +83,10 @@
 
   .checkMark1 {
     position: absolute;
-    top: 90px;
-    right: 80px;
+    top: 7vh;
+    right: 7vw;
 
-    font-size: 1.5rem;
+    font-size: 3vh;
     font-family: "Press Start 2P", cursive;
     display: grid;
     place-items: center;
@@ -95,8 +95,8 @@
     border-style: solid;
     border-width: 5px;
     border-color: rgb(0, 0, 0);
-    height: 70px;
-    width: 400px;
+    height: 12vh;
+    width: 25vw;
     background-color: crimson;
     transition: all 0.2s ease;
 
@@ -106,10 +106,10 @@
 
   .checkMark2 {
     position: absolute;
-    top: 90px;
-    left: 80px;
+    top: 7vh;
+    left: 7vw;
 
-    font-size: 1.5rem;
+    font-size: 3vh;
     font-family: "Press Start 2P", cursive;
     display: grid;
     place-items: center;
@@ -118,8 +118,8 @@
     border-style: solid;
     border-width: 5px;
     border-color: rgb(0, 0, 0);
-    height: 70px;
-    width: 400px;
+    height: 12vh;
+    width: 25vw;
     background-color: crimson;
     transition: all 0.2s ease;
 
@@ -154,7 +154,7 @@
     justify-content: center;
     align-items: center;
 
-    font-size: 10rem;
+    font-size: 20vh;
     color: #1a0403;
     text-shadow: 0 0 30px #ffffff;
 

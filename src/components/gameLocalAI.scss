@@ -23,25 +23,25 @@
 
   //mouse
   .playerReadyLabel {
-    font-size: 2rem;
+    font-size: 4vh;
     font-family: "Press Start 2P", cursive;
 
     width: 400px;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
     justify-content: flex-start;
 
     position: absolute;
     top: 40px;
-    left: 0;
+    left: 7vw;
 
     width: 500px;
   }
 
-  //keyboard
+  //AI
   .aiReadyLabel {
-    font-size: 2rem;
+    font-size: 4vh;
     font-family: "Press Start 2P", cursive;
 
     width: 400px;
@@ -58,10 +58,10 @@
 
   .checkMarkPlayer {
     position: absolute;
-    top: 90px;
-    left: 80px;
+    top: 7vh;
+    left: 0vw;
 
-    font-size: 1.5rem;
+    font-size: 3vh;
     font-family: "Press Start 2P", cursive;
     display: grid;
     place-items: center;
@@ -70,8 +70,8 @@
     border-style: solid;
     border-width: 5px;
     border-color: rgb(0, 0, 0);
-    height: 70px;
-    width: 400px;
+    height: 12vh;
+    width: 25vw;
     background-color: crimson;
     transition: all 0.2s ease;
 
@@ -81,10 +81,10 @@
 
   .checkMarkAI {
     position: absolute;
-    top: 90px;
-    right: 80px;
+    top: 7vh;
+    right: 7vw;
 
-    font-size: 1.5rem;
+    font-size: 3vh;
     font-family: "Press Start 2P", cursive;
     display: grid;
     place-items: center;
@@ -93,8 +93,8 @@
     border-style: solid;
     border-width: 5px;
     border-color: rgb(0, 0, 0);
-    height: 70px;
-    width: 400px;
+    height: 12vh;
+    width: 25vw;
     background-color: crimson;
     transition: all 0.2s ease;
 
