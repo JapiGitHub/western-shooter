@@ -3,8 +3,9 @@ import "./menu.scss";
 import useSound from "use-sound";
 import MenuMusicLoboGlueWorm from "../sounds/LoboLocoGlueworm.mp3";
 
-export default function Menu({ gameMode, setGameMode }) {
-  //const [MenuMusicLoboGlueWormPlay, { stop }] = useSound(MenuMusicLoboGlueWorm);
+export default function Menu({ gameMode, setGameMode, auth }) {
+  const [playerAvatar, setPlayerAvatar] = useState(auth.currentUser.photoURL);
+  const [profileMenuOpen, setProfileMenuOpen] = useState(false);
 
   const [song, setSong] = useState(MenuMusicLoboGlueWorm);
   const [play, { stop }] = useSound(song);
@@ -39,9 +40,13 @@ export default function Menu({ gameMode, setGameMode }) {
     setGameMode("touch");
   };
 
+  const profileClick = () => {
+    setProfileMenuOpen(true);
+  };
+
   return (
     <div className="menuContainer">
-      <p>Shoot first &nbsp; Die last</p>
+      <p>Shoot first // Die last</p>
       <section className="buttonContainer">
         <button onClick={modeKvM} className="btn">
           Keyboard vs Mouse
@@ -55,8 +60,17 @@ export default function Menu({ gameMode, setGameMode }) {
         <button onClick={modeLobby} className="btn">
           Multiplayer
         </button>
-        <button onClick={() => setMenuMusic(false)}>stop</button>
       </section>
+      <button className="btn musicToggle" onClick={() => setMenuMusic(false)}>
+        ||
+      </button>
+      <img
+        alt=""
+        className="avatar"
+        src={playerAvatar}
+        onClick={profileClick}
+      ></img>
+      <div className="profileMenu"></div>
     </div>
   );
 }

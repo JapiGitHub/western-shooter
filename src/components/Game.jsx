@@ -10,7 +10,7 @@ export default function Game({ gameMode, setGameMode, auth, firestore }) {
   return (
     <div>
       {gameMode === "menu" ? (
-        <Menu gameMode={gameMode} setGameMode={setGameMode} />
+        <Menu gameMode={gameMode} setGameMode={setGameMode} auth={auth} />
       ) : null}
 
       {gameMode === "split" ? (

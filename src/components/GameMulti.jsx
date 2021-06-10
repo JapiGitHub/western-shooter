@@ -150,7 +150,7 @@ export default function GameMulti({
         <span className="checkMarkLocal">
           {playerOneReady ? "Ready!" : "Click to ready"}
         </span>
-        <img src={playerAvatar} alt="playerAvatar"></img>
+        <img src={playerAvatar} alt="playerAvatar" className="avatar"></img>
       </label>
 
       <label className="playerNetworkReadyLabel" htmlFor="p2">
