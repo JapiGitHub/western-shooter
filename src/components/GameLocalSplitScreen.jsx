@@ -9,6 +9,7 @@ import holster from "../sounds/holster.mp3";
 
 import ricochetToRight from "../sounds/ricochet.to.right.mp3";
 import ricochetToLeft from "../sounds/ricochet.to.left.mp3";
+import fall from "../sounds/fall.mp3";
 
 import "./gameLocalSplitScreen.scss";
 
@@ -38,6 +39,7 @@ export default function GameLocalSplitScreen({
   const [pistolShotFromRightPlay] = useSound(pistolShotFromRight);
   const [RicochetToLeftPlay] = useSound(ricochetToLeft);
   const [RicochetToRightPlay] = useSound(ricochetToRight);
+  const [FallPlay] = useSound(fall);
 
   const playerTwoReadyCheckBox = useRef();
   const playerOneReadyCheckBox = useRef();
@@ -128,6 +130,7 @@ export default function GameLocalSplitScreen({
           setPlayerAnim("shooting");
           setPlayer2Anim("die");
           pistolShotFromLeftPlay();
+          FallPlay();
           setInfoText("keyboard wins");
           setScore([score[0], score[1] + 1]);
           NextRoundReset();
