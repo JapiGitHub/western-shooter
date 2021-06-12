@@ -28,21 +28,14 @@ auth.signOut();
 function App() {
   const [gameMode, setGameMode] = useState("menu");
 
-  //firebase auth
-  const [user] = useAuthState(auth);
-
   return (
     <div className="App" style={{ cursor: "url(knife.cur),auto" }}>
-      {user ? (
-        <Game
-          gameMode={gameMode}
-          setGameMode={setGameMode}
-          auth={auth}
-          firestore={firestore}
-        />
-      ) : (
-        <Login auth={auth} />
-      )}
+      <Game
+        gameMode={gameMode}
+        setGameMode={setGameMode}
+        auth={auth}
+        firestore={firestore}
+      />
     </div>
   );
 }

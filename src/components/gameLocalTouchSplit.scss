@@ -3,12 +3,12 @@
 }
 
 .textSplashFrame {
+  z-index: 6;
+  //tarviiko enää griddiä, kaikki vissiin vaihdettu jo absoluteen?
   grid-column-start: 1;
   grid-column-end: 11;
   grid-row-start: 1;
   grid-row-end: 17;
-  z-index: 6;
-
   display: grid;
   place-items: center;
   grid-template-columns: (repeat(2), 1fr);
@@ -43,21 +43,21 @@
     margin-top: 15px;
   }
 
-  //right
+  //right / mouse
   .player1ReadyLabel {
     font-size: 4vh;
     font-family: "Press Start 2P", cursive;
 
-    width: 400px;
+    width: 30vw;
     display: flex;
     flex-direction: column;
     align-items: flex-end;
-    justify-content: flex-start;
+    justify-content: flex-end;
 
     position: absolute;
-    top: 40px;
+    top: 2vh;
     right: 0;
-    padding-right: 80px;
+    padding-right: 4vw;
 
     z-index: 6;
   }
@@ -67,16 +67,16 @@
     font-size: 4vh;
     font-family: "Press Start 2P", cursive;
 
-    width: 400px;
+    width: 30vw;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     justify-content: flex-start;
 
     position: absolute;
-    top: 40px;
+    top: 2vh;
     left: 0px;
-    padding-left: 80px;
+    padding-left: 4vw;
 
     z-index: 6;
   }
@@ -84,7 +84,7 @@
   .checkMark1 {
     position: absolute;
     top: 7vh;
-    right: 7vw;
+    right: 4vw;
 
     font-size: 3vh;
     font-family: "Press Start 2P", cursive;
@@ -107,7 +107,7 @@
   .checkMark2 {
     position: absolute;
     top: 7vh;
-    left: 7vw;
+    left: 4vw;
 
     font-size: 3vh;
     font-family: "Press Start 2P", cursive;
@@ -127,6 +127,15 @@
     cursor: pointer;
   }
 
+  .keybInput {
+    height: 50vh;
+  }
+
+  .checkMark2:focus {
+    border-width: 9px;
+    height: 20vh;
+  }
+
   .checkMark1:hover {
     background-color: rgb(195, 209, 117);
   }
@@ -143,7 +152,7 @@
     background-color: #1ed65c;
   }
 
-  .infoTexti {
+  .infoText {
     position: absolute;
     top: 0;
     left: 0;
@@ -154,7 +163,7 @@
     justify-content: center;
     align-items: center;
 
-    font-size: 5vh;
+    font-size: 7vw;
     color: #1a0403;
     text-shadow: 0 0 30px #ffffff;
 

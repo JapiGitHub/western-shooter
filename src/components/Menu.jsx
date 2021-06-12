@@ -9,8 +9,12 @@ export default function Menu({
   auth,
   showMenu,
   setShowMenu,
+  user,
 }) {
-  const [playerAvatar, setPlayerAvatar] = useState(auth.currentUser.photoURL);
+  const [playerAvatar, setPlayerAvatar] = useState(
+    user ? auth.currentUser.photoURL : null
+  );
+
   const [profileMenuOpen, setProfileMenuOpen] = useState(false);
 
   const [song, setSong] = useState(MenuMusicLoboGlueWorm);
@@ -77,12 +81,14 @@ export default function Menu({
       <button className="btn musicToggle" onClick={() => setMenuMusic(false)}>
         ||
       </button>
-      <img
-        alt=""
-        className="avatar"
-        src={playerAvatar}
-        onClick={profileClick}
-      ></img>
+      {user ? (
+        <img
+          alt=""
+          className="avatar"
+          src={playerAvatar}
+          onClick={profileClick}
+        ></img>
+      ) : null}
       <button
         className={profileMenuOpen ? "profileMenu btn" : "profileMenu hide btn"}
       >

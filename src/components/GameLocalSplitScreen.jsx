@@ -1,9 +1,14 @@
 import React, { useEffect, useRef, useState } from "react";
 
 import useSound from "use-sound";
-import pistolShot2 from "../sounds/pistol.shot.2.mp3";
+import pistolShotFromLeft from "../sounds/pistol.shot.from.left.mp3";
+import pistolShotFromRight from "../sounds/pistol.shot.from.right.mp3";
+
 import pistolCock1 from "../sounds/cock.pistol.1.mp3";
 import holster from "../sounds/holster.mp3";
+
+import ricochetToRight from "../sounds/ricochet.to.right.mp3";
+import ricochetToLeft from "../sounds/ricochet.to.left.mp3";
 
 import "./gameLocalSplitScreen.scss";
 
@@ -17,8 +22,8 @@ export default function GameLocalSplitScreen({
   const [playerTwoReady, setPlayerTwoReady] = useState(false);
   const [gun1Loaded, setGun1Loaded] = useState(true);
   const [gun2Loaded, setGun2Loaded] = useState(true);
-
   const [shotFired, setShotFired] = useState(false);
+  const [score, setScore] = useState([0, 0]);
 
   const [infoText, setInfoText] = useState("Ready?");
 
@@ -26,16 +31,36 @@ export default function GameLocalSplitScreen({
   const [randomTime, setRandomTime] = useState(0);
   const [ok2Shoot, setOk2Shoot] = useState(false);
 
-  const [pistolShot2Play] = useSound(pistolShot2);
   const [pistolCock1Play] = useSound(pistolCock1);
   const [holsterPlay] = useSound(holster);
+
+  const [pistolShotFromLeftPlay] = useSound(pistolShotFromLeft);
+  const [pistolShotFromRightPlay] = useSound(pistolShotFromRight);
+  const [RicochetToLeftPlay] = useSound(ricochetToLeft);
+  const [RicochetToRightPlay] = useSound(ricochetToRight);
 
   const playerTwoReadyCheckBox = useRef();
   const playerOneReadyCheckBox = useRef();
 
+  const NextRoundReset = () => {
+    setTimeout(() => {
+      setInfoText("Again?");
+      setGun1Loaded(true);
+      setGun2Loaded(true);
+      setShotFired(false);
+      setPlayerOneReady(false);
+      setPlayerTwoReady(false);
+      setPlayer2Anim("waiting");
+      setPlayerAnim("waiting");
+    }, 3000);
+  };
+
+  useEffect(() => {
+    playerTwoReadyCheckBox.current.focus();
+  });
+
   useEffect(() => {
     setRandomTime(3500 + Math.floor(Math.random() * 3000));
-    playerTwoReadyCheckBox.current.focus();
     setPlayerOneReady(false);
   }, []);
 
@@ -55,31 +80,31 @@ export default function GameLocalSplitScreen({
         holsterPlay();
         setStartTime(new Date());
       }, randomTime);
-      playerTwoReadyCheckBox.current.focus();
     }
-    playerTwoReadyCheckBox.current.focus();
   }, [playerTwoReady, playerOneReady]);
 
   //mouse player1
   const actionClick = (e) => {
-    playerTwoReadyCheckBox.current.focus();
-    e.stopPropagation();
-
     //SHOOTING
     if (playerOneReady === true && playerTwoReady === true) {
       if (gun1Loaded === true && shotFired === false) {
         if (ok2Shoot === false) {
           //varaslähtö
-          pistolShot2Play();
+          pistolShotFromRightPlay();
           setPlayer2Anim("shooting");
           setGun1Loaded(false);
+          RicochetToLeftPlay();
+          playerTwoReadyCheckBox.current.focus();
+          console.log(document.activeElement);
         } else {
           //onnistunut laukaus
           setShotFired(true);
           setPlayer2Anim("shooting");
           setPlayerAnim("die");
-          pistolShot2Play();
+          pistolShotFromRightPlay();
           setInfoText("mouse wins");
+          setScore([score[0] + 1, score[1]]);
+          NextRoundReset();
         }
       }
     }
@@ -87,25 +112,25 @@ export default function GameLocalSplitScreen({
 
   //keyboard player2
   const actionKey = (e) => {
-    playerTwoReadyCheckBox.current.focus();
-    e.stopPropagation();
-
     setPlayerTwoReady(true);
 
     if (playerTwoReady === true && playerOneReady === true) {
       if (gun2Loaded === true && shotFired === false) {
         if (ok2Shoot === false) {
           //varaslähtö
-          pistolShot2Play();
+          pistolShotFromLeftPlay();
           setPlayerAnim("shooting");
           setGun2Loaded(false);
+          RicochetToRightPlay();
         } else {
           //onnistunut laukaus
           setShotFired(true);
           setPlayerAnim("shooting");
           setPlayer2Anim("die");
-          pistolShot2Play();
+          pistolShotFromLeftPlay();
           setInfoText("keyboard wins");
+          setScore([score[0], score[1] + 1]);
+          NextRoundReset();
         }
       }
     }
@@ -114,7 +139,6 @@ export default function GameLocalSplitScreen({
   const playerOneReadyClick = () => {
     //focus takaisin p2 key listeneriin
     setPlayerOneReady(true);
-    playerTwoReadyCheckBox.current.focus();
   };
 
   return (
@@ -127,7 +151,7 @@ export default function GameLocalSplitScreen({
       onMouseDown={actionClick}
     >
       <label className="player1ReadyLabel" htmlFor="p1">
-        Mouse
+        {score[0]} Mouse
         <input
           className="readyCheckBox p1check"
           type="checkbox"
@@ -141,16 +165,21 @@ export default function GameLocalSplitScreen({
           {playerOneReady ? "Ready!" : "Click to ready"}
         </span>
       </label>
+
+      <input
+        className="focusKeyboard"
+        ref={playerTwoReadyCheckBox}
+        onKeyPress={(e) => {
+          actionKey(e);
+        }}
+      ></input>
       <label className="player2ReadyLabel" htmlFor="p2">
-        Keyboard
+        Keyboard {score[1]}
         <input
+          className="keybInput"
           className="readyCheckBox p2check"
           type="checkbox"
           checked={playerTwoReady}
-          ref={playerTwoReadyCheckBox}
-          onKeyPress={(e) => {
-            actionKey(e);
-          }}
           id="p2"
           name="p2"
         />
