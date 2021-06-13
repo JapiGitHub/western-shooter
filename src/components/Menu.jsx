@@ -78,6 +78,8 @@ export default function Menu({
           Multiplayer
         </button>
       </section>
+      <img className="cow" src="./assets/cow.gif"></img>
+      <img className="cactus" src="./assets/cactus1.gif"></img>
       <button className="btn musicToggle" onClick={() => setMenuMusic(false)}>
         ||
       </button>

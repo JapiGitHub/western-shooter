@@ -17,6 +17,20 @@
 
   transition: all 0.7s ease;
 
+  .cow {
+    position: absolute;
+    right: 5vw;
+    bottom: 10vh;
+    height: 25vh;
+  }
+
+  .cactus {
+    position: absolute;
+    left: 2vw;
+    bottom: 22vh;
+    height: 20vh;
+  }
+
   .sky {
     position: absolute;
     top: 0;

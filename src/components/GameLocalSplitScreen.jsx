@@ -106,6 +106,7 @@ export default function GameLocalSplitScreen({
           pistolShotFromRightPlay();
           setInfoText("mouse wins");
           setScore([score[0] + 1, score[1]]);
+          setOk2Shoot(false);
           NextRoundReset();
         }
       }
@@ -133,6 +134,8 @@ export default function GameLocalSplitScreen({
           FallPlay();
           setInfoText("keyboard wins");
           setScore([score[0], score[1] + 1]);
+          setOk2Shoot(false);
+
           NextRoundReset();
         }
       }
