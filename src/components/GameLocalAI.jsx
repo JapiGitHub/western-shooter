@@ -18,6 +18,7 @@ export default function GameLocalAI({
   const [playerOneReady, setPlayerOneReady] = useState(false);
   const [gun1Loaded, setGun1Loaded] = useState(true);
   const [aiAlive, setAiAlive] = useState(true);
+  const [score, setScore] = useState([0, 0]);
 
   const [player1Reaction, setPlayer1Reaction] = useState(0);
 
@@ -35,6 +36,20 @@ export default function GameLocalAI({
 
   const playerTwoReadyCheckBox = useRef();
   const playerOneReadyCheckBox = useRef();
+
+  const NextRoundReset = () => {
+    setTimeout(() => {
+      setInfoText("Again?");
+      setGun1Loaded(true);
+      setShotFired(false);
+      setPlayerOneReady(false);
+      setPlayer2Anim("waiting");
+      setPlayerAnim("waiting");
+      setPlayer1Reaction(0);
+      setOk2Shoot(false);
+      setAiAlive(true);
+    }, 3000);
+  };
 
   useEffect(() => {
     setRandomTime(3500 + Math.floor(Math.random() * 3000));
@@ -82,6 +97,8 @@ export default function GameLocalAI({
         setPlayerAnim("shooting");
         pistolShot2Play();
         setPlayer2Anim("die");
+        setScore([score[0] + 1, score[1]]);
+        NextRoundReset();
       } else {
         if (aiAlive) {
           setGun1Loaded(false);
@@ -89,6 +106,8 @@ export default function GameLocalAI({
           setPlayer2Anim("shooting");
           pistolShot2Play();
           setPlayerAnim("die");
+          setScore([score[0], score[1] + 1]);
+          NextRoundReset();
         }
       }
     }
@@ -135,7 +154,7 @@ export default function GameLocalAI({
       onClick={actionClick}
     >
       <label className="playerReadyLabel" htmlFor="p1">
-        You (mouse)
+        Mouse {score[0]}
         <input
           className="readyCheckBox p1check"
           type="checkbox"
@@ -151,7 +170,7 @@ export default function GameLocalAI({
       </label>
 
       <label className="aiReadyLabel" htmlFor="p2">
-        AI
+        {score[1]} AI
         <input
           className="readyCheckBox p2check"
           type="checkbox"
