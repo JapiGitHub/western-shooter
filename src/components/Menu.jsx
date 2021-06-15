@@ -60,8 +60,6 @@ export default function Menu({
 
   return (
     <div className={showMenu ? "menuContainer" : "menuContainer hideMenu"}>
-      <aside className="sky"></aside>
-      <img src="./assets/horizon.gif" className="menuHorizon"></img>
       <aside className="dirt"></aside>
       <p>Shoot first // Die last</p>
       <section className="buttonContainer">
@@ -78,8 +76,7 @@ export default function Menu({
           Multiplayer
         </button>
       </section>
-      <img className="cow" src="./assets/cow.gif"></img>
-      <img className="cactus" src="./assets/cactus1.gif"></img>
+
       <button className="btn musicToggle" onClick={() => setMenuMusic(false)}>
         ||
       </button>

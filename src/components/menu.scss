@@ -17,38 +17,11 @@
 
   transition: all 0.7s ease;
 
-  .cow {
-    position: absolute;
-    right: 5vw;
-    bottom: 10vh;
-    height: 25vh;
-  }
-
   .cactus {
     position: absolute;
     left: 2vw;
     bottom: 22vh;
     height: 20vh;
-  }
-
-  .sky {
-    position: absolute;
-    top: 0;
-    left: 0;
-
-    background-color: rgb(116, 204, 255);
-
-    height: 60vh;
-    width: 100vw;
-    z-index: -2;
-  }
-
-  .menuHorizon {
-    position: absolute;
-    bottom: 40vh;
-    left: 0;
-    z-index: -1;
-    height: 25vh;
   }
 
   .dirt {
@@ -71,6 +44,7 @@
       padding: 1vh 4vw;
       margin-bottom: 3vh;
       font-size: 4vh;
+      z-index: 9;
     }
   }
 

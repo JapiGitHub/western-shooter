@@ -19,13 +19,7 @@
 
   .background-world-arena {
     //background-color: rgb(116, 204, 255);
-    background: radial-gradient(
-      circle 150px at 103% 59%,
-      rgb(255, 252, 78),
-      yellow,
-      lightyellow,
-      rgb(116, 204, 255)
-    );
+    background-color: rgb(116, 204, 255);
     height: 100vh;
     display: grid;
     grid-template-columns: repeat(10, 1fr);
@@ -136,5 +130,42 @@
     top: 0;
     left: 0;
     overflow: hidden;
+  }
+
+  .sky {
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    background-color: rgb(116, 204, 255);
+
+    height: 60vh;
+    width: 100vw;
+    z-index: -2;
+  }
+
+  .menuHorizon {
+    position: absolute;
+    bottom: 40vh;
+    left: -20vw;
+    z-index: -1;
+    height: 25vh;
+    transition: all 0.7s ease;
+  }
+
+  .menuSlide {
+    left: 0vw;
+  }
+
+  .cow {
+    position: absolute;
+    right: 5vw;
+    bottom: 10vh;
+    height: 25vh;
+    transition: all 0.7s ease;
+  }
+
+  .hideCow {
+    right: -100vw;
   }
 }

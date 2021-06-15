@@ -58,7 +58,6 @@ export default function LocalSplitScreenMode({
           setPlayer1Hero={setPlayer1Hero}
           setPlayer2Hero={setPlayer2Hero}
         />
-        <Cactus slideGame={slideGame} setSlideGame={setSlideGame} />
       </main>
     </>
   );

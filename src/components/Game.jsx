@@ -5,6 +5,7 @@ import LocalAiMode from "./LocalAiMode";
 import Login from "./Login";
 import TouchSplitMode from "./TouchSplitMode";
 import MultiPlayerLobby from "./MultiPlayerLobby";
+import Cactus from "./Cactus";
 import { useAuthState } from "react-firebase-hooks/auth";
 
 export default function Game({ gameMode, setGameMode, auth, firestore }) {
@@ -15,6 +16,11 @@ export default function Game({ gameMode, setGameMode, auth, firestore }) {
 
   return (
     <div className="screen">
+      <aside className="sky"></aside>
+      <img
+        src="./assets/horizon.wide.gif"
+        className={gameMode != "menu" ? "menuHorizon menuSlide" : "menuHorizon"}
+      ></img>
       {gameMode === "menu" ? (
         <Menu
           gameMode={gameMode}
@@ -67,6 +73,11 @@ export default function Game({ gameMode, setGameMode, auth, firestore }) {
           setSlideGame={setSlideGame}
         />
       ) : null}
+      <Cactus gameMode={gameMode} />
+      <img
+        className={gameMode != "menu" ? "cow hideCow" : "cow"}
+        src="./assets/cow.gif"
+      ></img>
     </div>
   );
 }
