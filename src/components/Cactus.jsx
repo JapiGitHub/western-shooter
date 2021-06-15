@@ -17,7 +17,11 @@ export default function Cactus({ gameMode }) {
       <aside
         className={gameMode === "menu" ? "cactus3 hideCactus3" : "cactus3 "}
       >
-        <img className="cactusGif" src="./assets/cactus1.gif" alt="cacti"></img>
+        <img
+          className="cactusGif"
+          src="./assets/cactus.dark.gif"
+          alt="cacti"
+        ></img>
       </aside>
     </>
   );

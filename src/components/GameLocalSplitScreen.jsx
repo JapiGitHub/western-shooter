@@ -118,7 +118,7 @@ export default function GameLocalSplitScreen({
           setPlayerAnim("die");
           pistolShotFromRightPlay();
           setInfoText("mouse wins");
-          setP1ReactText(triggerTime - startTime);
+          setP1ReactText(`${triggerTime - startTime} ms`);
           setScore([score[0] + 1, score[1]]);
           setOk2Shoot(false);
           NextRoundReset();
@@ -148,7 +148,7 @@ export default function GameLocalSplitScreen({
           pistolShotFromLeftPlay();
           FallPlay();
           setInfoText("keyboard wins");
-          setP2ReactText(triggerTime - startTime);
+          setP2ReactText(`${triggerTime - startTime} ms`);
           setScore([score[0], score[1] + 1]);
           setOk2Shoot(false);
 

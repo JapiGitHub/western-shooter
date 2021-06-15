@@ -58,17 +58,17 @@
 
   .checkMarkPlayer {
     position: absolute;
-    top: 7vh;
+    top: 6vh;
     left: 0vw;
 
-    font-size: 3vh;
+    font-size: 2.3vh;
     font-family: "Press Start 2P", cursive;
     display: grid;
     place-items: center;
 
     border-radius: 9px;
     border-style: solid;
-    border-width: 5px;
+    border-width: 0.4vh;
     border-color: rgb(0, 0, 0);
     height: 12vh;
     width: 25vw;
@@ -81,17 +81,17 @@
 
   .checkMarkAI {
     position: absolute;
-    top: 7vh;
+    top: 6vh;
     right: 7vw;
 
-    font-size: 3vh;
+    font-size: 2.5vh;
     font-family: "Press Start 2P", cursive;
     display: grid;
     place-items: center;
 
     border-radius: 9px;
     border-style: solid;
-    border-width: 5px;
+    border-width: 0.4vh;
     border-color: rgb(0, 0, 0);
     height: 12vh;
     width: 25vw;

@@ -29,7 +29,7 @@
     bottom: 0;
     left: 0;
 
-    background-color: #dec787;
+    background: linear-gradient(rgb(222, 199, 135), rgb(161, 140, 81));
 
     height: 40vh;
     width: 100vw;
@@ -50,10 +50,26 @@
 
   .musicToggle {
     position: absolute;
-    bottom: 30px;
-    right: 30px;
-    width: 40px;
-    height: 40px;
+    bottom: 4vh;
+    right: 5vw;
+    width: 4vh;
+    height: 4vh;
+  }
+
+  .theme1Button {
+    position: absolute;
+    bottom: 9vh;
+    right: 5vw;
+    font-size: 2vh;
+    padding: 1vh 1vw;
+  }
+
+  .theme2Button {
+    position: absolute;
+    bottom: 15vh;
+    right: 5vw;
+    font-size: 2vh;
+    padding: 1vh 1vw;
   }
 
   .profileMenu {

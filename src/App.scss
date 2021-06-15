@@ -37,7 +37,7 @@
       width: 100vw;
       height: 40vh;
       bottom: 0;
-      background-color: rgb(222, 199, 135);
+      background: linear-gradient(rgb(222, 199, 135), rgb(161, 140, 81));
       z-index: 0;
     }
 
@@ -53,7 +53,7 @@
 
       background-color: #dec787;
       border-radius: 9px;
-      border-width: 5px;
+      border-width: 0.4vh;
       border-color: #000;
 
       font-family: "Press Start 2P", cursive;
@@ -76,7 +76,7 @@
   .btn {
     border-radius: 9px;
     border-style: solid;
-    border-width: 5px;
+    border-width: 0.4vh;
     border-color: black;
     background-color: burlywood;
     cursor: pointer;
@@ -120,12 +120,16 @@
     overflow: hidden;
   }
 
+  .themeSepia {
+    filter: sepia(0.3) hue-rotate(-20deg);
+  }
+
   .sky {
     position: absolute;
     top: 0;
     left: 0;
 
-    background-color: rgb(116, 204, 255);
+    background: linear-gradient(rgb(116, 204, 255), rgb(184, 229, 255));
 
     height: 60vh;
     width: 100vw;
@@ -146,6 +150,7 @@
     bottom: 40vh;
     left: -2vw;
     height: 25vh;
+    background: linear-gradient(rgb(116, 204, 255), rgb(184, 229, 255));
 
     transition: var(--slideTime);
   }

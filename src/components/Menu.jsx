@@ -10,6 +10,7 @@ export default function Menu({
   showMenu,
   setShowMenu,
   user,
+  setTheme,
 }) {
   const [playerAvatar, setPlayerAvatar] = useState(
     user ? auth.currentUser.photoURL : null
@@ -79,6 +80,12 @@ export default function Menu({
 
       <button className="btn musicToggle" onClick={() => setMenuMusic(false)}>
         ||
+      </button>
+      <button className="btn theme1Button" onClick={() => setTheme("normal")}>
+        normal
+      </button>
+      <button className="btn theme2Button" onClick={() => setTheme("sepia")}>
+        oldie
       </button>
       {user ? (
         <img
