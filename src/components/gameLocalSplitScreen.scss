@@ -150,4 +150,30 @@
     opacity: 0;
     transform: scale(0.1);
   }
+
+  .reactMouseTimeText {
+    position: absolute;
+    opacity: 1;
+    right: 30vw;
+    top: 55vh;
+    font-family: "Press Start 2P", cursive;
+    font-size: 3vh;
+    transition: all 0.5s ease;
+  }
+
+  .reactKeybTimeText {
+    position: absolute;
+    opacity: 1;
+    left: 27vw;
+    top: 55vh;
+    font-family: "Press Start 2P", cursive;
+    font-size: 3vh;
+    transition: all 0.5s ease;
+  }
+
+  .hideTime {
+    opacity: 0;
+    top: 40vh;
+    transition: all 0.5s ease;
+  }
 }

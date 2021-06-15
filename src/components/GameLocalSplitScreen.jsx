@@ -26,6 +26,10 @@ export default function GameLocalSplitScreen({
   const [shotFired, setShotFired] = useState(false);
   const [score, setScore] = useState([0, 0]);
 
+  const [p1ReactText, setP1ReactText] = useState("");
+  const [p2ReactText, setP2ReactText] = useState("");
+  const [reactTextFade, setReactTextFade] = useState(false);
+
   const [infoText, setInfoText] = useState("Ready?");
 
   const [startTime, setStartTime] = useState(888);
@@ -54,7 +58,14 @@ export default function GameLocalSplitScreen({
       setPlayerTwoReady(false);
       setPlayer2Anim("waiting");
       setPlayerAnim("waiting");
+      setP1ReactText();
+      setP2ReactText();
+      setReactTextFade(false);
     }, 3000);
+
+    setTimeout(() => {
+      setReactTextFade(true);
+    }, 300);
   };
 
   useEffect(() => {
@@ -64,6 +75,7 @@ export default function GameLocalSplitScreen({
   useEffect(() => {
     setRandomTime(3500 + Math.floor(Math.random() * 3000));
     setPlayerOneReady(false);
+    setPlayerTwoReady(false);
   }, []);
 
   //kun pelaajat valmiita, niin aloita timeri
@@ -100,11 +112,13 @@ export default function GameLocalSplitScreen({
           console.log(document.activeElement);
         } else {
           //onnistunut laukaus
+          const triggerTime = new Date();
           setShotFired(true);
           setPlayer2Anim("shooting");
           setPlayerAnim("die");
           pistolShotFromRightPlay();
           setInfoText("mouse wins");
+          setP1ReactText(triggerTime - startTime);
           setScore([score[0] + 1, score[1]]);
           setOk2Shoot(false);
           NextRoundReset();
@@ -127,12 +141,14 @@ export default function GameLocalSplitScreen({
           RicochetToRightPlay();
         } else {
           //onnistunut laukaus
+          const triggerTime = new Date();
           setShotFired(true);
           setPlayerAnim("shooting");
           setPlayer2Anim("die");
           pistolShotFromLeftPlay();
           FallPlay();
           setInfoText("keyboard wins");
+          setP2ReactText(triggerTime - startTime);
           setScore([score[0], score[1] + 1]);
           setOk2Shoot(false);
 
@@ -171,6 +187,13 @@ export default function GameLocalSplitScreen({
           {playerOneReady ? "Ready!" : "Click to ready"}
         </span>
       </label>
+      <div
+        className={
+          reactTextFade ? "reactMouseTimeText hideTime" : "reactMouseTimeText"
+        }
+      >
+        {p1ReactText}
+      </div>
 
       <input
         className="focusKeyboard"
@@ -193,6 +216,14 @@ export default function GameLocalSplitScreen({
           {playerTwoReady ? "Ready!" : "Press any key"}
         </span>
       </label>
+
+      <div
+        className={
+          reactTextFade ? "reactKeybTimeText hideTime" : "reactKeybTimeText"
+        }
+      >
+        {p2ReactText}
+      </div>
 
       <div className={slideGame ? "infoText" : "infoText hideInfo"}>
         {infoText}

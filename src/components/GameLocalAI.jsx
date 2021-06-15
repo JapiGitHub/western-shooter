@@ -91,7 +91,7 @@ export default function GameLocalAI({
   useEffect(() => {
     if (player1Reaction > 0) {
       console.log("reactio: ", player1Reaction);
-      if (player1Reaction < 500) {
+      if (player1Reaction < 500 - score[0] * 50) {
         setAiAlive(false);
         setInfoText("You won");
         setPlayerAnim("shooting");
