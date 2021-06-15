@@ -6,27 +6,27 @@
   grid-column-end: 10;
 */
   position: absolute;
-  top: 49vh;
-  right: -2vw;
-  height: 20vh;
+  top: 52vh;
+  right: 63vw;
+  height: 17vh;
 
-  z-index: 1;
+  z-index: 0;
 
-  transition: all 0.7s ease;
+  transition: all var(--slideTime) ease;
 }
 
 .hideCactus1 {
-  right: 80vw;
+  right: 90vw;
 }
 
 .cactus2 {
   position: absolute;
   top: 70vh;
-  right: 6vw;
+  right: 2vw;
   height: 25vh;
 
   z-index: 3;
-  transition: all 0.7s ease;
+  transition: all var(--slideTime) ease;
 }
 
 .hideCactus2 {
@@ -35,12 +35,12 @@
 
 .cactus3 {
   position: absolute;
-  top: 73vh;
-  left: 0vw;
+  bottom: 0vh;
+  left: 3vw;
   height: 25vh;
 
   z-index: 5;
-  transition: all 0.7s ease;
+  transition: all var(--slideTime) ease;
 }
 .hideCactus3 {
   left: -4500px;

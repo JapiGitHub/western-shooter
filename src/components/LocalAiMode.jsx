@@ -35,7 +35,7 @@ export default function LocalAiMode({
         <section className="ground"></section>
         <img
           className={slideGame ? "horizon" : "horizon hideHorizon"}
-          src="./assets/horizon.gif"
+          src="./assets/horizon.wide.gif"
           alt="horizon"
         ></img>
         <button onClick={backToMenu} className="menuButton">
@@ -58,7 +58,6 @@ export default function LocalAiMode({
           setSlideGame={setSlideGame}
         />
         <HeroSelectorAI setPlayer1Hero={setPlayer1Hero} />
-        <Cactus slideGame={slideGame} setSlideGame={setSlideGame} />
       </main>
     </>
   );

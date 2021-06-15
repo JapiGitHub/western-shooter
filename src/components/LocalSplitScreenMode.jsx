@@ -34,7 +34,7 @@ export default function LocalSplitScreenMode({
         <section className="ground"></section>
         <img
           className={slideGame ? "horizon" : "horizon hideHorizon"}
-          src="./assets/horizon.gif"
+          src="./assets/horizon.wide.gif"
           alt="horizon"
         ></img>
         <button onClick={backToMenu} className="menuButton">

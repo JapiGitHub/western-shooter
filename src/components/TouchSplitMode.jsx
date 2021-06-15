@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import PlayerChars from "./PlayerChars";
-import Cactus from "./Cactus";
 import GameLocalTouchSplit from "./GameLocalTouchSplit";
 import HeroSelector from "./HeroSelector";
 
@@ -28,7 +27,7 @@ export default function TouchSplitMode({
         <section className="ground"></section>
         <img
           className={slideGame ? "horizon" : "horizon hideHorizon"}
-          src="./assets/horizon.gif"
+          src="./assets/horizon.wide.gif"
           alt="horizon"
         ></img>
         <button onClick={backToMenu} className="menuButton">
@@ -54,7 +53,6 @@ export default function TouchSplitMode({
           setPlayer1Hero={setPlayer1Hero}
           setPlayer2Hero={setPlayer2Hero}
         />
-        <Cactus slideGame={slideGame} setSlideGame={setSlideGame} />
       </main>
     </>
   );

@@ -1,3 +1,7 @@
+:root {
+  --slideTime: 1.2s;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -28,29 +32,13 @@
     overflow: hidden;
 
     .ground {
-      grid-column-start: 1;
-      grid-column-end: 11;
-      grid-row-start: 11;
-      grid-row-end: 17;
+      position: absolute;
+      left: 0;
+      width: 100vw;
+      height: 40vh;
+      bottom: 0;
       background-color: rgb(222, 199, 135);
       z-index: 0;
-    }
-
-    .horizon {
-      /*
-      grid-column-start: 1;
-      grid-column-end: 11;
-      grid-row-start: 7;
-      grid-row-end: 11;
-      height: 100%;
-      */
-
-      position: absolute;
-      top: 38vh;
-      left: -2vw;
-      height: 25vh;
-
-      transition: all 0.7s ease;
     }
 
     .hideHorizon {
@@ -150,7 +138,16 @@
     left: -20vw;
     z-index: -1;
     height: 25vh;
-    transition: all 0.7s ease;
+    transition: all var(--slideTime) ease;
+  }
+
+  .horizon {
+    position: absolute;
+    bottom: 40vh;
+    left: -2vw;
+    height: 25vh;
+
+    transition: var(--slideTime);
   }
 
   .menuSlide {
@@ -159,13 +156,13 @@
 
   .cow {
     position: absolute;
-    right: 5vw;
-    bottom: 10vh;
+    left: 5vw;
+    bottom: 5vh;
     height: 25vh;
-    transition: all 0.7s ease;
+    transition: all var(--slideTime) ease;
   }
 
   .hideCow {
-    right: -100vw;
+    left: 150vw;
   }
 }
