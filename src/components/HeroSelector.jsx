@@ -1,7 +1,10 @@
 import React from "react";
 import "./heroSelector.scss";
+import HeroAvatar from "./HeroAvatar";
 
 export default function HeroSelector({ setPlayer1Hero, setPlayer2Hero }) {
+  const heroesList = ["sheriff", "cowboy", "pirate"];
+
   const player2sheriff = () => {
     setPlayer2Hero("sheriff");
   };
@@ -18,24 +21,42 @@ export default function HeroSelector({ setPlayer1Hero, setPlayer2Hero }) {
     setPlayer1Hero("cowboy");
   };
 
+  const changePlayer1Hero = (e) => {
+    setPlayer1Hero(e.target.name);
+  };
+
+  const changePlayer2Hero = (e) => {
+    setPlayer2Hero(e.target.name);
+  };
+
   return (
     <>
       <div className="heroes-box-keyboard">
-        <div className="hero-avatar-keyboard" onClick={player2sheriff}>
-          <img src="./assets/sheriff.avatar.gif" alt="sheriff"></img>
-        </div>
-        <div className="hero-avatar-keyboard" onClick={player2cowboy}>
-          <img src="./assets/cowboy.avatar.gif" alt="cowboy"></img>
-        </div>
+        {heroesList.map((hero) => (
+          <div className="hero-avatar-keyboard">
+            <img
+              src={`./assets/${hero}.avatar.gif`}
+              key={hero}
+              name={hero}
+              onClick={changePlayer2Hero}
+              alt="avatar"
+            ></img>
+          </div>
+        ))}
       </div>
 
       <div className="heroes-box-mouse">
-        <div className="hero-avatar-mouse" onClick={player1cowboy}>
-          <img src="./assets/cowboy.avatar.gif" alt="cowboy"></img>
-        </div>
-        <div className="hero-avatar-mouse" onClick={player1sheriff}>
-          <img src="./assets/sheriff.avatar.gif" alt="sheriff"></img>
-        </div>
+        {heroesList.map((hero) => (
+          <div className="hero-avatar-mouse">
+            <img
+              src={`./assets/${hero}.avatar.gif`}
+              key={hero}
+              name={hero}
+              onClick={changePlayer1Hero}
+              alt="avatar"
+            ></img>
+          </div>
+        ))}
       </div>
     </>
   );

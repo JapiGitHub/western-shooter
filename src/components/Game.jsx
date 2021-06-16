@@ -23,6 +23,10 @@ export default function Game({ gameMode, setGameMode, auth, firestore }) {
         src="./assets/horizon.wide.gif"
         className={gameMode != "menu" ? "menuHorizon menuSlide" : "menuHorizon"}
       ></img>
+      <img src="./assets/cloud1.gif" className="cloud1"></img>
+      <img src="./assets/cloud2.gif" className="cloud2"></img>
+      <img src="./assets/cloud3.gif" className="cloud3"></img>
+
       {gameMode === "menu" ? (
         <Menu
           gameMode={gameMode}

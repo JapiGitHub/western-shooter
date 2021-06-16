@@ -170,4 +170,100 @@
   .hideCow {
     left: 150vw;
   }
+
+  .cloud1 {
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 15vh;
+    animation-name: cloudmove1;
+    animation-duration: 300s;
+    animation-iteration-count: infinite;
+  }
+
+  .cloud2 {
+    position: absolute;
+    right: -30vw;
+    top: 0;
+    height: 10vh;
+    animation-name: cloudmove2;
+    animation-duration: 900s;
+    animation-iteration-count: infinite;
+  }
+
+  .cloud3 {
+    position: absolute;
+    right: 30vw;
+    top: 19vh;
+    height: 10vh;
+    animation-name: cloudmove3;
+    animation-duration: 700s;
+    animation-iteration-count: infinite;
+  }
+
+  @keyframes cloudmove1 {
+    0% {
+      opacity: 1;
+      right: -20vw;
+    }
+    95% {
+      right: 120vw;
+      opacity: 1;
+    }
+
+    96% {
+      opacity: 0;
+    }
+    99% {
+      right: -20vw;
+      opacity: 0;
+    }
+    100% {
+      opacity: 0;
+    }
+  }
+
+  @keyframes cloudmove2 {
+    0% {
+      opacity: 1;
+      right: -20vw;
+    }
+    95% {
+      right: 120vw;
+      opacity: 1;
+    }
+
+    96% {
+      opacity: 0;
+    }
+    99% {
+      right: -20vw;
+      opacity: 0;
+    }
+    100% {
+      opacity: 0;
+    }
+  }
+
+  @keyframes cloudmove3 {
+    0% {
+      opacity: 1;
+      right: -33vw;
+    }
+    95% {
+      right: 120vw;
+      opacity: 1;
+    }
+
+    96% {
+      opacity: 0;
+    }
+    99% {
+      right: -20vw;
+      opacity: 0;
+    }
+    100% {
+      opacity: 0;
+    }
+  }
 }

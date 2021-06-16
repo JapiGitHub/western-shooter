@@ -79,13 +79,13 @@ export default function Menu({
       </section>
 
       <button className="btn musicToggle" onClick={() => setMenuMusic(false)}>
-        ||
+        Pause
       </button>
       <button className="btn theme1Button" onClick={() => setTheme("normal")}>
-        normal
+        Normal
       </button>
       <button className="btn theme2Button" onClick={() => setTheme("sepia")}>
-        oldie
+        Oldie
       </button>
       {user ? (
         <img

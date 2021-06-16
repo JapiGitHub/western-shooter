@@ -50,16 +50,19 @@
 
   .musicToggle {
     position: absolute;
-    bottom: 4vh;
-    right: 5vw;
+    bottom: 3vh;
+    right: 2vw;
     width: 4vh;
     height: 4vh;
+    font-size: 2vh;
+    width: 10vw;
   }
 
   .theme1Button {
     position: absolute;
     bottom: 9vh;
-    right: 5vw;
+    right: 2vw;
+    width: 10vw;
     font-size: 2vh;
     padding: 1vh 1vw;
   }
@@ -67,7 +70,8 @@
   .theme2Button {
     position: absolute;
     bottom: 15vh;
-    right: 5vw;
+    right: 2vw;
+    width: 10vw;
     font-size: 2vh;
     padding: 1vh 1vw;
   }
