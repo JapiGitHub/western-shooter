@@ -65,6 +65,7 @@ export default function GameLocalSplitScreen({
       setFatality(false);
     }, 3000);
 
+    //reactio ajan pään yläpuolella oleva haihtuva teksti
     setTimeout(() => {
       setReactTextFade(true);
     }, 800);
@@ -172,6 +173,7 @@ export default function GameLocalSplitScreen({
 
   const playerOneReadyClick = () => {
     //focus takaisin p2 key listeneriin
+    playerTwoReadyCheckBox.current.focus();
     setPlayerOneReady(true);
   };
 

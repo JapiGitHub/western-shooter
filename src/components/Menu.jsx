@@ -20,10 +20,11 @@ export default function Menu({
 
   const [song, setSong] = useState(MenuMusicLoboGlueWorm);
   const [play, { stop }] = useSound(song);
-  const [menuMusic, setMenuMusic] = useState(true);
+  const [menuMusic, setMenuMusic] = useState(false);
 
+  //The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page
+  //eli jos teet esim splash startin ja käyttäjän pitää klikata sitä ekana, että pääsee menuun, niin sit toimii
   useEffect(() => {
-    console.log(gameMode);
     if (menuMusic) {
       play();
     } else {
@@ -78,8 +79,11 @@ export default function Menu({
         </button>
       </section>
 
-      <button className="btn musicToggle" onClick={() => setMenuMusic(false)}>
-        Pause
+      <button
+        className="btn musicToggle"
+        onClick={() => setMenuMusic(!menuMusic)}
+      >
+        Music
       </button>
       <button className="btn theme1Button" onClick={() => setTheme("normal")}>
         Normal

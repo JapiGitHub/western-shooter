@@ -118,10 +118,17 @@
     top: 0;
     left: 0;
     overflow: hidden;
+    transition: all 0.5s ease;
   }
 
   .themeSepia {
     filter: sepia(0.3) hue-rotate(-20deg);
+    transition: all 0.5s ease;
+  }
+
+  .themeNight {
+    filter: brightness(0.2) saturate(20%);
+    transition: all 0.5s ease;
   }
 
   .sky {
