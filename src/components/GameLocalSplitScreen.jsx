@@ -29,6 +29,7 @@ export default function GameLocalSplitScreen({
   const [p1ReactText, setP1ReactText] = useState("");
   const [p2ReactText, setP2ReactText] = useState("");
   const [reactTextFade, setReactTextFade] = useState(false);
+  const [fatality, setFatality] = useState(false);
 
   const [infoText, setInfoText] = useState("Ready?");
 

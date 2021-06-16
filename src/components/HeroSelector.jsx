@@ -1,25 +1,8 @@
 import React from "react";
 import "./heroSelector.scss";
-import HeroAvatar from "./HeroAvatar";
 
 export default function HeroSelector({ setPlayer1Hero, setPlayer2Hero }) {
   const heroesList = ["sheriff", "cowboy", "pirate"];
-
-  const player2sheriff = () => {
-    setPlayer2Hero("sheriff");
-  };
-
-  const player2cowboy = () => {
-    setPlayer2Hero("cowboy");
-  };
-
-  const player1sheriff = () => {
-    setPlayer1Hero("sheriff");
-  };
-
-  const player1cowboy = () => {
-    setPlayer1Hero("cowboy");
-  };
 
   const changePlayer1Hero = (e) => {
     setPlayer1Hero(e.target.name);

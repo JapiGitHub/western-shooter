@@ -21,7 +21,7 @@ export default function PlayerChars({
         <img
           className="playerGif"
           src={`./assets/${player2Hero}.right.${player2Anim}.gif`}
-          alt="character"
+          alt="character2"
         ></img>
       </article>
 
@@ -31,7 +31,7 @@ export default function PlayerChars({
         <img
           className="playerGif"
           src={`./assets/${player1Hero}.left.${playerAnim}.gif`}
-          alt="character"
+          alt="character1"
         ></img>
       </article>
       <aside className="waitingGrassBall"></aside>
