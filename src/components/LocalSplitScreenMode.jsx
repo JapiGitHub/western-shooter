@@ -13,8 +13,8 @@ export default function LocalSplitScreenMode({
 }) {
   const [playerAnim, setPlayerAnim] = useState("waiting");
   const [player2Anim, setPlayer2Anim] = useState("waiting");
-  const [player2Hero, setPlayer2Hero] = useState("cowboy");
-  const [player1Hero, setPlayer1Hero] = useState("sheriff");
+  const [player2Hero, setPlayer2Hero] = useState("sheriff");
+  const [player1Hero, setPlayer1Hero] = useState("cowboy");
 
   //playerAnim vaihtoehdot:
   //waiting

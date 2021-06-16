@@ -25,7 +25,7 @@ export default function Menu({
   useEffect(() => {
     console.log(gameMode);
     if (menuMusic) {
-      //play();
+      play();
     } else {
       stop();
     }

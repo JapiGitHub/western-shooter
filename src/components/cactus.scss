@@ -46,6 +46,19 @@
   left: -4500px;
 }
 
+.cactus4 {
+  position: absolute;
+  bottom: 20vh;
+  left: 130vw;
+  height: 25vh;
+
+  z-index: 5;
+  transition: all var(--slideTime) ease;
+}
+.hideCactus4 {
+  left: 60vw;
+}
+
 .cactusGif {
   height: 100%;
 }

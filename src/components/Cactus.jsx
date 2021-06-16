@@ -23,6 +23,12 @@ export default function Cactus({ gameMode }) {
           alt="cacti"
         ></img>
       </aside>
+
+      <aside
+        className={gameMode === "menu" ? "cactus4 hideCactus4" : "cactus4"}
+      >
+        <img className="cactusGif" src="./assets/cactus2.gif" alt="cacti"></img>
+      </aside>
     </>
   );
 }
