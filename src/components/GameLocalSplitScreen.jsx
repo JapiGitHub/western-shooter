@@ -62,11 +62,12 @@ export default function GameLocalSplitScreen({
       setP1ReactText();
       setP2ReactText();
       setReactTextFade(false);
+      setFatality(false);
     }, 3000);
 
     setTimeout(() => {
       setReactTextFade(true);
-    }, 300);
+    }, 800);
   };
 
   useEffect(() => {
@@ -118,8 +119,13 @@ export default function GameLocalSplitScreen({
           setPlayer2Anim("shooting");
           setPlayerAnim("die");
           pistolShotFromRightPlay();
-          setInfoText("mouse wins");
           setP1ReactText(`${triggerTime - startTime} ms`);
+          if (triggerTime - startTime < 600) {
+            setFatality(true);
+            setInfoText("Fatality!");
+          } else {
+            setInfoText("Mouse wins");
+          }
           setScore([score[0] + 1, score[1]]);
           setOk2Shoot(false);
           NextRoundReset();
@@ -148,8 +154,13 @@ export default function GameLocalSplitScreen({
           setPlayer2Anim("die");
           pistolShotFromLeftPlay();
           FallPlay();
-          setInfoText("keyboard wins");
           setP2ReactText(`${triggerTime - startTime} ms`);
+          if (triggerTime - startTime < 600) {
+            setFatality(true);
+            setInfoText("Fatality!");
+          } else {
+            setInfoText("Keyboard wins");
+          }
           setScore([score[0], score[1] + 1]);
           setOk2Shoot(false);
 
@@ -188,12 +199,17 @@ export default function GameLocalSplitScreen({
           {playerOneReady ? "Ready!" : "Click to ready"}
         </span>
       </label>
+
       <div
         className={
-          reactTextFade ? "reactMouseTimeText hideTime" : "reactMouseTimeText"
+          reactTextFade
+            ? "reactionMouseTextFloater hideTime"
+            : "reactionMouseTextFloater"
         }
       >
-        {p1ReactText}
+        <div className={fatality ? "fatality" : "reactMouseTimeText"}>
+          {p1ReactText}
+        </div>
       </div>
 
       <input
@@ -220,10 +236,14 @@ export default function GameLocalSplitScreen({
 
       <div
         className={
-          reactTextFade ? "reactKeybTimeText hideTime" : "reactKeybTimeText"
+          reactTextFade
+            ? "reactionKeybTextFloater hideTime"
+            : "reactionKeybTextFloater"
         }
       >
-        {p2ReactText}
+        <div className={fatality ? "fatality" : "reactKeybTimeText"}>
+          {p2ReactText}
+        </div>
       </div>
 
       <div className={slideGame ? "infoText" : "infoText hideInfo"}>
