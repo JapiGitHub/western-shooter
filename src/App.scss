@@ -179,6 +179,7 @@
   }
 
   .cloud {
+    opacity: 0;
     position: absolute;
     right: 0;
     top: 0;
@@ -214,22 +215,25 @@
     top: 25vh;
     height: 10vh;
     animation-name: cloudmovestart;
-    animation-duration: 100s;
+    animation-duration: 200s;
     animation-iteration-count: 1;
   }
 
   @keyframes cloudmove1 {
     0% {
+      top: 0;
       opacity: 1;
       right: -13vw;
     }
-    95% {
+    97% {
+      top: 0;
       right: 100vw;
       opacity: 1;
     }
 
-    96% {
+    98% {
       right: 100vw;
+      top: -20vh;
       opacity: 0;
     }
     99% {
@@ -237,26 +241,31 @@
       opacity: 0;
     }
     100% {
+      top: 0;
       opacity: 0;
     }
   }
 
   @keyframes cloudmove2 {
     0% {
+      top: 0;
       opacity: 1;
       right: -20vw;
     }
     98% {
+      top: 0;
       right: 101vw;
       opacity: 1;
     }
 
     99% {
+      top: -20vh;
       right: 101vw;
       opacity: 0;
     }
 
     100% {
+      top: 0;
       right: -20vw;
       opacity: 0;
     }
@@ -264,16 +273,19 @@
 
   @keyframes cloudmove3 {
     0% {
+      top: 19vh;
       opacity: 1;
       right: -33vw;
     }
     97% {
+      top: 19vh;
       right: 101vw;
       opacity: 1;
     }
 
     98% {
       right: 101vw;
+      top: -20vh;
       opacity: 0;
     }
     99% {
@@ -281,6 +293,7 @@
       opacity: 0;
     }
     100% {
+      top: 19vh;
       opacity: 0;
     }
   }

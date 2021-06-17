@@ -54,7 +54,7 @@ export default function GameLocalSplitScreen({
   const playerTwoReadyCheckBox = useRef();
   const playerOneReadyCheckBox = useRef();
 
-  const fatalityTime = 290;
+  const fatalityTime = 240;
 
   const NextRoundReset = () => {
     setTimeout(() => {
