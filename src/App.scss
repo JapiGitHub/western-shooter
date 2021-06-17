@@ -47,7 +47,7 @@
 
     .menuButton {
       position: absolute;
-      top: 10vh;
+      top: 9vh;
       left: 40vw;
       padding: 1vh 4vh;
 
@@ -169,7 +169,7 @@
   .cow {
     position: absolute;
     left: 5vw;
-    bottom: 5vh;
+    bottom: 2vh;
     height: 25vh;
     transition: all var(--slideTime) ease;
   }
@@ -178,19 +178,21 @@
     left: 150vw;
   }
 
-  .cloud1 {
+  .cloud {
     position: absolute;
     right: 0;
     top: 0;
+  }
+
+  .cloud1 {
+    top: 0;
     height: 15vh;
     animation-name: cloudmove1;
-    animation-duration: 300s;
+    animation-duration: 650s;
     animation-iteration-count: infinite;
   }
 
   .cloud2 {
-    position: absolute;
-    right: -30vw;
     top: 0;
     height: 10vh;
     animation-name: cloudmove2;
@@ -199,8 +201,6 @@
   }
 
   .cloud3 {
-    position: absolute;
-    right: 30vw;
     top: 19vh;
     height: 10vh;
     animation-name: cloudmove3;
@@ -208,21 +208,32 @@
     animation-iteration-count: infinite;
   }
 
+  //alottaa keskeltä ja lopettaa ku pääsee ruudusta ulos, jotta edes 1 pilvi näkyvissä alussa
+  .cloud4 {
+    opacity: 0;
+    top: 25vh;
+    height: 10vh;
+    animation-name: cloudmovestart;
+    animation-duration: 100s;
+    animation-iteration-count: 1;
+  }
+
   @keyframes cloudmove1 {
     0% {
       opacity: 1;
-      right: -20vw;
+      right: -13vw;
     }
     95% {
-      right: 120vw;
+      right: 100vw;
       opacity: 1;
     }
 
     96% {
+      right: 100vw;
       opacity: 0;
     }
     99% {
-      right: -20vw;
+      right: -13vw;
       opacity: 0;
     }
     100% {
@@ -235,12 +246,34 @@
       opacity: 1;
       right: -20vw;
     }
-    95% {
-      right: 120vw;
+    98% {
+      right: 101vw;
       opacity: 1;
     }
 
-    96% {
+    99% {
+      right: 101vw;
+      opacity: 0;
+    }
+
+    100% {
+      right: -20vw;
+      opacity: 0;
+    }
+  }
+
+  @keyframes cloudmove3 {
+    0% {
+      opacity: 1;
+      right: -33vw;
+    }
+    97% {
+      right: 101vw;
+      opacity: 1;
+    }
+
+    98% {
+      right: 101vw;
       opacity: 0;
     }
     99% {
@@ -252,23 +285,17 @@
     }
   }
 
-  @keyframes cloudmove3 {
+  @keyframes cloudmovestart {
     0% {
       opacity: 1;
-      right: -33vw;
-    }
-    95% {
-      right: 120vw;
-      opacity: 1;
+      right: 70vw;
     }
 
-    96% {
-      opacity: 0;
-    }
     99% {
-      right: -20vw;
-      opacity: 0;
+      opacity: 1;
+      right: 120vw;
     }
+
     100% {
       opacity: 0;
     }

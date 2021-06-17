@@ -55,6 +55,8 @@ export default function LocalSplitScreenMode({
           setSlideGame={setSlideGame}
         />
         <HeroSelector
+          player2Hero={player2Hero}
+          player1Hero={player1Hero}
           setPlayer1Hero={setPlayer1Hero}
           setPlayer2Hero={setPlayer2Hero}
         />

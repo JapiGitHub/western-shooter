@@ -1,7 +1,12 @@
 import React from "react";
 import "./heroSelector.scss";
 
-export default function HeroSelector({ setPlayer1Hero, setPlayer2Hero }) {
+export default function HeroSelector({
+  setPlayer1Hero,
+  setPlayer2Hero,
+  player1Hero,
+  player2Hero,
+}) {
   const heroesList = ["sheriff", "cowboy", "pirate"];
 
   const changePlayer1Hero = (e) => {
@@ -18,6 +23,7 @@ export default function HeroSelector({ setPlayer1Hero, setPlayer2Hero }) {
         {heroesList.map((hero) => (
           <div className="hero-avatar-keyboard">
             <img
+              className={player2Hero === hero ? "chosen" : null}
               src={`./assets/${hero}.avatar.gif`}
               key={hero}
               name={hero}
@@ -32,6 +38,7 @@ export default function HeroSelector({ setPlayer1Hero, setPlayer2Hero }) {
         {heroesList.map((hero) => (
           <div className="hero-avatar-mouse">
             <img
+              className={player1Hero === hero ? "chosen" : null}
               src={`./assets/${hero}.avatar.gif`}
               key={hero}
               name={hero}

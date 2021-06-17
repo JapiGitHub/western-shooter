@@ -3,6 +3,8 @@ import React, { useEffect, useRef, useState } from "react";
 import useSound from "use-sound";
 import pistolShotFromLeft from "../sounds/pistol.shot.from.left.mp3";
 import pistolShotFromRight from "../sounds/pistol.shot.from.right.mp3";
+import fatalityFromRight from "../sounds/fatality.from.right.mp3";
+import fatalityFromLeft from "../sounds/fatality.from.left.mp3";
 
 import pistolCock1 from "../sounds/cock.pistol.1.mp3";
 import holster from "../sounds/holster.mp3";
@@ -44,10 +46,15 @@ export default function GameLocalSplitScreen({
   const [pistolShotFromRightPlay] = useSound(pistolShotFromRight);
   const [RicochetToLeftPlay] = useSound(ricochetToLeft);
   const [RicochetToRightPlay] = useSound(ricochetToRight);
+  const [fatalityFromRightPlay] = useSound(fatalityFromRight);
+  const [fatalityFromLeftPlay] = useSound(fatalityFromLeft);
+
   const [FallPlay] = useSound(fall);
 
   const playerTwoReadyCheckBox = useRef();
   const playerOneReadyCheckBox = useRef();
+
+  const fatalityTime = 290;
 
   const NextRoundReset = () => {
     setTimeout(() => {
@@ -118,14 +125,17 @@ export default function GameLocalSplitScreen({
           const triggerTime = new Date();
           setShotFired(true);
           setPlayer2Anim("shooting");
-          setPlayerAnim("die");
-          pistolShotFromRightPlay();
+
           setP1ReactText(`${triggerTime - startTime} ms`);
-          if (triggerTime - startTime < 600) {
+          if (triggerTime - startTime < fatalityTime) {
+            fatalityFromRightPlay();
             setFatality(true);
             setInfoText("Fatality!");
+            setPlayerAnim("fatality");
           } else {
+            pistolShotFromRightPlay();
             setInfoText("Mouse wins");
+            setPlayerAnim("die");
           }
           setScore([score[0] + 1, score[1]]);
           setOk2Shoot(false);
@@ -152,15 +162,18 @@ export default function GameLocalSplitScreen({
           const triggerTime = new Date();
           setShotFired(true);
           setPlayerAnim("shooting");
-          setPlayer2Anim("die");
-          pistolShotFromLeftPlay();
+
           FallPlay();
           setP2ReactText(`${triggerTime - startTime} ms`);
-          if (triggerTime - startTime < 600) {
+          if (triggerTime - startTime < fatalityTime) {
+            fatalityFromLeftPlay();
             setFatality(true);
             setInfoText("Fatality!");
+            setPlayer2Anim("fatality");
           } else {
+            pistolShotFromLeftPlay();
             setInfoText("Keyboard wins");
+            setPlayer2Anim("die");
           }
           setScore([score[0], score[1] + 1]);
           setOk2Shoot(false);

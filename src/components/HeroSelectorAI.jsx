@@ -2,23 +2,26 @@ import React from "react";
 import "./heroSelectorAI.scss";
 
 export default function HeroSelectorAI({ setPlayer1Hero }) {
-  const playersheriff = () => {
-    setPlayer1Hero("sheriff");
-  };
+  const heroesList = ["sheriff", "cowboy", "pirate"];
 
-  const playercowboy = () => {
-    setPlayer1Hero("cowboy");
+  const changePlayer1Hero = (e) => {
+    setPlayer1Hero(e.target.name);
   };
 
   return (
     <>
-      <div className="heroes-box-human">
-        <div className="hero-avatar-human" onClick={playersheriff}>
-          <img src="./assets/sheriff.avatar.gif" alt="sheriff"></img>
-        </div>
-        <div className="hero-avatar-human" onClick={playercowboy}>
-          <img src="./assets/cowboy.avatar.gif" alt="cowboy"></img>
-        </div>
+      <div className="heroes-box-mouse">
+        {heroesList.map((hero) => (
+          <div className="hero-avatar-mouse">
+            <img
+              src={`./assets/${hero}.avatar.gif`}
+              key={hero}
+              name={hero}
+              onClick={changePlayer1Hero}
+              alt="avatar"
+            ></img>
+          </div>
+        ))}
       </div>
     </>
   );
