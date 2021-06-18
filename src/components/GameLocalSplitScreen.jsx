@@ -20,6 +20,7 @@ export default function GameLocalSplitScreen({
   setPlayer2Anim,
   slideGame,
   setSlideGame,
+  difficulty,
 }) {
   const [playerOneReady, setPlayerOneReady] = useState(false);
   const [playerTwoReady, setPlayerTwoReady] = useState(false);
@@ -54,7 +55,7 @@ export default function GameLocalSplitScreen({
   const playerTwoReadyCheckBox = useRef();
   const playerOneReadyCheckBox = useRef();
 
-  const fatalityTime = 240;
+  const fatalityTime = difficulty;
 
   const NextRoundReset = () => {
     setTimeout(() => {
@@ -83,6 +84,9 @@ export default function GameLocalSplitScreen({
   });
 
   useEffect(() => {
+    console.log("fat", fatalityTime);
+    console.log("diff", difficulty);
+
     setRandomTime(3500 + Math.floor(Math.random() * 3000));
     setPlayerOneReady(false);
     setPlayerTwoReady(false);

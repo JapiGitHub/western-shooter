@@ -1,10 +1,16 @@
 import React, { useEffect, useRef, useState } from "react";
 
 import useSound from "use-sound";
-import pistolShot2 from "../sounds/pistol.shot.2.mp3";
+import pistolShotFromLeft from "../sounds/pistol.shot.from.left.mp3";
+import pistolShotFromRight from "../sounds/pistol.shot.from.right.mp3";
+import fatalityFromRight from "../sounds/fatality.from.right.mp3";
+import fatalityFromLeft from "../sounds/fatality.from.left.mp3";
+
 import pistolCock1 from "../sounds/cock.pistol.1.mp3";
-import ding from "../sounds/ding.mp3";
 import holster from "../sounds/holster.mp3";
+
+import ricochetToRight from "../sounds/ricochet.to.right.mp3";
+import ricochetToLeft from "../sounds/ricochet.to.left.mp3";
 
 import "./gameLocalAI.scss";
 
@@ -20,6 +26,10 @@ export default function GameLocalAI({
   const [aiAlive, setAiAlive] = useState(true);
   const [score, setScore] = useState([0, 0]);
 
+  const [p1ReactText, setP1ReactText] = useState("");
+  const [reactTextFade, setReactTextFade] = useState(false);
+  const [fatality, setFatality] = useState(false);
+
   const [player1Reaction, setPlayer1Reaction] = useState(0);
 
   const [shotFired, setShotFired] = useState(false);
@@ -30,12 +40,21 @@ export default function GameLocalAI({
   const [randomTime, setRandomTime] = useState(0);
   const [ok2Shoot, setOk2Shoot] = useState(false);
 
-  const [pistolShot2Play] = useSound(pistolShot2);
   const [pistolCock1Play] = useSound(pistolCock1);
   const [holsterPlay] = useSound(holster);
 
+  const [pistolShotFromLeftPlay] = useSound(pistolShotFromLeft);
+  const [pistolShotFromRightPlay] = useSound(pistolShotFromRight);
+  const [RicochetToLeftPlay] = useSound(ricochetToLeft);
+  const [RicochetToRightPlay] = useSound(ricochetToRight);
+  const [fatalityFromRightPlay] = useSound(fatalityFromRight);
+  const [fatalityFromLeftPlay] = useSound(fatalityFromLeft);
+
   const playerTwoReadyCheckBox = useRef();
   const playerOneReadyCheckBox = useRef();
+
+  const fatalityTime = 280;
+  const AIbaseTime = 500;
 
   const NextRoundReset = () => {
     setTimeout(() => {
@@ -45,16 +64,23 @@ export default function GameLocalAI({
       setPlayerOneReady(false);
       setPlayer2Anim("waiting");
       setPlayerAnim("waiting");
+      setP1ReactText();
+      setReactTextFade(false);
+      setFatality(false);
       setPlayer1Reaction(0);
       setOk2Shoot(false);
       setAiAlive(true);
     }, 3000);
+
+    //reactio ajan pään yläpuolella oleva haihtuva teksti
+    setTimeout(() => {
+      setReactTextFade(true);
+    }, 800);
   };
 
   useEffect(() => {
     setRandomTime(3500 + Math.floor(Math.random() * 3000));
     setPlayerOneReady(false);
-    console.log(randomTime);
   }, []);
 
   //onko tää ihan turha?
@@ -81,9 +107,9 @@ export default function GameLocalAI({
 
       setTimeout(() => {
         if (aiAlive) {
-          setPlayer1Reaction(501);
+          setPlayer1Reaction(AIbaseTime + 1);
         }
-      }, randomTime + 500);
+      }, randomTime + AIbaseTime);
     }
   }, [playerOneReady]);
 
@@ -91,12 +117,23 @@ export default function GameLocalAI({
   useEffect(() => {
     if (player1Reaction > 0) {
       console.log("reactio: ", player1Reaction);
-      if (player1Reaction < 500 - score[0] * 50) {
+      if (player1Reaction < AIbaseTime - score[0] * 50) {
+        const triggerTime = new Date();
         setAiAlive(false);
-        setInfoText("You won");
         setPlayerAnim("shooting");
-        pistolShot2Play();
-        setPlayer2Anim("die");
+        setP1ReactText(`${triggerTime - startTime} ms`);
+
+        if (player1Reaction < fatalityTime) {
+          setPlayer2Anim("fatality");
+          setInfoText("Fatality!");
+          fatalityFromLeftPlay();
+          setFatality(true);
+        } else {
+          pistolShotFromLeftPlay();
+          setInfoText("You won");
+          setPlayer2Anim("die");
+        }
+
         setScore([score[0] + 1, score[1]]);
         NextRoundReset();
       } else {
@@ -104,7 +141,7 @@ export default function GameLocalAI({
           setGun1Loaded(false);
           setInfoText("AI wins");
           setPlayer2Anim("shooting");
-          pistolShot2Play();
+          pistolShotFromRightPlay();
           setPlayerAnim("die");
           setScore([score[0], score[1] + 1]);
           NextRoundReset();
@@ -120,7 +157,8 @@ export default function GameLocalAI({
       if (gun1Loaded === true) {
         if (ok2Shoot === false) {
           //varaslähtö
-          pistolShot2Play();
+          pistolShotFromLeftPlay();
+          RicochetToRightPlay();
           setPlayerAnim("shooting");
           setGun1Loaded(false);
         } else {
@@ -129,11 +167,9 @@ export default function GameLocalAI({
 
           const pullTriggerTime = new Date();
           const reactTimeConst = pullTriggerTime - startTime;
-
-          console.log(reactTimeConst / 1000, " seconds reaction time player1");
           setGun1Loaded(false);
-
           setPlayer1Reaction(reactTimeConst);
+          setOk2Shoot(false);
         }
       }
     }
@@ -168,6 +204,18 @@ export default function GameLocalAI({
           {playerOneReady ? "Ready!" : "Click to ready"}
         </span>
       </label>
+
+      <div
+        className={
+          reactTextFade
+            ? "reactionMouseTextFloater hideTime"
+            : "reactionMouseTextFloater"
+        }
+      >
+        <div className={fatality ? "fatality" : "reactMouseTimeText"}>
+          {p1ReactText}
+        </div>
+      </div>
 
       <label className="aiReadyLabel" htmlFor="p2">
         {score[1]} AI

@@ -57,7 +57,10 @@ export default function LocalAiMode({
           slideGame={slideGame}
           setSlideGame={setSlideGame}
         />
-        <HeroSelectorAI setPlayer1Hero={setPlayer1Hero} />
+        <HeroSelectorAI
+          setPlayer1Hero={setPlayer1Hero}
+          player1Hero={player1Hero}
+        />
       </main>
     </>
   );

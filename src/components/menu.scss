@@ -38,7 +38,6 @@
   .buttonContainer {
     display: flex;
     flex-direction: column;
-    margin-bottom: 40px;
 
     button {
       padding: 1vh 4vw;
@@ -98,11 +97,50 @@
     opacity: 0;
     transform: translateX(-240px);
   }
-}
 
-.hideMenu {
-  right: -100vw;
-  top: 0;
+  .hideMenu {
+    right: -100vw;
+    top: 0;
 
-  transition: all 0.5s ease;
+    transition: all 0.5s ease;
+  }
+
+  .difficultyContainer {
+    position: absolute;
+    bottom: 25vh;
+    right: 2vw;
+    display: flex;
+    flex-direction: column;
+
+    button {
+      z-index: 99;
+      margin-top: 0.65vh;
+      width: 10vw;
+      font-size: 2vh;
+      padding: 1vh 1vw;
+    }
+
+    .chosenButton {
+      background-color: rgb(56, 29, 13);
+      color: #fff;
+    }
+  }
+  .difficultyInfo {
+    font-family: "Press Start 2P", cursive;
+    text-align: right;
+    position: absolute;
+    bottom: 50vh;
+    right: 2vw;
+    font-size: 2.2vh;
+
+    width: 30vw;
+
+    p {
+      text-align: right;
+
+      font-family: "Press Start 2P", cursive;
+      font-size: 2vh;
+      padding-bottom: 4vh;
+    }
+  }
 }

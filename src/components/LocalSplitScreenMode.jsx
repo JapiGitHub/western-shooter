@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import PlayerChars from "./PlayerChars";
-import Cactus from "./Cactus";
 import GameLocalSplitScreen from "./GameLocalSplitScreen";
 import HeroSelector from "./HeroSelector";
 
@@ -10,6 +9,7 @@ export default function LocalSplitScreenMode({
   setShowMenu,
   slideGame,
   setSlideGame,
+  difficulty,
 }) {
   const [playerAnim, setPlayerAnim] = useState("waiting");
   const [player2Anim, setPlayer2Anim] = useState("waiting");
@@ -44,6 +44,7 @@ export default function LocalSplitScreenMode({
           setPlayerAnim={setPlayerAnim}
           setPlayer2Anim={setPlayer2Anim}
           slideGame={slideGame}
+          difficulty={difficulty}
         />
         <PlayerChars
           playerAnim={playerAnim}
