@@ -1,0 +1,59 @@
+.leaderBoardContainer {
+  font-family: "Press Start 2P", cursive;
+  text-align: center;
+
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  width: 100vw;
+  height: 100vh;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  z-index: 10;
+
+  padding-left: 4vw;
+  padding-right: 4vw;
+
+  img {
+    position: absolute;
+    bottom: 0;
+    height: 50vh;
+    display: grid;
+    place-items: center;
+    z-index: 10;
+  }
+
+  form {
+    position: absolute;
+    bottom: 0;
+    margin-bottom: 10vh;
+    z-index: 99;
+    display: flex;
+    flex-direction: column;
+    font-family: "Press Start 2P", cursive;
+    font-size: 2vh;
+    width: 30vh;
+
+    input {
+      margin-top: 2vh;
+      margin-bottom: 3vh;
+      padding: 1vh 0vw;
+      text-align: center;
+
+      z-index: 99;
+      font-size: 2vh;
+
+      font-family: "Press Start 2P", cursive;
+    }
+
+    .okbtn {
+      font-size: 3vh;
+      padding: 1vh 2vw;
+    }
+  }
+}

@@ -300,17 +300,23 @@
 
   @keyframes cloudmovestart {
     0% {
+      top: 25vh;
       opacity: 1;
       right: 70vw;
     }
 
-    99% {
+    98% {
       opacity: 1;
       right: 120vw;
     }
 
-    100% {
+    99% {
+      top: 25vh;
       opacity: 0;
+      right: 120vw;
+    }
+    100% {
+      top: -25vh;
     }
   }
 }

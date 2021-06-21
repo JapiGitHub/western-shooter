@@ -10,6 +10,7 @@ export default function LocalSplitScreenMode({
   slideGame,
   setSlideGame,
   difficulty,
+  firestore,
 }) {
   const [playerAnim, setPlayerAnim] = useState("waiting");
   const [player2Anim, setPlayer2Anim] = useState("waiting");
@@ -45,6 +46,9 @@ export default function LocalSplitScreenMode({
           setPlayer2Anim={setPlayer2Anim}
           slideGame={slideGame}
           difficulty={difficulty}
+          firestore={firestore}
+          player1Hero={player1Hero}
+          player2Hero={player2Hero}
         />
         <PlayerChars
           playerAnim={playerAnim}

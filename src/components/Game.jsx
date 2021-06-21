@@ -51,6 +51,7 @@ export default function Game({ gameMode, setGameMode, auth, firestore }) {
           slideGame={slideGame}
           setSlideGame={setSlideGame}
           difficulty={difficulty}
+          firestore={firestore}
         />
       ) : null}
 

@@ -1,19 +1,21 @@
 import React, { useEffect, useRef, useState } from "react";
+import { useCollectionData } from "react-firebase-hooks/firestore";
 
+import LeaderBoardInput from "./LeaderBoardInput";
+
+import "./gameLocalSplitScreen.scss";
+
+//sounds
 import useSound from "use-sound";
 import pistolShotFromLeft from "../sounds/pistol.shot.from.left.mp3";
 import pistolShotFromRight from "../sounds/pistol.shot.from.right.mp3";
 import fatalityFromRight from "../sounds/fatality.from.right.mp3";
 import fatalityFromLeft from "../sounds/fatality.from.left.mp3";
-
 import pistolCock1 from "../sounds/cock.pistol.1.mp3";
 import holster from "../sounds/holster.mp3";
-
 import ricochetToRight from "../sounds/ricochet.to.right.mp3";
 import ricochetToLeft from "../sounds/ricochet.to.left.mp3";
 import fall from "../sounds/fall.mp3";
-
-import "./gameLocalSplitScreen.scss";
 
 export default function GameLocalSplitScreen({
   setPlayerAnim,
@@ -21,6 +23,9 @@ export default function GameLocalSplitScreen({
   slideGame,
   setSlideGame,
   difficulty,
+  firestore,
+  player1Hero,
+  player2Hero,
 }) {
   const [playerOneReady, setPlayerOneReady] = useState(false);
   const [playerTwoReady, setPlayerTwoReady] = useState(false);
@@ -33,6 +38,10 @@ export default function GameLocalSplitScreen({
   const [p2ReactText, setP2ReactText] = useState("");
   const [reactTextFade, setReactTextFade] = useState(false);
   const [fatality, setFatality] = useState(false);
+
+  const [showLeaderBoard, setShowLeaderBoard] = useState(false);
+  const [leaderBoardName, setLeaderBoardName] = useState("unknown");
+  const [ldbTime, setLdbTime] = useState(888);
 
   const [infoText, setInfoText] = useState("Ready?");
 
@@ -56,6 +65,34 @@ export default function GameLocalSplitScreen({
   const playerOneReadyCheckBox = useRef();
 
   const fatalityTime = difficulty;
+
+  const leaderBoardRef = firestore.collection("leaderBoard");
+
+  const sendLeader = async (ldbHero, ldbName, ldbTime) => {
+    await leaderBoardRef.add({
+      hero: ldbHero,
+      name: ldbName,
+      time: ldbTime,
+    });
+  };
+
+  //leaderborad
+  const sortedLeaderBoard = leaderBoardRef.orderBy("time");
+  const [leaderBoard] = useCollectionData(sortedLeaderBoard, {
+    idField: "id",
+  });
+
+  const checkLeaderBoardTimes = (leaderBoardTime) => {
+    console.error("ldb check!");
+    console.error("l", leaderBoard[3]);
+    console.error("t", leaderBoardTime);
+
+    if (leaderBoardTime < leaderBoard[5].time) {
+      setLdbTime(leaderBoardTime);
+      setShowLeaderBoard(true);
+      sendLeader(player1Hero, "unknown", leaderBoardTime);
+    }
+  };
 
   const NextRoundReset = () => {
     setTimeout(() => {
@@ -81,15 +118,19 @@ export default function GameLocalSplitScreen({
 
   useEffect(() => {
     playerTwoReadyCheckBox.current.focus();
+    console.log("leaderboard:", leaderBoard);
+    try {
+      console.log("leaderboard1:", leaderBoard[0]);
+    } catch {
+      console.log("not yet connected to DB");
+    }
   });
 
   useEffect(() => {
-    console.log("fat", fatalityTime);
-    console.log("diff", difficulty);
-
     setRandomTime(3500 + Math.floor(Math.random() * 3000));
     setPlayerOneReady(false);
     setPlayerTwoReady(false);
+    playerTwoReadyCheckBox.current.focus();
   }, []);
 
   //kun pelaajat valmiita, niin aloita timeri
@@ -179,6 +220,7 @@ export default function GameLocalSplitScreen({
             setInfoText("Keyboard wins");
             setPlayer2Anim("die");
           }
+          checkLeaderBoardTimes(triggerTime - startTime);
           setScore([score[0], score[1] + 1]);
           setOk2Shoot(false);
 
@@ -268,6 +310,16 @@ export default function GameLocalSplitScreen({
       <div className={slideGame ? "infoText" : "infoText hideInfo"}>
         {infoText}
       </div>
+
+      {showLeaderBoard ? (
+        <LeaderBoardInput
+          setLeaderBoardName={setLeaderBoardName}
+          firestore={firestore}
+          player1Hero={player1Hero}
+          ldbTime={ldbTime}
+          setShowLeaderBoard={setShowLeaderBoard}
+        />
+      ) : null}
     </div>
   );
 }
