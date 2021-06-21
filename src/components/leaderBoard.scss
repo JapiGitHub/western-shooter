@@ -1,0 +1,39 @@
+.leaderBoardContainer {
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  height: 100vh;
+  width: 100vw;
+
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  img {
+    position: absolute;
+    bottom: 0;
+    height: 63vh;
+    z-index: -1;
+  }
+
+  .leaderBoardList {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    height: 57vh;
+    width: 40vw;
+    z-index: 1000;
+
+    .leaderBoardEntry {
+      width: 40vw;
+      font-family: "Press Start 2P", cursive;
+    }
+
+    .ldbHero {
+      position: relative;
+      height: 3vh;
+    }
+  }
+}

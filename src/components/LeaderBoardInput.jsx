@@ -7,6 +7,7 @@ export default function LeaderBoardInput({
   player1Hero,
   ldbTime,
   setShowLeaderBoard,
+  setShowLeaderBoardInput,
 }) {
   const leaderBoardRef = firestore.collection("leaderBoard");
 
@@ -20,17 +21,18 @@ export default function LeaderBoardInput({
       name: e.target.name.value,
       time: ldbTime,
     });
-    setShowLeaderBoard(false);
+    setShowLeaderBoardInput(false);
   };
 
   return (
-    <div className="leaderBoardContainer">
+    <div className="leaderBoardInputContainer">
       <img src="./assets/leaderboard.anim.piskel.anim.test.gif"></img>
       <form onSubmit={sendLeader}>
         You were fast enough for leaderboard:
         <input
           type="text"
           placeholder="Enter name"
+          autoComplete="off"
           autofocus
           required
           maxlength="20"

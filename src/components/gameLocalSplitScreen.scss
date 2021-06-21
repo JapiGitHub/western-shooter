@@ -15,9 +15,14 @@
   grid-template-rows: (repeat(4), 1fr);
 
   .focusKeyboard {
-    height: 20vh;
+    position: absolute;
+    top: 0vh;
+    left: 0vw;
+    width: 30vw;
+    height: 22vh;
     z-index: 1000;
     opacity: 0;
+    cursor: pointer;
   }
 
   .readyCheckBox {

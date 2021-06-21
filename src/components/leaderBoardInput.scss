@@ -1,4 +1,4 @@
-.leaderBoardContainer {
+.leaderBoardInputContainer {
   font-family: "Press Start 2P", cursive;
   text-align: center;
 
@@ -40,10 +40,11 @@
     width: 30vh;
 
     input {
-      margin-top: 2vh;
+      margin-top: 5.5vh;
       margin-bottom: 3vh;
       padding: 1vh 0vw;
       text-align: center;
+      border-radius: 1vh;
 
       z-index: 99;
       font-size: 2vh;
@@ -52,8 +53,17 @@
     }
 
     .okbtn {
+      font-family: "Press Start 2P", cursive;
+
       font-size: 3vh;
-      padding: 1vh 2vw;
+      padding: 1vh 1vw;
+      margin: 0 2vw;
+    }
+
+    .okbtn:hover {
+      transform: scale(1.2);
+      background-color: #faf1db;
+      color: #000;
     }
   }
 }

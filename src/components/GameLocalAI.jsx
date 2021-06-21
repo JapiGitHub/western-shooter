@@ -117,7 +117,10 @@ export default function GameLocalAI({
   useEffect(() => {
     if (player1Reaction > 0) {
       console.log("reactio: ", player1Reaction);
-      if (player1Reaction < AIbaseTime - score[0] * 50) {
+      if (
+        player1Reaction < AIbaseTime - score[0] * 50 ||
+        player1Reaction < fatalityTime
+      ) {
         const triggerTime = new Date();
         setAiAlive(false);
         setPlayerAnim("shooting");

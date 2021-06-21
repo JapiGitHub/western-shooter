@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useCollectionData } from "react-firebase-hooks/firestore";
 
+import LeaderBoard from "./LeaderBoard";
 import LeaderBoardInput from "./LeaderBoardInput";
 
 import "./gameLocalSplitScreen.scss";
@@ -40,6 +41,8 @@ export default function GameLocalSplitScreen({
   const [fatality, setFatality] = useState(false);
 
   const [showLeaderBoard, setShowLeaderBoard] = useState(false);
+  const [showLeaderBoardInput, setShowLeaderBoardInput] = useState(false);
+
   const [leaderBoardName, setLeaderBoardName] = useState("unknown");
   const [ldbTime, setLdbTime] = useState(888);
 
@@ -87,9 +90,9 @@ export default function GameLocalSplitScreen({
     console.error("l", leaderBoard[3]);
     console.error("t", leaderBoardTime);
 
-    if (leaderBoardTime < leaderBoard[5].time) {
+    if (leaderBoardTime < leaderBoard[14].time) {
       setLdbTime(leaderBoardTime);
-      setShowLeaderBoard(true);
+      setShowLeaderBoardInput(true);
       sendLeader(player1Hero, "unknown", leaderBoardTime);
     }
   };
@@ -260,7 +263,6 @@ export default function GameLocalSplitScreen({
           {playerOneReady ? "Ready!" : "Click to ready"}
         </span>
       </label>
-
       <div
         className={
           reactTextFade
@@ -272,7 +274,6 @@ export default function GameLocalSplitScreen({
           {p1ReactText}
         </div>
       </div>
-
       <input
         className="focusKeyboard"
         ref={playerTwoReadyCheckBox}
@@ -294,7 +295,6 @@ export default function GameLocalSplitScreen({
           {playerTwoReady ? "Ready!" : "Press any key"}
         </span>
       </label>
-
       <div
         className={
           reactTextFade
@@ -306,13 +306,11 @@ export default function GameLocalSplitScreen({
           {p2ReactText}
         </div>
       </div>
-
       <div className={slideGame ? "infoText" : "infoText hideInfo"}>
         {infoText}
       </div>
-
       {showLeaderBoard ? (
-        <LeaderBoardInput
+        <LeaderBoard
           setLeaderBoardName={setLeaderBoardName}
           firestore={firestore}
           player1Hero={player1Hero}
@@ -320,6 +318,26 @@ export default function GameLocalSplitScreen({
           setShowLeaderBoard={setShowLeaderBoard}
         />
       ) : null}
+
+      {showLeaderBoardInput ? (
+        <LeaderBoardInput
+          setLeaderBoardName={setLeaderBoardName}
+          firestore={firestore}
+          player1Hero={player1Hero}
+          ldbTime={ldbTime}
+          setShowLeaderBoard={setShowLeaderBoard}
+          setShowLeaderBoardInput={setShowLeaderBoardInput}
+        />
+      ) : null}
+
+      <button
+        className="btn ldbButton"
+        onClick={() => {
+          setShowLeaderBoard(!showLeaderBoard);
+        }}
+      >
+        Leaderboard
+      </button>
     </div>
   );
 }

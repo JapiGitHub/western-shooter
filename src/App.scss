@@ -71,6 +71,24 @@
       transform: scale(1.2);
       background-color: #faf1db;
     }
+
+    .ldbButton {
+      position: absolute;
+      width: 20vw;
+      left: 40vw;
+
+      top: 16.3vh;
+
+      text-align: center;
+      padding: 1vh 1vw;
+      z-index: 99;
+      font-family: "Press Start 2P", cursive;
+    }
+    .ldbButton:hover {
+      transform: scale(1.2);
+      background-color: #faf1db;
+      color: #000;
+    }
   }
 
   .btn {
