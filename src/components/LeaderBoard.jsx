@@ -9,6 +9,7 @@ export default function LeaderBoard({
   player1Hero,
   ldbTime,
   setShowLeaderBoard,
+  showLeaderBoard,
 }) {
   const leaderBoardRef = firestore.collection("leaderBoard");
 
@@ -23,7 +24,13 @@ export default function LeaderBoard({
   }, []);
 
   return (
-    <div className="leaderBoardContainer">
+    <div
+      className={
+        showLeaderBoard
+          ? "leaderBoardContainer"
+          : "leaderBoardContainer ldbHide"
+      }
+    >
       <img src="./assets/wantedboard.gif"></img>
       <div className="leaderBoardList">
         {leaderBoard &&

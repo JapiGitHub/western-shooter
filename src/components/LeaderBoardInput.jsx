@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect } from "react";
 import "./leaderBoardInput.scss";
 
 export default function LeaderBoardInput({
@@ -10,9 +10,9 @@ export default function LeaderBoardInput({
   ldbTime,
   setShowLeaderBoard,
   setShowLeaderBoardInput,
+  showLeaderBoardInput,
 }) {
   const leaderBoardRef = firestore.collection("leaderBoard");
-  const leaderInputRef = useRef;
 
   const sendLeader = async (e) => {
     e.preventDefault();
@@ -36,24 +36,25 @@ export default function LeaderBoardInput({
     setShowLeaderBoardInput(false);
   };
 
-  useEffect(() => {
-    leaderInputRef.current.focus();
-  });
-
   return (
-    <div className="leaderBoardInputContainer">
-      <img src="./assets/leaderboard.anim.piskel.anim.test.gif"></img>
+    <div
+      className={
+        showLeaderBoardInput
+          ? "leaderBoardInputContainer"
+          : "leaderBoardInputContainer ldbInputHide"
+      }
+    >
+      <img src="./assets/wantedboard1.gif"></img>
       <form onSubmit={sendLeader}>
         You were fast enough for leaderboard:
         <input
           type="text"
           placeholder="Enter name"
           autoComplete="off"
-          autofocus
+          autoFocus
           required
           maxlength="20"
           name="name"
-          ref={leaderInputRef}
         ></input>
         <button type="submit" className="btn okbtn">
           OK

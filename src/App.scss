@@ -57,7 +57,7 @@
       border-color: #000;
 
       font-family: "Press Start 2P", cursive;
-      font-size: 4vh;
+      font-size: 3.54vh;
       transition: all 0.2s ease;
       z-index: 11;
 
@@ -82,7 +82,8 @@
       background-color: #dec787;
       text-align: center;
       padding: 1vh 1vw;
-      z-index: 99;
+      z-index: 9;
+      font-size: 2vh;
       font-family: "Press Start 2P", cursive;
     }
     .ldbButton:hover {

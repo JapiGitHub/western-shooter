@@ -147,6 +147,7 @@ export default function GameLocalSplitScreen({
 
   //mouse player2
   const actionClick = (e) => {
+    setShowLeaderBoard(false);
     //SHOOTING
     if (playerOneReady === true && playerTwoReady === true) {
       if (gun1Loaded === true && shotFired === false) {
@@ -188,6 +189,7 @@ export default function GameLocalSplitScreen({
   //keyboard player1
   const actionKey = (e) => {
     setPlayerTwoReady(true);
+    setShowLeaderBoard(false);
 
     if (playerTwoReady === true && playerOneReady === true) {
       if (gun2Loaded === true && shotFired === false) {
@@ -230,6 +232,7 @@ export default function GameLocalSplitScreen({
     //focus takaisin p2 key listeneriin
     playerTwoReadyCheckBox.current.focus();
     setPlayerOneReady(true);
+    setShowLeaderBoard(false);
   };
 
   return (
@@ -302,29 +305,28 @@ export default function GameLocalSplitScreen({
       <div className={slideGame ? "infoText" : "infoText hideInfo"}>
         {infoText}
       </div>
-      {showLeaderBoard ? (
-        <LeaderBoard
-          setLeaderBoardName={setLeaderBoardName}
-          firestore={firestore}
-          player1Hero={player1Hero}
-          player1Hero={player1Hero}
-          ldbTime={ldbTime}
-          setShowLeaderBoard={setShowLeaderBoard}
-        />
-      ) : null}
 
-      {showLeaderBoardInput ? (
-        <LeaderBoardInput
-          setLeaderBoardName={setLeaderBoardName}
-          firestore={firestore}
-          player1Hero={player1Hero}
-          player2Hero={player2Hero}
-          winner={winner}
-          ldbTime={ldbTime}
-          setShowLeaderBoard={setShowLeaderBoard}
-          setShowLeaderBoardInput={setShowLeaderBoardInput}
-        />
-      ) : null}
+      <LeaderBoard
+        setLeaderBoardName={setLeaderBoardName}
+        firestore={firestore}
+        player1Hero={player1Hero}
+        player1Hero={player1Hero}
+        ldbTime={ldbTime}
+        setShowLeaderBoard={setShowLeaderBoard}
+        showLeaderBoard={showLeaderBoard}
+      />
+
+      <LeaderBoardInput
+        setLeaderBoardName={setLeaderBoardName}
+        firestore={firestore}
+        player1Hero={player1Hero}
+        player2Hero={player2Hero}
+        winner={winner}
+        ldbTime={ldbTime}
+        setShowLeaderBoard={setShowLeaderBoard}
+        setShowLeaderBoardInput={setShowLeaderBoardInput}
+        showLeaderBoardInput={showLeaderBoardInput}
+      />
 
       <button
         className="btn ldbButton"

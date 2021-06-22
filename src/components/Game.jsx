@@ -11,7 +11,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 export default function Game({ gameMode, setGameMode, auth, firestore }) {
   const [showMenu, setShowMenu] = useState(true);
   const [slideGame, setSlideGame] = useState(false);
-  const [difficulty, setDifficulty] = useState(260);
+  const [difficulty, setDifficulty] = useState(240);
 
   const [theme, setTheme] = useState("normal");
 

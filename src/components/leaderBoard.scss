@@ -11,11 +11,18 @@
   flex-direction: column;
   align-items: center;
   justify-content: flex-end;
+
+  transition: all 0.8s ease;
+
+  opacity: 1;
+
+  z-index: 100;
+
   img {
     position: absolute;
     bottom: 0vh;
-    height: 74vh;
-    z-index: -1;
+    height: 85.5vh;
+    z-index: 1;
   }
 
   .leaderBoardList {
@@ -24,26 +31,35 @@
     align-items: flex-start;
     justify-content: flex-start;
     position: relative;
-    height: 52vh;
+    height: 60vh;
     width: 50vw;
     z-index: 1000;
 
     .leaderBoardEntry {
+      height: 3.35vh;
       display: flex;
       margin-left: 10vw;
       justify-content: flex-start;
       align-items: center;
-      margin-top: 0.1vh;
+      margin-top: 0.2vh;
       width: 50vw;
-      font-size: 1vh;
+      font-size: 2.3vh;
+      color: rgb(71, 50, 35);
       font-family: "Press Start 2P", cursive;
     }
 
     .ldbHero {
       position: relative;
-      height: 3vh;
-      border-radius: 4px;
-      background: rgba(255, 255, 255, 0.5);
+      height: 100%;
+      border-radius: 1vh;
+      padding: 0.1vh;
+      background: rgba(0, 0, 0, 0.2);
     }
   }
+}
+
+.ldbHide {
+  z-index: -4;
+  opacity: 1;
+  top: 100vh;
 }
