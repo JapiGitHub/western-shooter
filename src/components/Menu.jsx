@@ -13,6 +13,7 @@ export default function Menu({
   setTheme,
   difficulty,
   setDifficulty,
+  setScreenSlide,
 }) {
   const [playerAvatar, setPlayerAvatar] = useState(
     user ? auth.currentUser.photoURL : null
@@ -40,6 +41,7 @@ export default function Menu({
     stop();
     setGameMode("split");
     setShowMenu(false);
+    setScreenSlide("game");
   };
 
   const modeAI = () => {

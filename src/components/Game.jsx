@@ -11,6 +11,8 @@ import { useAuthState } from "react-firebase-hooks/auth";
 export default function Game({ gameMode, setGameMode, auth, firestore }) {
   const [showMenu, setShowMenu] = useState(true);
   const [slideGame, setSlideGame] = useState(false);
+  const [screenSlide, setScreenSlide] = useState("menu");
+
   const [difficulty, setDifficulty] = useState(240);
 
   const [theme, setTheme] = useState("normal");
@@ -40,6 +42,7 @@ export default function Game({ gameMode, setGameMode, auth, firestore }) {
           setTheme={setTheme}
           difficulty={difficulty}
           setDifficulty={setDifficulty}
+          setScreenSlide={setScreenSlide}
         />
       ) : null}
 
@@ -52,6 +55,7 @@ export default function Game({ gameMode, setGameMode, auth, firestore }) {
           setSlideGame={setSlideGame}
           difficulty={difficulty}
           firestore={firestore}
+          setScreenSlide={setScreenSlide}
         />
       ) : null}
 
@@ -86,7 +90,7 @@ export default function Game({ gameMode, setGameMode, auth, firestore }) {
           setSlideGame={setSlideGame}
         />
       ) : null}
-      <Cactus gameMode={gameMode} />
+      <Cactus gameMode={gameMode} screenSlide={screenSlide} />
       <img
         className={gameMode != "menu" ? "cow hideCow" : "cow"}
         src="./assets/cow.gif"

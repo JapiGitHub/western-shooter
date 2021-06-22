@@ -1,5 +1,4 @@
 Western shooter: Shoot first Die last
-#####################################
 
 Made with React.
 

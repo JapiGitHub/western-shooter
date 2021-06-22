@@ -1,7 +1,7 @@
 import React from "react";
 import "./cactus.scss";
 
-export default function Cactus({ gameMode }) {
+export default function Cactus({ gameMode, screenSlide }) {
   return (
     <>
       <aside
@@ -15,7 +15,16 @@ export default function Cactus({ gameMode }) {
         <img className="cactusGif" src="./assets/cactus2.gif" alt="cacti"></img>
       </aside>
       <aside
-        className={gameMode === "menu" ? "cactus3 hideCactus3" : "cactus3 "}
+        className={(() => {
+          switch (screenSlide) {
+            case "menu":
+              return "cactus3 hideCactus3";
+            case "game":
+              return "cactus3";
+            case "leaderboard":
+              return "cactus3 ldbCactus3";
+          }
+        })()}
       >
         <img
           className="cactusGif"

@@ -27,6 +27,7 @@ export default function GameLocalSplitScreen({
   firestore,
   player1Hero,
   player2Hero,
+  setScreenSlide,
 }) {
   const [playerOneReady, setPlayerOneReady] = useState(false);
   const [playerTwoReady, setPlayerTwoReady] = useState(false);
@@ -83,6 +84,7 @@ export default function GameLocalSplitScreen({
     if (leaderBoardTime < leaderBoard[14].time) {
       setLdbTime(leaderBoardTime);
       setShowLeaderBoardInput(true);
+      setScreenSlide("leaderboard");
     }
   };
 
@@ -148,6 +150,7 @@ export default function GameLocalSplitScreen({
   //mouse player2
   const actionClick = (e) => {
     setShowLeaderBoard(false);
+    setScreenSlide("game");
     //SHOOTING
     if (playerOneReady === true && playerTwoReady === true) {
       if (gun1Loaded === true && shotFired === false) {
@@ -190,6 +193,7 @@ export default function GameLocalSplitScreen({
   const actionKey = (e) => {
     setPlayerTwoReady(true);
     setShowLeaderBoard(false);
+    setScreenSlide("game");
 
     if (playerTwoReady === true && playerOneReady === true) {
       if (gun2Loaded === true && shotFired === false) {
@@ -233,6 +237,7 @@ export default function GameLocalSplitScreen({
     playerTwoReadyCheckBox.current.focus();
     setPlayerOneReady(true);
     setShowLeaderBoard(false);
+    setScreenSlide("game");
   };
 
   return (
@@ -332,6 +337,7 @@ export default function GameLocalSplitScreen({
         className="btn ldbButton"
         onClick={() => {
           setShowLeaderBoard(!showLeaderBoard);
+          setScreenSlide("leaderboard");
         }}
       >
         Leaderboard
