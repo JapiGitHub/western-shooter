@@ -24,7 +24,7 @@ export default function LeaderBoard({
 
   return (
     <div className="leaderBoardContainer">
-      <img src="./assets/leaderboard.anim.piskel.anim.test.gif"></img>
+      <img src="./assets/wantedboard.gif"></img>
       <div className="leaderBoardList">
         {leaderBoard &&
           leaderBoard.slice(0, 15).map((ldbEntry) => {
@@ -33,9 +33,10 @@ export default function LeaderBoard({
                 <img
                   src={`./assets/${ldbEntry.hero}.avatar.gif`}
                   className="ldbHero"
+                  alt="heroavatar"
                 ></img>
-                &nbsp;
-                {ldbEntry.time} {ldbEntry.name}
+                &nbsp;/&nbsp;
+                {ldbEntry.time} / {ldbEntry.name}
               </div>
             );
           })}

@@ -42,6 +42,7 @@ export default function GameLocalSplitScreen({
 
   const [showLeaderBoard, setShowLeaderBoard] = useState(false);
   const [showLeaderBoardInput, setShowLeaderBoardInput] = useState(false);
+  const [winner, setWinner] = useState(0);
 
   const [leaderBoardName, setLeaderBoardName] = useState("unknown");
   const [ldbTime, setLdbTime] = useState(888);
@@ -71,29 +72,17 @@ export default function GameLocalSplitScreen({
 
   const leaderBoardRef = firestore.collection("leaderBoard");
 
-  const sendLeader = async (ldbHero, ldbName, ldbTime) => {
-    await leaderBoardRef.add({
-      hero: ldbHero,
-      name: ldbName,
-      time: ldbTime,
-    });
-  };
-
   //leaderborad
   const sortedLeaderBoard = leaderBoardRef.orderBy("time");
   const [leaderBoard] = useCollectionData(sortedLeaderBoard, {
     idField: "id",
   });
 
-  const checkLeaderBoardTimes = (leaderBoardTime) => {
-    console.error("ldb check!");
-    console.error("l", leaderBoard[3]);
-    console.error("t", leaderBoardTime);
-
+  const checkLeaderBoardTimes = (leaderBoardTime, player) => {
+    //vertaa vain tohon 15. aikaan jotta record history näkyy databasessa.
     if (leaderBoardTime < leaderBoard[14].time) {
       setLdbTime(leaderBoardTime);
       setShowLeaderBoardInput(true);
-      sendLeader(player1Hero, "unknown", leaderBoardTime);
     }
   };
 
@@ -111,6 +100,7 @@ export default function GameLocalSplitScreen({
       setP2ReactText();
       setReactTextFade(false);
       setFatality(false);
+      setWinner(0);
     }, 3000);
 
     //reactio ajan pään yläpuolella oleva haihtuva teksti
@@ -155,7 +145,7 @@ export default function GameLocalSplitScreen({
     }
   }, [playerTwoReady, playerOneReady]);
 
-  //mouse player1
+  //mouse player2
   const actionClick = (e) => {
     //SHOOTING
     if (playerOneReady === true && playerTwoReady === true) {
@@ -185,6 +175,8 @@ export default function GameLocalSplitScreen({
             setInfoText("Mouse wins");
             setPlayerAnim("die");
           }
+          setWinner(2);
+          checkLeaderBoardTimes(triggerTime - startTime, "player2");
           setScore([score[0] + 1, score[1]]);
           setOk2Shoot(false);
           NextRoundReset();
@@ -193,7 +185,7 @@ export default function GameLocalSplitScreen({
     }
   };
 
-  //keyboard player2
+  //keyboard player1
   const actionKey = (e) => {
     setPlayerTwoReady(true);
 
@@ -223,7 +215,8 @@ export default function GameLocalSplitScreen({
             setInfoText("Keyboard wins");
             setPlayer2Anim("die");
           }
-          checkLeaderBoardTimes(triggerTime - startTime);
+          setWinner(1);
+          checkLeaderBoardTimes(triggerTime - startTime, "player1");
           setScore([score[0], score[1] + 1]);
           setOk2Shoot(false);
 
@@ -314,6 +307,7 @@ export default function GameLocalSplitScreen({
           setLeaderBoardName={setLeaderBoardName}
           firestore={firestore}
           player1Hero={player1Hero}
+          player1Hero={player1Hero}
           ldbTime={ldbTime}
           setShowLeaderBoard={setShowLeaderBoard}
         />
@@ -324,6 +318,8 @@ export default function GameLocalSplitScreen({
           setLeaderBoardName={setLeaderBoardName}
           firestore={firestore}
           player1Hero={player1Hero}
+          player2Hero={player2Hero}
+          winner={winner}
           ldbTime={ldbTime}
           setShowLeaderBoard={setShowLeaderBoard}
           setShowLeaderBoardInput={setShowLeaderBoardInput}
