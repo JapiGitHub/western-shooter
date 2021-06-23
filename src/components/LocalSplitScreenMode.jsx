@@ -12,12 +12,16 @@ export default function LocalSplitScreenMode({
   difficulty,
   firestore,
   setScreenSlide,
+  screenSlide,
+  playerAnim,
+  setPlayerAnim,
+  player2Anim,
+  setPlayer2Anim,
+  player2Hero,
+  setPlayer2Hero,
+  player1Hero,
+  setPlayer1Hero,
 }) {
-  const [playerAnim, setPlayerAnim] = useState("waiting");
-  const [player2Anim, setPlayer2Anim] = useState("waiting");
-  const [player2Hero, setPlayer2Hero] = useState("sheriff");
-  const [player1Hero, setPlayer1Hero] = useState("cowboy");
-
   //playerAnim vaihtoehdot:
   //waiting
   //shooting
@@ -28,17 +32,14 @@ export default function LocalSplitScreenMode({
     setGameMode("menu");
     setShowMenu(true);
     setSlideGame(false);
+    setScreenSlide("menu");
   };
 
   return (
     <>
       <main className="background-world-arena">
         <section className="ground"></section>
-        <img
-          className={slideGame ? "horizon" : "horizon hideHorizon"}
-          src="./assets/horizon.wide.gif"
-          alt="horizon"
-        ></img>
+
         <button onClick={backToMenu} className="menuButton">
           Menu
         </button>
@@ -51,15 +52,6 @@ export default function LocalSplitScreenMode({
           player1Hero={player1Hero}
           player2Hero={player2Hero}
           setScreenSlide={setScreenSlide}
-        />
-        <PlayerChars
-          playerAnim={playerAnim}
-          player2Anim={player2Anim}
-          player2Hero={player2Hero}
-          player1Hero={player1Hero}
-          showMenu={showMenu}
-          slideGame={slideGame}
-          setSlideGame={setSlideGame}
         />
         <HeroSelector
           player2Hero={player2Hero}

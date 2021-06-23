@@ -9,6 +9,10 @@ export default function TouchSplitMode({
   setShowMenu,
   slideGame,
   setSlideGame,
+  difficulty,
+  firestore,
+  setScreenSlide,
+  screenSlide,
 }) {
   const [playerAnim, setPlayerAnim] = useState("waiting");
   const [player2Anim, setPlayer2Anim] = useState("waiting");
@@ -46,8 +50,11 @@ export default function TouchSplitMode({
           player2Anim={player2Anim}
           player2Hero={player2Hero}
           player1Hero={player1Hero}
+          showMenu={showMenu}
           slideGame={slideGame}
           setSlideGame={setSlideGame}
+          screenSlide={screenSlide}
+          setScreenSlide={setScreenSlide}
         />
         <HeroSelector
           setPlayer1Hero={setPlayer1Hero}

@@ -42,8 +42,8 @@ export default function LeaderBoard({
                   className="ldbHero"
                   alt="heroavatar"
                 ></img>
-                &nbsp;/&nbsp;
-                {ldbEntry.time} / {ldbEntry.name}
+                &nbsp;&nbsp;&nbsp;
+                {ldbEntry.time} ms&nbsp;&nbsp;&nbsp;{ldbEntry.name}
               </div>
             );
           })}

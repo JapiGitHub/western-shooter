@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import PlayerCharsAI from "./PlayerChars";
-import Cactus from "./Cactus";
+import PlayerChars from "./PlayerChars";
 
 import HeroSelectorAI from "./HeroSelectorAI";
 import GameLocalAI from "./GameLocalAI";
@@ -48,7 +47,7 @@ export default function LocalAiMode({
           slideGame={slideGame}
           setSlideGame={setSlideGame}
         />
-        <PlayerCharsAI
+        <PlayerChars
           playerAnim={playerAnim}
           player2Anim={player2Anim}
           player2Hero={player2Hero}

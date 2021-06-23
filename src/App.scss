@@ -167,7 +167,7 @@
     position: absolute;
     bottom: 40vh;
     left: -20vw;
-    z-index: -1;
+    z-index: 1;
     height: 25vh;
     transition: all var(--slideTime) ease;
   }
@@ -179,7 +179,7 @@
     height: 25vh;
     background: linear-gradient(rgb(116, 204, 255), rgb(184, 229, 255));
 
-    transition: var(--slideTime);
+    transition: all var(--slideTime) ease;
   }
 
   .menuSlide {

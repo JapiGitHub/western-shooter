@@ -6,6 +6,7 @@ import Login from "./Login";
 import TouchSplitMode from "./TouchSplitMode";
 import MultiPlayerLobby from "./MultiPlayerLobby";
 import Cactus from "./Cactus";
+import PlayerChars from "./PlayerChars";
 import { useAuthState } from "react-firebase-hooks/auth";
 
 export default function Game({ gameMode, setGameMode, auth, firestore }) {
@@ -19,12 +20,26 @@ export default function Game({ gameMode, setGameMode, auth, firestore }) {
 
   const [user] = useAuthState(auth);
 
+  const [playerAnim, setPlayerAnim] = useState("waiting");
+  const [player2Anim, setPlayer2Anim] = useState("waiting");
+  const [player2Hero, setPlayer2Hero] = useState("sheriff");
+  const [player1Hero, setPlayer1Hero] = useState("cowboy");
+
   return (
     <div className={theme === "normal" ? "screen" : "screen themeSepia"}>
       <aside className="sky"></aside>
       <img
         src="./assets/horizon.wide.gif"
-        className={gameMode != "menu" ? "menuHorizon menuSlide" : "menuHorizon"}
+        className={(() => {
+          switch (screenSlide) {
+            case "menu":
+              return "menuHorizon";
+            case "game":
+              return "menuHorizon menuSlide";
+            case "leaderboard":
+              return "menuHorizon menuSlide";
+          }
+        })()}
       ></img>
       <img src="./assets/cloud1.gif" className="cloud cloud1"></img>
       <img src="./assets/cloud2.gif" className="cloud cloud2"></img>
@@ -56,6 +71,15 @@ export default function Game({ gameMode, setGameMode, auth, firestore }) {
           difficulty={difficulty}
           firestore={firestore}
           setScreenSlide={setScreenSlide}
+          screenSlide={screenSlide}
+          playerAnim={playerAnim}
+          setPlayerAnim={setPlayerAnim}
+          player2Anim={player2Anim}
+          setPlayer2Anim={setPlayer2Anim}
+          player2Hero={player2Hero}
+          setPlayer2Hero={setPlayer2Hero}
+          player1Hero={player1Hero}
+          setPlayer1Hero={setPlayer1Hero}
         />
       ) : null}
 
@@ -66,6 +90,10 @@ export default function Game({ gameMode, setGameMode, auth, firestore }) {
           setShowMenu={setShowMenu}
           slideGame={slideGame}
           setSlideGame={setSlideGame}
+          difficulty={difficulty}
+          firestore={firestore}
+          setScreenSlide={setScreenSlide}
+          screenSlide={screenSlide}
         />
       ) : null}
 
@@ -95,6 +123,17 @@ export default function Game({ gameMode, setGameMode, auth, firestore }) {
         className={gameMode != "menu" ? "cow hideCow" : "cow"}
         src="./assets/cow.gif"
       ></img>
+      <PlayerChars
+        playerAnim={playerAnim}
+        player2Anim={player2Anim}
+        player2Hero={player2Hero}
+        player1Hero={player1Hero}
+        showMenu={showMenu}
+        slideGame={slideGame}
+        setSlideGame={setSlideGame}
+        screenSlide={screenSlide}
+        setScreenSlide={setScreenSlide}
+      />
     </div>
   );
 }

@@ -5,12 +5,30 @@ export default function Cactus({ gameMode, screenSlide }) {
   return (
     <>
       <aside
-        className={gameMode === "menu" ? "cactus1  hideCactus1" : "cactus1"}
+        className={(() => {
+          switch (screenSlide) {
+            case "menu":
+              return "cactus1 hideCactus1";
+            case "game":
+              return "cactus1";
+            case "leaderboard":
+              return "cactus1 ldbCactus1";
+          }
+        })()}
       >
         <img className="cactusGif" src="./assets/cactus1.gif" alt="cacti"></img>
       </aside>
       <aside
-        className={gameMode === "menu" ? "cactus2 hideCactus2" : "cactus2"}
+        className={(() => {
+          switch (screenSlide) {
+            case "menu":
+              return "cactus2 hideCactus2";
+            case "game":
+              return "cactus2";
+            case "leaderboard":
+              return "cactus2 ldbCactus2";
+          }
+        })()}
       >
         <img className="cactusGif" src="./assets/cactus2.gif" alt="cacti"></img>
       </aside>

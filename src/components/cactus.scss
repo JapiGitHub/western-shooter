@@ -10,13 +10,17 @@
   right: 54vw;
   height: 17vh;
 
-  z-index: 0;
+  z-index: 3;
 
   transition: all var(--slideTime) ease;
 }
 
 .hideCactus1 {
   right: 90vw;
+}
+
+.ldbCactus1 {
+  top: 50.7vh;
 }
 
 .cactus2 {
@@ -33,6 +37,10 @@
   right: 3000px;
 }
 
+.ldbCactus2 {
+  top: 63vh;
+}
+
 .cactus3 {
   position: absolute;
   bottom: 0vh;
@@ -47,7 +55,7 @@
 }
 
 .ldbCactus3 {
-  bottom: 10vh;
+  bottom: 8vh;
 }
 
 .cactus4 {

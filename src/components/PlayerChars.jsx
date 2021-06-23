@@ -6,17 +6,22 @@ export default function PlayerChars({
   player2Anim,
   player2Hero,
   player1Hero,
-  slideGame,
-  setSlideGame,
+  screenSlide,
+  setScreenSlide,
 }) {
-  useEffect(() => {
-    setSlideGame(true);
-  }, []);
-
   return (
     <>
       <article
-        className={slideGame ? "player2char" : "player2char hidePlayer2"}
+        className={(() => {
+          switch (screenSlide) {
+            case "menu":
+              return "player2char hidePlayer2";
+            case "game":
+              return "player2char";
+            case "leaderboard":
+              return "player2char ldbPlayer2";
+          }
+        })()}
       >
         <img
           className="playerGif"
@@ -26,7 +31,16 @@ export default function PlayerChars({
       </article>
 
       <article
-        className={slideGame ? "player1char" : "player1char hidePlayer1"}
+        className={(() => {
+          switch (screenSlide) {
+            case "menu":
+              return "player1char hidePlayer1";
+            case "game":
+              return "player1char";
+            case "leaderboard":
+              return "player1char ldbPlayer1";
+          }
+        })()}
       >
         <img
           className="playerGif"
