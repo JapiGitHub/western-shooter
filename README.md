@@ -1,13 +1,13 @@
-Western shooter: Shoot first Die last
+- Western shooter: Shoot first Die last -
 
 Made with React.
 
 - 3 different heroes
 - fatalities!
 - leaderboard (firebase backend)
-- "3d" menu transitions
+- 3d feeling transitions
 - stereo sound
-- difficulties
+- difficulty levels
 - menu music
 - two different filters/themes
 - mobile friendly
