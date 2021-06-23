@@ -22,8 +22,6 @@
   image-rendering: crisp-edges;
 
   .background-world-arena {
-    //background-color: rgb(116, 204, 255);
-    background-color: rgb(116, 204, 255);
     height: 100vh;
     display: grid;
     grid-template-columns: repeat(10, 1fr);
@@ -39,10 +37,6 @@
       bottom: 0;
       background: linear-gradient(rgb(222, 199, 135), rgb(161, 140, 81));
       z-index: 0;
-    }
-
-    .hideHorizon {
-      left: -400px;
     }
 
     .menuButton {
@@ -109,28 +103,6 @@
     transform: scale(1.2);
   }
 
-  .avatar {
-    border-radius: 9px;
-    border-color: black;
-    border-width: 4px;
-    border-style: solid;
-    background-color: black;
-
-    position: absolute;
-    top: 10px;
-    left: 10px;
-
-    height: 96px;
-    width: 96px;
-
-    z-index: 20;
-    transition: all 0.2s ease;
-  }
-
-  .avatar:hover {
-    transform: scale(1.1);
-  }
-
   .screen {
     width: 100vw;
     height: 100vh;
@@ -166,7 +138,7 @@
   .menuHorizon {
     position: absolute;
     bottom: 40vh;
-    left: -20vw;
+    left: -5vw;
     z-index: 1;
     height: 25vh;
     transition: all var(--slideTime) ease;
@@ -195,7 +167,7 @@
   }
 
   .hideCow {
-    left: 150vw;
+    left: 135vw;
   }
 
   .cloud {

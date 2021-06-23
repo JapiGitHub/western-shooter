@@ -20,12 +20,16 @@ export default function LeaderBoardInput({
     console.error(e.target.name.value);
 
     if (winner === 1) {
+      console.log("1winner : ", winner);
+      console.log("dbg player 1 hero, winner1", player1Hero);
       await leaderBoardRef.add({
         hero: player1Hero,
         name: e.target.name.value,
         time: ldbTime,
       });
     } else {
+      console.log("?winner : ", winner);
+      console.log("dbg player 2 hero", player2Hero);
       await leaderBoardRef.add({
         hero: player2Hero,
         name: e.target.name.value,

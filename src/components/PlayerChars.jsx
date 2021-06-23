@@ -48,7 +48,6 @@ export default function PlayerChars({
           alt="character1"
         ></img>
       </article>
-      <aside className="waitingGrassBall"></aside>
     </>
   );
 }

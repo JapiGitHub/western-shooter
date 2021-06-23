@@ -50,8 +50,13 @@
 
       z-index: 99;
       font-size: 2vh;
+      margin-right: 0.4vw;
 
       font-family: "Press Start 2P", cursive;
+    }
+
+    input:focus {
+      outline: none;
     }
 
     .okbtn {

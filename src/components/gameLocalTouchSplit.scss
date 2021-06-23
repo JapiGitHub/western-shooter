@@ -1,8 +1,8 @@
-.touchAreaOn {
+.touchAreaOnTouch {
   z-index: 10 !important;
 }
 
-.textSplashFrame {
+.textSplashFrameTouch {
   z-index: 6;
   //tarviiko enää griddiä, kaikki vissiin vaihdettu jo absoluteen?
   grid-column-start: 1;
@@ -14,7 +14,7 @@
   grid-template-columns: (repeat(2), 1fr);
   grid-template-rows: (repeat(4), 1fr);
 
-  .leftTouchArea {
+  .leftTouchAreaTouch {
     position: absolute;
     left: 0;
     top: 0;
@@ -25,7 +25,7 @@
     height: 100vh;
   }
 
-  .rightTouchArea {
+  .rightTouchAreaTouch {
     position: absolute;
     right: 0;
     top: 0;
@@ -36,7 +36,7 @@
     height: 100vh;
   }
 
-  .readyCheckBox {
+  .readyCheckBoxTouch {
     opacity: 0;
     margin-left: auto;
     margin-right: auto;
@@ -44,7 +44,7 @@
   }
 
   //right / mouse
-  .player1ReadyLabel {
+  .player1ReadyLabelTouch {
     font-size: 4vh;
     font-family: "Press Start 2P", cursive;
 
@@ -63,7 +63,7 @@
   }
 
   //left
-  .player2ReadyLabel {
+  .player2ReadyLabelTouch {
     font-size: 4vh;
     font-family: "Press Start 2P", cursive;
 
@@ -81,7 +81,7 @@
     z-index: 6;
   }
 
-  .checkMark1 {
+  .checkMark1Touch {
     position: absolute;
     top: 7vh;
     right: 4vw;
@@ -104,7 +104,7 @@
     cursor: pointer;
   }
 
-  .checkMark2 {
+  .checkMark2Touch {
     position: absolute;
     top: 7vh;
     left: 4vw;
@@ -127,20 +127,20 @@
     cursor: pointer;
   }
 
-  .keybInput {
+  .keybInputTouch {
     height: 50vh;
   }
 
-  .checkMark2:focus {
+  .checkMark2Touch:focus {
     border-width: 9px;
     height: 20vh;
   }
 
-  .checkMark1:hover {
+  .checkMark1Touch:hover {
     background-color: rgb(195, 209, 117);
   }
 
-  .checkMark2:hover {
+  .checkMark2Touch:hover {
     background-color: rgb(195, 209, 117);
   }
 
@@ -152,7 +152,7 @@
     background-color: #1ed65c;
   }
 
-  .infoText {
+  .infoTextTouch {
     position: absolute;
     top: 0;
     left: 0;
@@ -171,7 +171,7 @@
     transform: scale(1);
   }
 
-  .hideInfo {
+  .hideInfoTouch {
     opacity: 0;
     transform: scale(0.1);
   }

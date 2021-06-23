@@ -28,6 +28,8 @@ export default function GameLocalSplitScreen({
   player1Hero,
   player2Hero,
   setScreenSlide,
+  showLeaderBoard,
+  setShowLeaderBoard,
 }) {
   const [playerOneReady, setPlayerOneReady] = useState(false);
   const [playerTwoReady, setPlayerTwoReady] = useState(false);
@@ -41,7 +43,6 @@ export default function GameLocalSplitScreen({
   const [reactTextFade, setReactTextFade] = useState(false);
   const [fatality, setFatality] = useState(false);
 
-  const [showLeaderBoard, setShowLeaderBoard] = useState(false);
   const [showLeaderBoardInput, setShowLeaderBoardInput] = useState(false);
   const [winner, setWinner] = useState(0);
 
@@ -71,9 +72,9 @@ export default function GameLocalSplitScreen({
 
   const fatalityTime = difficulty;
 
+  //leaderborad
   const leaderBoardRef = firestore.collection("leaderBoard");
 
-  //leaderborad
   const sortedLeaderBoard = leaderBoardRef.orderBy("time");
   const [leaderBoard] = useCollectionData(sortedLeaderBoard, {
     idField: "id",
@@ -102,7 +103,6 @@ export default function GameLocalSplitScreen({
       setP2ReactText();
       setReactTextFade(false);
       setFatality(false);
-      setWinner(0);
     }, 3000);
 
     //reactio ajan pään yläpuolella oleva haihtuva teksti
@@ -193,6 +193,7 @@ export default function GameLocalSplitScreen({
   const actionKey = (e) => {
     setPlayerTwoReady(true);
     setShowLeaderBoard(false);
+    setShowLeaderBoardInput(false);
     setScreenSlide("game");
 
     if (playerTwoReady === true && playerOneReady === true) {
@@ -307,14 +308,11 @@ export default function GameLocalSplitScreen({
           {p2ReactText}
         </div>
       </div>
-      <div className={slideGame ? "infoText" : "infoText hideInfo"}>
-        {infoText}
-      </div>
+      <div className="infoText">{infoText}</div>
 
       <LeaderBoard
         setLeaderBoardName={setLeaderBoardName}
         firestore={firestore}
-        player1Hero={player1Hero}
         player1Hero={player1Hero}
         ldbTime={ldbTime}
         setShowLeaderBoard={setShowLeaderBoard}

@@ -8,7 +8,7 @@
   //background-color: rgba(255, 0, 0, 0.05);
   position: absolute;
   left: 8vw;
-  top: 60vh;
+  top: 55vh;
   height: 25vh;
 
   z-index: 1;
@@ -19,32 +19,35 @@
 }
 
 .hidePlayer1 {
-  left: -2000px;
+  left: -100vw;
 }
 
 .ldbPlayer1 {
-  top: 57vh;
+  top: 52vh;
 }
 
 .player2char {
   position: absolute;
   right: 8vw;
-  top: 60vh;
+  top: 55vh;
   height: 25vh;
 
   z-index: 2;
   display: grid;
   place-items: center;
+  opacity: 1;
 
   transition: all var(--slideTime) ease;
 }
 
 .hidePlayer2 {
-  right: 2000px;
+  right: 100vw;
+  opacity: 1;
 }
 
 .ldbPlayer2 {
-  top: 57vh;
+  top: 52vh;
+  opacity: 1;
 }
 
 .playerGif {

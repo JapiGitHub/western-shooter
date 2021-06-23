@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import PlayerChars from "./PlayerChars";
 
 import HeroSelectorAI from "./HeroSelectorAI";
 import GameLocalAI from "./GameLocalAI";
@@ -8,14 +7,23 @@ export default function LocalAiMode({
   setGameMode,
   showMenu,
   setShowMenu,
+  difficulty,
+  firestore,
   slideGame,
   setSlideGame,
+  setScreenSlide,
+  screenSlide,
+  playerAnim,
+  setPlayerAnim,
+  player2Anim,
+  setPlayer2Anim,
+  player2Hero,
+  setPlayer2Hero,
+  player1Hero,
+  setPlayer1Hero,
+  setShowLeaderBoard,
+  showLeaderBoard,
 }) {
-  const [playerAnim, setPlayerAnim] = useState("waiting");
-  const [player2Anim, setPlayer2Anim] = useState("waiting");
-  const [player2Hero, setPlayer2Hero] = useState("cowboy");
-  const [player1Hero, setPlayer1Hero] = useState("sheriff");
-
   //playerAnim vaihtoehdot:
   //waiting
   //shooting
@@ -26,17 +34,13 @@ export default function LocalAiMode({
     setGameMode("menu");
     setShowMenu(true);
     setSlideGame(false);
+    setScreenSlide("menu");
   };
 
   return (
     <>
       <main className="background-world-arena">
         <section className="ground"></section>
-        <img
-          className={slideGame ? "horizon" : "horizon hideHorizon"}
-          src="./assets/horizon.wide.gif"
-          alt="horizon"
-        ></img>
         <button onClick={backToMenu} className="menuButton">
           Menu
         </button>
@@ -46,15 +50,10 @@ export default function LocalAiMode({
           showMenu={showMenu}
           slideGame={slideGame}
           setSlideGame={setSlideGame}
-        />
-        <PlayerChars
-          playerAnim={playerAnim}
-          player2Anim={player2Anim}
-          player2Hero={player2Hero}
-          player1Hero={player1Hero}
-          showMenu={showMenu}
-          slideGame={slideGame}
-          setSlideGame={setSlideGame}
+          setShowLeaderBoard={setShowLeaderBoard}
+          showLeaderBoard={showLeaderBoard}
+          setScreenSlide={setScreenSlide}
+          firestore={firestore}
         />
         <HeroSelectorAI
           setPlayer1Hero={setPlayer1Hero}

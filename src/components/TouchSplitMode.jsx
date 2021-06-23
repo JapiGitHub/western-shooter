@@ -29,11 +29,7 @@ export default function TouchSplitMode({
     <>
       <main className="background-world-arena">
         <section className="ground"></section>
-        <img
-          className={slideGame ? "horizon" : "horizon hideHorizon"}
-          src="./assets/horizon.wide.gif"
-          alt="horizon"
-        ></img>
+
         <button onClick={backToMenu} className="menuButton">
           Menu
         </button>
@@ -45,17 +41,7 @@ export default function TouchSplitMode({
           slideGame={slideGame}
           setSlideGame={setSlideGame}
         />
-        <PlayerChars
-          playerAnim={playerAnim}
-          player2Anim={player2Anim}
-          player2Hero={player2Hero}
-          player1Hero={player1Hero}
-          showMenu={showMenu}
-          slideGame={slideGame}
-          setSlideGame={setSlideGame}
-          screenSlide={screenSlide}
-          setScreenSlide={setScreenSlide}
-        />
+
         <HeroSelector
           setPlayer1Hero={setPlayer1Hero}
           setPlayer2Hero={setPlayer2Hero}

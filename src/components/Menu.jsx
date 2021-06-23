@@ -48,6 +48,7 @@ export default function Menu({
     stop();
     setGameMode("ai");
     setShowMenu(false);
+    setScreenSlide("game");
   };
 
   const modeLobby = () => {
@@ -60,6 +61,7 @@ export default function Menu({
     stop();
     setGameMode("touch");
     setShowMenu(false);
+    setScreenSlide("game");
   };
 
   const profileClick = () => {
@@ -75,13 +77,13 @@ export default function Menu({
           Keyboard vs Mouse
         </button>
         <button onClick={modeTouch} className="btn">
-          Touchscreen Splitscreen
+          Touchscreen (development)
         </button>
         <button onClick={modeAI} className="btn">
           Single Player vs AI
         </button>
         <button onClick={modeLobby} className="btn">
-          Multiplayer
+          Multiplayer (development)
         </button>
       </section>
 

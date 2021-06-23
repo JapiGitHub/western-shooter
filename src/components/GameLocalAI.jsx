@@ -1,4 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
+import { useCollectionData } from "react-firebase-hooks/firestore";
+
+import LeaderBoard from "./LeaderBoard";
+import LeaderBoardInput from "./LeaderBoardInput";
 
 import useSound from "use-sound";
 import pistolShotFromLeft from "../sounds/pistol.shot.from.left.mp3";
@@ -20,6 +24,11 @@ export default function GameLocalAI({
   showMenu,
   slideGame,
   setSlideGame,
+  setShowLeaderBoard,
+  showLeaderBoard,
+  setScreenSlide,
+  firestore,
+  player1Hero,
 }) {
   const [playerOneReady, setPlayerOneReady] = useState(false);
   const [gun1Loaded, setGun1Loaded] = useState(true);
@@ -29,6 +38,12 @@ export default function GameLocalAI({
   const [p1ReactText, setP1ReactText] = useState("");
   const [reactTextFade, setReactTextFade] = useState(false);
   const [fatality, setFatality] = useState(false);
+
+  const [showLeaderBoardInput, setShowLeaderBoardInput] = useState(false);
+  const [winner, setWinner] = useState(0);
+
+  const [leaderBoardName, setLeaderBoardName] = useState("unknown");
+  const [ldbTime, setLdbTime] = useState(888);
 
   const [player1Reaction, setPlayer1Reaction] = useState(0);
 
@@ -55,6 +70,23 @@ export default function GameLocalAI({
 
   const fatalityTime = 280;
   const AIbaseTime = 500;
+
+  //leaderboard
+  const leaderBoardRef = firestore.collection("leaderBoard");
+
+  const sortedLeaderBoard = leaderBoardRef.orderBy("time");
+  const [leaderBoard] = useCollectionData(sortedLeaderBoard, {
+    idField: "id",
+  });
+
+  const checkLeaderBoardTimes = (leaderBoardTime, player) => {
+    //vertaa vain tohon 15. aikaan jotta record history näkyy databasessa.
+    if (leaderBoardTime < leaderBoard[14].time) {
+      setLdbTime(leaderBoardTime);
+      setShowLeaderBoardInput(true);
+      setScreenSlide("leaderboard");
+    }
+  };
 
   const NextRoundReset = () => {
     setTimeout(() => {
@@ -136,7 +168,8 @@ export default function GameLocalAI({
           setInfoText("You won");
           setPlayer2Anim("die");
         }
-
+        setWinner(1);
+        checkLeaderBoardTimes(triggerTime - startTime, "player1");
         setScore([score[0] + 1, score[1]]);
         NextRoundReset();
       } else {
@@ -237,6 +270,36 @@ export default function GameLocalAI({
       <div className={slideGame ? "infoText" : "infoText hideInfo"}>
         {infoText}
       </div>
+
+      <LeaderBoard
+        setLeaderBoardName={setLeaderBoardName}
+        firestore={firestore}
+        player1Hero={player1Hero}
+        ldbTime={ldbTime}
+        setShowLeaderBoard={setShowLeaderBoard}
+        showLeaderBoard={showLeaderBoard}
+      />
+
+      <LeaderBoardInput
+        setLeaderBoardName={setLeaderBoardName}
+        firestore={firestore}
+        player1Hero={player1Hero}
+        winner={winner}
+        ldbTime={ldbTime}
+        setShowLeaderBoard={setShowLeaderBoard}
+        setShowLeaderBoardInput={setShowLeaderBoardInput}
+        showLeaderBoardInput={showLeaderBoardInput}
+      />
+
+      <button
+        className="btn ldbButton"
+        onClick={() => {
+          setShowLeaderBoard(!showLeaderBoard);
+          setScreenSlide("leaderboard");
+        }}
+      >
+        Leaderboard
+      </button>
     </div>
   );
 }

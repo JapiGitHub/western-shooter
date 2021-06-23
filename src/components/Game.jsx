@@ -13,6 +13,7 @@ export default function Game({ gameMode, setGameMode, auth, firestore }) {
   const [showMenu, setShowMenu] = useState(true);
   const [slideGame, setSlideGame] = useState(false);
   const [screenSlide, setScreenSlide] = useState("menu");
+  const [showLeaderBoard, setShowLeaderBoard] = useState(false);
 
   const [difficulty, setDifficulty] = useState(240);
 
@@ -80,6 +81,8 @@ export default function Game({ gameMode, setGameMode, auth, firestore }) {
           setPlayer2Hero={setPlayer2Hero}
           player1Hero={player1Hero}
           setPlayer1Hero={setPlayer1Hero}
+          showLeaderBoard={showLeaderBoard}
+          setShowLeaderBoard={setShowLeaderBoard}
         />
       ) : null}
 
@@ -102,8 +105,22 @@ export default function Game({ gameMode, setGameMode, auth, firestore }) {
           setGameMode={setGameMode}
           showMenu={showMenu}
           setShowMenu={setShowMenu}
+          difficulty={difficulty}
+          firestore={firestore}
           slideGame={slideGame}
           setSlideGame={setSlideGame}
+          setScreenSlide={setScreenSlide}
+          screenSlide={screenSlide}
+          playerAnim={playerAnim}
+          setPlayerAnim={setPlayerAnim}
+          player2Anim={player2Anim}
+          setPlayer2Anim={setPlayer2Anim}
+          player2Hero={player2Hero}
+          setPlayer2Hero={setPlayer2Hero}
+          player1Hero={player1Hero}
+          setPlayer1Hero={setPlayer1Hero}
+          setShowLeaderBoard={setShowLeaderBoard}
+          showLeaderBoard={showLeaderBoard}
         />
       ) : null}
 

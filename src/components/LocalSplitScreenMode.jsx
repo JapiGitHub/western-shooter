@@ -21,6 +21,8 @@ export default function LocalSplitScreenMode({
   setPlayer2Hero,
   player1Hero,
   setPlayer1Hero,
+  showLeaderBoard,
+  setShowLeaderBoard,
 }) {
   //playerAnim vaihtoehdot:
   //waiting
@@ -52,6 +54,8 @@ export default function LocalSplitScreenMode({
           player1Hero={player1Hero}
           player2Hero={player2Hero}
           setScreenSlide={setScreenSlide}
+          showLeaderBoard={showLeaderBoard}
+          setShowLeaderBoard={setShowLeaderBoard}
         />
         <HeroSelector
           player2Hero={player2Hero}

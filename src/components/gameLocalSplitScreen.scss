@@ -32,20 +32,21 @@
     margin-top: 1vh;
   }
 
+  //tää over ridaantuu local splitistä
   //mouse
   .player1ReadyLabel {
     font-size: 3vh;
     font-family: "Press Start 2P", cursive;
 
-    width: 400px;
+    width: 25vh;
     display: flex;
     flex-direction: column;
     align-items: flex-end;
     justify-content: flex-start;
 
     position: absolute;
-    top: 2vh;
-    right: 0;
+    top: 4vh;
+    right: 4vw;
   }
 
   //keyboard
@@ -60,15 +61,16 @@
     justify-content: flex-start;
 
     position: absolute;
-    top: 2vh;
+    top: 4vh;
     left: 4vw;
     padding-left: 0;
   }
 
+  //mouse
   .checkMark1 {
     position: absolute;
     top: 4vh;
-    right: 4vw;
+    right: 0vw;
 
     font-size: 2vh;
     font-family: "Press Start 2P", cursive;
@@ -88,6 +90,7 @@
     cursor: pointer;
   }
 
+  //keyb
   .checkMark2 {
     position: absolute;
     top: 4vh;

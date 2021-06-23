@@ -7,9 +7,10 @@
   padding: 0.4vh;
 }
 
+//mouse siis lol
 .heroes-box-keyboard {
   position: absolute;
-  top: 22vh;
+  top: 18vh;
   right: 0;
   width: 25vw;
   height: 15vh;
@@ -26,7 +27,7 @@
 
     img {
       height: 70%;
-      z-index: 6;
+      z-index: 8;
       transition: all 0.2s ease;
     }
 
@@ -36,9 +37,10 @@
   }
 }
 
+//keyb xD
 .heroes-box-mouse {
   position: absolute;
-  top: 22vh;
+  top: 18vh;
   left: 0;
   width: 25vw;
   height: 15vh;
@@ -55,7 +57,7 @@
 
     img {
       height: 70%;
-      z-index: 6;
+      z-index: 8;
       transition: all 0.2s ease;
     }
 

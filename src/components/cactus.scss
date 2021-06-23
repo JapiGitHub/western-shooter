@@ -7,16 +7,16 @@
 */
   position: absolute;
   top: 52vh;
-  right: 54vw;
-  height: 17vh;
+  right: 34vw;
+  height: 16vh;
 
-  z-index: 3;
+  z-index: 1;
 
   transition: all var(--slideTime) ease;
 }
 
 .hideCactus1 {
-  right: 90vw;
+  right: 89vw;
 }
 
 .ldbCactus1 {
@@ -26,7 +26,7 @@
 .cactus2 {
   position: absolute;
   top: 70vh;
-  right: 2vw;
+  right: 5vw;
   height: 25vh;
 
   z-index: 3;
@@ -34,7 +34,7 @@
 }
 
 .hideCactus2 {
-  right: 3000px;
+  right: 130vw;
 }
 
 .ldbCactus2 {
@@ -51,7 +51,7 @@
   transition: all var(--slideTime) ease;
 }
 .hideCactus3 {
-  left: -4500px;
+  left: -180vw;
 }
 
 .ldbCactus3 {
