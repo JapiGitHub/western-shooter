@@ -41,13 +41,13 @@ export default function LeaderBoardInput({
     setShowLeaderBoardInput(false);
   };
 
-  useEffect(() => {
-    ldbInputRef.current.focus();
-  }, []);
+  // useEffect(() => {
+  //   ldbInputRef.current.focus();
+  // }, []);
 
-  useEffect(() => {
-    ldbInputRef.current.focus();
-  });
+  // useEffect(() => {
+  //   ldbInputRef.current.focus();
+  // });
 
   return (
     <div
