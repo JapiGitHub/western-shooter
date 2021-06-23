@@ -23,6 +23,7 @@ export default function TouchSplitMode({
     setGameMode("menu");
     setShowMenu(true);
     setSlideGame(false);
+    setScreenSlide("menu");
   };
 
   return (

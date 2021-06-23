@@ -49,6 +49,8 @@ export default function LocalAiMode({
           setPlayer2Anim={setPlayer2Anim}
           showMenu={showMenu}
           slideGame={slideGame}
+          difficulty={difficulty}
+          player1Hero={player1Hero}
           setSlideGame={setSlideGame}
           setShowLeaderBoard={setShowLeaderBoard}
           showLeaderBoard={showLeaderBoard}

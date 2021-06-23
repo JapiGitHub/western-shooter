@@ -159,9 +159,7 @@ export default function GameLocalTouchSplit({
         </span>
       </label>
 
-      <div className={slideGame ? "infoText" : "infoText hideInfo"}>
-        {infoText}
-      </div>
+      <div className="infoText">{infoText}</div>
     </div>
   );
 }

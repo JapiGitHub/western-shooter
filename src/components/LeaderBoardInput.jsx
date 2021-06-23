@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import "./leaderBoardInput.scss";
 
 export default function LeaderBoardInput({
@@ -13,6 +13,7 @@ export default function LeaderBoardInput({
   showLeaderBoardInput,
 }) {
   const leaderBoardRef = firestore.collection("leaderBoard");
+  const ldbInputRef = useRef();
 
   const sendLeader = async (e) => {
     e.preventDefault();
@@ -40,6 +41,14 @@ export default function LeaderBoardInput({
     setShowLeaderBoardInput(false);
   };
 
+  useEffect(() => {
+    ldbInputRef.current.focus();
+  }, []);
+
+  useEffect(() => {
+    ldbInputRef.current.focus();
+  });
+
   return (
     <div
       className={
@@ -59,6 +68,7 @@ export default function LeaderBoardInput({
           required
           maxlength="20"
           name="name"
+          ref={ldbInputRef}
         ></input>
         <button type="submit" className="btn okbtn">
           OK

@@ -69,6 +69,7 @@ export default function GameLocalSplitScreen({
 
   const playerTwoReadyCheckBox = useRef();
   const playerOneReadyCheckBox = useRef();
+  const ldbInputRef = useRef();
 
   const fatalityTime = difficulty;
 
@@ -112,12 +113,8 @@ export default function GameLocalSplitScreen({
   };
 
   useEffect(() => {
-    playerTwoReadyCheckBox.current.focus();
-    console.log("leaderboard:", leaderBoard);
-    try {
-      console.log("leaderboard1:", leaderBoard[0]);
-    } catch {
-      console.log("not yet connected to DB");
+    if (!showLeaderBoardInput) {
+      playerTwoReadyCheckBox.current.focus();
     }
   });
 
@@ -125,7 +122,9 @@ export default function GameLocalSplitScreen({
     setRandomTime(3500 + Math.floor(Math.random() * 3000));
     setPlayerOneReady(false);
     setPlayerTwoReady(false);
-    playerTwoReadyCheckBox.current.focus();
+    if (!showLeaderBoardInput) {
+      playerTwoReadyCheckBox.current.focus();
+    }
   }, []);
 
   //kun pelaajat valmiita, niin aloita timeri

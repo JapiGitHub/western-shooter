@@ -29,6 +29,7 @@ export default function GameLocalAI({
   setScreenSlide,
   firestore,
   player1Hero,
+  difficulty,
 }) {
   const [playerOneReady, setPlayerOneReady] = useState(false);
   const [gun1Loaded, setGun1Loaded] = useState(true);
@@ -68,7 +69,7 @@ export default function GameLocalAI({
   const playerTwoReadyCheckBox = useRef();
   const playerOneReadyCheckBox = useRef();
 
-  const fatalityTime = 280;
+  const fatalityTime = difficulty;
   const AIbaseTime = 500;
 
   //leaderboard
@@ -84,7 +85,7 @@ export default function GameLocalAI({
     if (leaderBoardTime < leaderBoard[14].time) {
       setLdbTime(leaderBoardTime);
       setShowLeaderBoardInput(true);
-      setScreenSlide("leaderboard");
+      //setScreenSlide("leaderboard");
     }
   };
 
@@ -267,39 +268,7 @@ export default function GameLocalAI({
         <span className="checkMarkAI">Ready!</span>
       </label>
 
-      <div className={slideGame ? "infoText" : "infoText hideInfo"}>
-        {infoText}
-      </div>
-
-      <LeaderBoard
-        setLeaderBoardName={setLeaderBoardName}
-        firestore={firestore}
-        player1Hero={player1Hero}
-        ldbTime={ldbTime}
-        setShowLeaderBoard={setShowLeaderBoard}
-        showLeaderBoard={showLeaderBoard}
-      />
-
-      <LeaderBoardInput
-        setLeaderBoardName={setLeaderBoardName}
-        firestore={firestore}
-        player1Hero={player1Hero}
-        winner={winner}
-        ldbTime={ldbTime}
-        setShowLeaderBoard={setShowLeaderBoard}
-        setShowLeaderBoardInput={setShowLeaderBoardInput}
-        showLeaderBoardInput={showLeaderBoardInput}
-      />
-
-      <button
-        className="btn ldbButton"
-        onClick={() => {
-          setShowLeaderBoard(!showLeaderBoard);
-          setScreenSlide("leaderboard");
-        }}
-      >
-        Leaderboard
-      </button>
+      <div className="infoText">{infoText}</div>
     </div>
   );
 }

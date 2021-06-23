@@ -1,4 +1,4 @@
-.heroes-box-human {
+.heroes-box-mouse-human {
   position: absolute;
   top: 22vh;
   left: 0;
@@ -9,12 +9,7 @@
 
   display: flex;
 
-  border-radius: 9px;
-  border-style: solid;
-  border-width: 0.4vh;
-  border-color: rgb(0, 0, 0);
-
-  .hero-avatar-mouse {
+  .hero-avatar-mouse-human {
     height: 100%;
     width: 100%;
     display: grid;
@@ -22,7 +17,7 @@
 
     img {
       height: 70%;
-      z-index: 6;
+      z-index: 9;
       transition: all 0.2s ease;
     }
 

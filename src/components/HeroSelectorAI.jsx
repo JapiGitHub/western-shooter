@@ -10,9 +10,9 @@ export default function HeroSelectorAI({ setPlayer1Hero, player1Hero }) {
 
   return (
     <>
-      <div className="heroes-box-mouse">
+      <div className="heroes-box-mouse-human">
         {heroesList.map((hero) => (
-          <div className="hero-avatar-mouse">
+          <div className="hero-avatar-mouse-human">
             <img
               className={player1Hero === hero ? "chosen" : null}
               src={`./assets/${hero}.avatar.gif`}
