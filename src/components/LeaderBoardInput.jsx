@@ -41,13 +41,13 @@ export default function LeaderBoardInput({
     setShowLeaderBoardInput(false);
   };
 
-  useEffect(() => {
-    ldbInputRef.current.focus({ preventScroll: true });
-  }, []);
+  // useEffect(() => {
+  //   ldbInputRef.current.focus({ preventScroll: true });
+  // }, []);
 
-  useEffect(() => {
-    ldbInputRef.current.focus({ preventScroll: true });
-  });
+  // useEffect(() => {
+  //   ldbInputRef.current.focus({ preventScroll: true });
+  // });
 
   return (
     <div
@@ -66,7 +66,7 @@ export default function LeaderBoardInput({
           autoComplete="off"
           autoFocus
           required
-          maxlength="20"
+          maxLength="20"
           name="name"
           ref={ldbInputRef}
         ></input>

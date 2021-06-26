@@ -2,7 +2,6 @@
   height: 100vh;
   width: 100vw;
 
-  font-size: 13vh;
   color: rgb(0, 0, 0);
   text-shadow: 2px 2px 9px #ffffff;
 
@@ -16,6 +15,10 @@
   top: 0;
 
   transition: all 0.7s ease;
+
+  p {
+    font-size: 8vw;
+  }
 
   .cactus {
     position: absolute;
@@ -111,6 +114,7 @@
     right: 2vw;
     display: flex;
     flex-direction: column;
+    z-index: 10;
 
     button {
       z-index: 99;
@@ -131,15 +135,15 @@
     position: absolute;
     bottom: 50vh;
     right: 2vw;
-    font-size: 2.2vh;
-
-    width: 30vw;
+    font-size: 1.3vw;
+    z-index: 10;
+    width: 25vw;
 
     p {
       text-align: right;
 
       font-family: "Press Start 2P", cursive;
-      font-size: 2vh;
+      font-size: 1.3vw;
       padding-bottom: 4vh;
     }
   }

@@ -1,8 +1,8 @@
-.touchAreaOnTouch {
-  z-index: 10 !important;
+.touchAreaOn {
+  z-index: 4000 !important;
 }
 
-.textSplashFrameTouch {
+.textSplashFrame {
   z-index: 6;
   //tarviiko enää griddiä, kaikki vissiin vaihdettu jo absoluteen?
   grid-column-start: 1;
@@ -14,18 +14,18 @@
   grid-template-columns: (repeat(2), 1fr);
   grid-template-rows: (repeat(4), 1fr);
 
-  .leftTouchAreaTouch {
+  .leftTouchArea {
     position: absolute;
     left: 0;
     top: 0;
 
-    z-index: 4;
+    z-index: 4000;
 
     width: 50vw;
     height: 100vh;
   }
 
-  .rightTouchAreaTouch {
+  .rightTouchArea {
     position: absolute;
     right: 0;
     top: 0;

@@ -7,6 +7,7 @@ import TouchSplitMode from "./TouchSplitMode";
 import MultiPlayerLobby from "./MultiPlayerLobby";
 import Cactus from "./Cactus";
 import PlayerChars from "./PlayerChars";
+import MultiPlayer from "./MultiPlayer";
 import { useAuthState } from "react-firebase-hooks/auth";
 
 export default function Game({ gameMode, setGameMode, auth, firestore }) {
@@ -124,8 +125,8 @@ export default function Game({ gameMode, setGameMode, auth, firestore }) {
         />
       ) : null}
 
-      {gameMode === "lobby" ? (
-        <MultiPlayerLobby
+      {gameMode === "network" ? (
+        <MultiPlayer
           gameMode={gameMode}
           setGameMode={setGameMode}
           auth={auth}

@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import PlayerCharsMulti from "./PlayerCharsMulti";
+import PlayerChars from "./PlayerChars";
 import Cactus from "./Cactus";
 
 import HeroSelectorAI from "./HeroSelectorAI";
 import GameMulti from "./GameMulti";
 
-export default function MultiPlayerMode({ setGameMode, auth, firestore }) {
+export default function MultiPlayerMode({ setGameMode, firestore }) {
   const [playerAnim, setPlayerAnim] = useState("waiting");
   const [player2Anim, setPlayer2Anim] = useState("waiting");
   const [player2Hero, setPlayer2Hero] = useState("cowboy");
@@ -26,10 +26,9 @@ export default function MultiPlayerMode({ setGameMode, auth, firestore }) {
         <GameMulti
           setPlayerAnim={setPlayerAnim}
           setPlayer2Anim={setPlayer2Anim}
-          auth={auth}
           firestore={firestore}
         />
-        <PlayerCharsMulti
+        <PlayerChars
           playerAnim={playerAnim}
           player2Anim={player2Anim}
           player2Hero={player2Hero}

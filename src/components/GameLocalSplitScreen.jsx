@@ -28,6 +28,7 @@ export default function GameLocalSplitScreen({
   player1Hero,
   player2Hero,
   setScreenSlide,
+  screenSlide,
   showLeaderBoard,
   setShowLeaderBoard,
 }) {
@@ -307,6 +308,7 @@ export default function GameLocalSplitScreen({
           {p2ReactText}
         </div>
       </div>
+
       <div className="infoText">{infoText}</div>
 
       <LeaderBoard

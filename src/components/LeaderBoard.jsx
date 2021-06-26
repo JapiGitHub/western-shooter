@@ -19,6 +19,7 @@ export default function LeaderBoard({
     idField: "id",
   });
 
+  //debug
   useEffect(() => {
     console.error("boardii", leaderBoard);
   }, []);

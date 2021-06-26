@@ -35,25 +35,10 @@ export default function GameMulti({
   const playerTwoReadyCheckBox = useRef();
   const playerOneReadyCheckBox = useRef();
 
-  const [playerAvatar, setPlayerAvatar] = useState(auth.currentUser.photoURL);
-  const dataMessagesRef = firestore.collection("dataMessages");
-
-  const sendii = async () => {
-    await dataMessagesRef.add({
-      test: "toimii",
-    });
-  };
-
   //määritä randomtime
   useEffect(() => {
     setRandomTime(3500 + Math.floor(Math.random() * 3000));
     setPlayerOneReady(false);
-
-    const { uid, photoURL } = auth.currentUser;
-    console.log("initialize");
-    console.log("id", uid, "  url", photoURL);
-
-    sendii();
   }, []);
 
   //kun pelaajat valmiita, niin aloita timeri
@@ -150,7 +135,6 @@ export default function GameMulti({
         <span className="checkMarkLocal">
           {playerOneReady ? "Ready!" : "Click to ready"}
         </span>
-        <img src={playerAvatar} alt="playerAvatar" className="avatar"></img>
       </label>
 
       <label className="playerNetworkReadyLabel" htmlFor="p2">

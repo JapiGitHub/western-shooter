@@ -37,23 +37,25 @@ export default function Menu({
     }
   });
 
-  const modeKvM = () => {
+  const modeKvM = (e) => {
+    e.preventDefault();
     stop();
     setGameMode("split");
     setShowMenu(false);
     setScreenSlide("game");
   };
 
-  const modeAI = () => {
+  const modeAI = (e) => {
+    e.preventDefault();
     stop();
     setGameMode("ai");
     setShowMenu(false);
     setScreenSlide("game");
   };
 
-  const modeLobby = () => {
+  const modeNetwork = () => {
     stop();
-    setGameMode("lobby");
+    setGameMode("network");
     setShowMenu(false);
   };
 
@@ -71,7 +73,7 @@ export default function Menu({
   return (
     <div className={showMenu ? "menuContainer" : "menuContainer hideMenu"}>
       <aside className="dirt"></aside>
-      <p>Shoot first // Die last</p>
+      <p>Shoot first&nbsp;&nbsp;&&nbsp;&nbsp;Die last</p>
       <section className="buttonContainer">
         <button onClick={modeKvM} className="btn">
           Keyboard vs Mouse
@@ -82,7 +84,7 @@ export default function Menu({
         <button onClick={modeAI} className="btn">
           Single Player vs AI
         </button>
-        <button onClick={modeLobby} className="btn">
+        <button onClick={modeNetwork} className="btn">
           Multiplayer (development)
         </button>
       </section>

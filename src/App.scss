@@ -97,6 +97,10 @@
     transition: all 0.2s ease;
   }
 
+  .btn:focus {
+    outline: none;
+  }
+
   .btn:hover {
     color: #fff;
     background-color: rgb(56, 29, 13);
@@ -175,6 +179,7 @@
     position: absolute;
     right: 0;
     top: 0;
+    z-index: -1;
   }
 
   .cloud1 {

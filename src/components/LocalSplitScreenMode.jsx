@@ -30,7 +30,8 @@ export default function LocalSplitScreenMode({
   //shot
   //dead
 
-  const backToMenu = () => {
+  const backToMenu = (e) => {
+    e.preventDefault();
     setGameMode("menu");
     setShowMenu(true);
     setSlideGame(false);
@@ -54,6 +55,7 @@ export default function LocalSplitScreenMode({
           player1Hero={player1Hero}
           player2Hero={player2Hero}
           setScreenSlide={setScreenSlide}
+          screenSlide={screenSlide}
           showLeaderBoard={showLeaderBoard}
           setShowLeaderBoard={setShowLeaderBoard}
         />
