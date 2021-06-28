@@ -1,0 +1,22 @@
+.serverInfo {
+  position: absolute;
+  top: 5vh;
+  left: 40vw;
+  z-index: 99;
+  width: 20vw;
+
+  text-align: center;
+  font-size: 2vh;
+  font-family: "Press Start 2P", cursive;
+}
+
+.Serv {
+}
+
+.OpenServ {
+  color: rgb(0, 49, 0);
+}
+
+.FullServ {
+  color: darkred;
+}

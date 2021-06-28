@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import { useCollectionData } from "react-firebase-hooks/firestore";
 
 import useSound from "use-sound";
 import pistolShot2 from "../sounds/pistol.shot.2.mp3";
@@ -11,7 +12,9 @@ export default function GameMulti({
   setPlayerAnim,
   setPlayer2Anim,
   firestore,
-  auth,
+  joinedServer,
+  setGameCreatorP1,
+  gameCreatorP1,
 }) {
   const [playerOneReady, setPlayerOneReady] = useState(false);
   const [playerTwoReady, setPlayerTwoReady] = useState(false);
@@ -34,6 +37,45 @@ export default function GameMulti({
 
   const playerTwoReadyCheckBox = useRef();
   const playerOneReadyCheckBox = useRef();
+
+  //firebase
+  const gameServersRef = firestore.collection("gameServers");
+  const [gameList] = useCollectionData(gameServersRef, { idField: "id" });
+
+  const playerOneReadyClick = async () => {
+    setPlayerOneReady(true);
+    //pushReady();
+    // const exportData = {
+    //   servName: joinedServer,
+    //   open: true,
+    //   ready: [true, true],
+    //   score: [0, 0],
+    //   shotFired: [false, false],
+    //   lastOnline: Date.now(),
+    //   lastReactionTimes: [888, 888],
+    // };
+
+    const server = gameList.filter((game) => {
+      if (game.servName === joinedServer) {
+        return game.id;
+      }
+    });
+
+    const exportReadyData = {
+      ready: gameCreatorP1
+        ? [true, server[0].ready[1]]
+        : [server[0].ready[0], true],
+      lastOnline: Date.now(),
+    };
+
+    console.log("server : ", server[0]);
+    console.log("server ID : ", server[0].id);
+
+    await gameServersRef.doc(server[0].id).update(exportReadyData);
+    console.log("pushed!");
+  };
+
+  const pushReady = async () => {};
 
   //määritä randomtime
   useEffect(() => {
@@ -115,14 +157,12 @@ export default function GameMulti({
     }
   };
 
-  const playerOneReadyClick = () => {
-    setPlayerOneReady(true);
-  };
-
   return (
     <div className="textSplashFrame" onClick={actionClick}>
       <label className="playerLocalReadyLabel" htmlFor="p1">
-        <span className="localPlayerText">You</span>
+        <span className="localPlayerText">
+          You{gameCreatorP1 ? " Creator" : " Joined"}
+        </span>
         <input
           className="readyCheckBox p1check"
           type="checkbox"

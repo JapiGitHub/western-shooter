@@ -8,6 +8,7 @@ export default function MultiPlayerLobby({
   setGameMode,
   firestore,
   setJoinedServer,
+  setGameCreatorP1,
 }) {
   //const [gameList, setGameList] = useState(["aaa", "bbb", "ccc", "cccp"]);
   const [createName, setCreateName] = useState("");
@@ -17,8 +18,11 @@ export default function MultiPlayerLobby({
   const gameServersRef = firestore.collection("gameServers");
   const [gameList] = useCollectionData(gameServersRef, { idField: "id" });
 
+  const HangOutTimeWithoutPing = 500000;
+
   const joinGame = (e) => {
     setJoinedServer(e.target.innerText);
+    setGameCreatorP1(false);
   };
 
   const typeGameNameHandler = (e) => {
@@ -27,8 +31,9 @@ export default function MultiPlayerLobby({
 
   const createGameHandler = async (e) => {
     e.preventDefault();
-    console.error(createName);
-    //setGameList([...gameList, createName]);
+
+    setGameCreatorP1(true);
+
     await gameServersRef.add({
       servName: createName,
       open: true,
@@ -36,7 +41,10 @@ export default function MultiPlayerLobby({
       score: [0, 0],
       shotFired: [false, false],
       lastOnline: Date.now(),
+      lastReactionTimes: [888, 888],
     });
+
+    setJoinedServer(createName);
   };
 
   const backToMenuClick = (e) => {
@@ -72,12 +80,17 @@ export default function MultiPlayerLobby({
             {gameList &&
               gameList.map((game) => {
                 console.error("gameee:", game);
-                return (
-                  <li onClick={joinGame} key={game.servName}>
-                    {game.open ? "Open" : "Full"}&nbsp;
-                    {game.servName}
-                  </li>
-                );
+                if (game.lastOnline > Date.now() - HangOutTimeWithoutPing) {
+                  return (
+                    <li
+                      onClick={joinGame}
+                      key={game.servName}
+                      className={game.open ? "OpenServ Serv" : "FullServ Serv"}
+                    >
+                      {game.servName}
+                    </li>
+                  );
+                }
               })}
           </ul>
         </section>
