@@ -7,8 +7,6 @@ export default function TouchSplitMode({
   setGameMode,
   showMenu,
   setShowMenu,
-  slideGame,
-  setSlideGame,
   difficulty,
   firestore,
   setScreenSlide,
@@ -22,7 +20,6 @@ export default function TouchSplitMode({
   const backToMenu = () => {
     setGameMode("menu");
     setShowMenu(true);
-    setSlideGame(false);
     setScreenSlide("menu");
   };
 
@@ -39,8 +36,6 @@ export default function TouchSplitMode({
           setPlayerAnim={setPlayerAnim}
           player2Anim={playerAnim}
           setPlayer2Anim={setPlayer2Anim}
-          slideGame={slideGame}
-          setSlideGame={setSlideGame}
         />
 
         <HeroSelector

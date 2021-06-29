@@ -68,12 +68,20 @@ export default function GameMulti({
       lastOnline: Date.now(),
     };
 
+    const exportReadyData2 = {
+      ready: [true, true],
+      lastOnline: Date.now(),
+    };
+
     console.log("server : ", server[0]);
     console.log("server ID : ", server[0].id);
 
     await gameServersRef.doc(server[0].id).update(exportReadyData);
-    console.log("pushed!");
   };
+
+  useEffect(() => {
+    //päivitä ready statet
+  }, [gameList]);
 
   const pushReady = async () => {};
 

@@ -7,8 +7,6 @@ export default function LocalSplitScreenMode({
   setGameMode,
   showMenu,
   setShowMenu,
-  slideGame,
-  setSlideGame,
   difficulty,
   firestore,
   setScreenSlide,
@@ -34,7 +32,6 @@ export default function LocalSplitScreenMode({
     e.preventDefault();
     setGameMode("menu");
     setShowMenu(true);
-    setSlideGame(false);
     setScreenSlide("menu");
   };
 
@@ -49,7 +46,6 @@ export default function LocalSplitScreenMode({
         <GameLocalSplitScreen
           setPlayerAnim={setPlayerAnim}
           setPlayer2Anim={setPlayer2Anim}
-          slideGame={slideGame}
           difficulty={difficulty}
           firestore={firestore}
           player1Hero={player1Hero}

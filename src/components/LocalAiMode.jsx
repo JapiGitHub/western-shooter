@@ -9,8 +9,6 @@ export default function LocalAiMode({
   setShowMenu,
   difficulty,
   firestore,
-  slideGame,
-  setSlideGame,
   setScreenSlide,
   screenSlide,
   playerAnim,
@@ -33,7 +31,6 @@ export default function LocalAiMode({
   const backToMenu = () => {
     setGameMode("menu");
     setShowMenu(true);
-    setSlideGame(false);
     setScreenSlide("menu");
   };
 
@@ -48,10 +45,8 @@ export default function LocalAiMode({
           setPlayerAnim={setPlayerAnim}
           setPlayer2Anim={setPlayer2Anim}
           showMenu={showMenu}
-          slideGame={slideGame}
           difficulty={difficulty}
           player1Hero={player1Hero}
-          setSlideGame={setSlideGame}
           setShowLeaderBoard={setShowLeaderBoard}
           showLeaderBoard={showLeaderBoard}
           setScreenSlide={setScreenSlide}

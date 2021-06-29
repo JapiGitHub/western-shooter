@@ -12,7 +12,6 @@ import { useAuthState } from "react-firebase-hooks/auth";
 
 export default function Game({ gameMode, setGameMode, auth, firestore }) {
   const [showMenu, setShowMenu] = useState(true);
-  const [slideGame, setSlideGame] = useState(false);
   const [screenSlide, setScreenSlide] = useState("menu");
   const [showLeaderBoard, setShowLeaderBoard] = useState(false);
 
@@ -68,8 +67,6 @@ export default function Game({ gameMode, setGameMode, auth, firestore }) {
           setGameMode={setGameMode}
           showMenu={showMenu}
           setShowMenu={setShowMenu}
-          slideGame={slideGame}
-          setSlideGame={setSlideGame}
           difficulty={difficulty}
           firestore={firestore}
           setScreenSlide={setScreenSlide}
@@ -92,8 +89,6 @@ export default function Game({ gameMode, setGameMode, auth, firestore }) {
           setGameMode={setGameMode}
           showMenu={showMenu}
           setShowMenu={setShowMenu}
-          slideGame={slideGame}
-          setSlideGame={setSlideGame}
           difficulty={difficulty}
           firestore={firestore}
           setScreenSlide={setScreenSlide}
@@ -108,8 +103,6 @@ export default function Game({ gameMode, setGameMode, auth, firestore }) {
           setShowMenu={setShowMenu}
           difficulty={difficulty}
           firestore={firestore}
-          slideGame={slideGame}
-          setSlideGame={setSlideGame}
           setScreenSlide={setScreenSlide}
           screenSlide={screenSlide}
           playerAnim={playerAnim}
@@ -132,8 +125,6 @@ export default function Game({ gameMode, setGameMode, auth, firestore }) {
           auth={auth}
           user={user}
           firestore={firestore}
-          slideGame={slideGame}
-          setSlideGame={setSlideGame}
         />
       ) : null}
       <Cactus gameMode={gameMode} screenSlide={screenSlide} />
@@ -147,8 +138,6 @@ export default function Game({ gameMode, setGameMode, auth, firestore }) {
         player2Hero={player2Hero}
         player1Hero={player1Hero}
         showMenu={showMenu}
-        slideGame={slideGame}
-        setSlideGame={setSlideGame}
         screenSlide={screenSlide}
         setScreenSlide={setScreenSlide}
       />
