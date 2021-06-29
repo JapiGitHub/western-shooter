@@ -1,34 +1,20 @@
 import React, { useEffect, useRef, useState } from "react";
-import { useCollectionData } from "react-firebase-hooks/firestore";
-
-import LeaderBoard from "./LeaderBoard";
-import LeaderBoardInput from "./LeaderBoardInput";
 
 import useSound from "use-sound";
 import pistolShotFromLeft from "../sounds/pistol.shot.from.left.mp3";
 import pistolShotFromRight from "../sounds/pistol.shot.from.right.mp3";
-import fatalityFromRight from "../sounds/fatality.from.right.mp3";
 import fatalityFromLeft from "../sounds/fatality.from.left.mp3";
 
 import pistolCock1 from "../sounds/cock.pistol.1.mp3";
 import holster from "../sounds/holster.mp3";
 
 import ricochetToRight from "../sounds/ricochet.to.right.mp3";
-import ricochetToLeft from "../sounds/ricochet.to.left.mp3";
 
 import "./gameLocalAI.scss";
 
 export default function GameLocalAI({
   setPlayerAnim,
   setPlayer2Anim,
-  showMenu,
-  slideGame,
-  setSlideGame,
-  setShowLeaderBoard,
-  showLeaderBoard,
-  setScreenSlide,
-  firestore,
-  player1Hero,
   difficulty,
 }) {
   const [playerOneReady, setPlayerOneReady] = useState(false);
@@ -40,15 +26,7 @@ export default function GameLocalAI({
   const [reactTextFade, setReactTextFade] = useState(false);
   const [fatality, setFatality] = useState(false);
 
-  const [showLeaderBoardInput, setShowLeaderBoardInput] = useState(false);
-  const [winner, setWinner] = useState(0);
-
-  const [leaderBoardName, setLeaderBoardName] = useState("unknown");
-  const [ldbTime, setLdbTime] = useState(888);
-
   const [player1Reaction, setPlayer1Reaction] = useState(0);
-
-  const [shotFired, setShotFired] = useState(false);
 
   const [infoText, setInfoText] = useState("Ready?");
 
@@ -61,9 +39,7 @@ export default function GameLocalAI({
 
   const [pistolShotFromLeftPlay] = useSound(pistolShotFromLeft);
   const [pistolShotFromRightPlay] = useSound(pistolShotFromRight);
-  const [RicochetToLeftPlay] = useSound(ricochetToLeft);
   const [RicochetToRightPlay] = useSound(ricochetToRight);
-  const [fatalityFromRightPlay] = useSound(fatalityFromRight);
   const [fatalityFromLeftPlay] = useSound(fatalityFromLeft);
 
   const playerTwoReadyCheckBox = useRef();
@@ -72,28 +48,10 @@ export default function GameLocalAI({
   const fatalityTime = difficulty;
   const AIbaseTime = 500;
 
-  //leaderboard
-  const leaderBoardRef = firestore.collection("leaderBoard");
-
-  const sortedLeaderBoard = leaderBoardRef.orderBy("time");
-  const [leaderBoard] = useCollectionData(sortedLeaderBoard, {
-    idField: "id",
-  });
-
-  const checkLeaderBoardTimes = (leaderBoardTime, player) => {
-    //vertaa vain tohon 15. aikaan jotta record history näkyy databasessa.
-    if (leaderBoardTime < leaderBoard[14].time) {
-      setLdbTime(leaderBoardTime);
-      setShowLeaderBoardInput(true);
-      //setScreenSlide("leaderboard");
-    }
-  };
-
   const NextRoundReset = () => {
     setTimeout(() => {
       setInfoText("Again?");
       setGun1Loaded(true);
-      setShotFired(false);
       setPlayerOneReady(false);
       setPlayer2Anim("waiting");
       setPlayerAnim("waiting");
@@ -169,8 +127,6 @@ export default function GameLocalAI({
           setInfoText("You won");
           setPlayer2Anim("die");
         }
-        setWinner(1);
-        checkLeaderBoardTimes(triggerTime - startTime, "player1");
         setScore([score[0] + 1, score[1]]);
         NextRoundReset();
       } else {

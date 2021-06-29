@@ -1,16 +1,9 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useCollectionData } from "react-firebase-hooks/firestore";
 
 import "./leaderBoard.scss";
 
-export default function LeaderBoard({
-  setLeaderBoardName,
-  firestore,
-  player1Hero,
-  ldbTime,
-  setShowLeaderBoard,
-  showLeaderBoard,
-}) {
+export default function LeaderBoard({ firestore, showLeaderBoard }) {
   const leaderBoardRef = firestore.collection("leaderBoard");
 
   //leaderborad
@@ -18,11 +11,6 @@ export default function LeaderBoard({
   const [leaderBoard] = useCollectionData(sortedLeaderBoard, {
     idField: "id",
   });
-
-  //debug
-  useEffect(() => {
-    console.error("boardii", leaderBoard);
-  }, []);
 
   return (
     <div
@@ -32,7 +20,7 @@ export default function LeaderBoard({
           : "leaderBoardContainer ldbHide"
       }
     >
-      <img src="./assets/wantedboard.gif"></img>
+      <img src="./assets/wantedboard.gif" alt="wantedboard"></img>
       <div className="leaderBoardList">
         {leaderBoard &&
           leaderBoard.slice(0, 15).map((ldbEntry) => {

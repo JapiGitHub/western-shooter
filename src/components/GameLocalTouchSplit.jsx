@@ -22,7 +22,6 @@ export default function GameLocalTouchSplit({
 
   const [infoText, setInfoText] = useState("Ready?");
 
-  const [startTime, setStartTime] = useState(888);
   const [randomTime, setRandomTime] = useState(0);
   const [ok2Shoot, setOk2Shoot] = useState(false);
 
@@ -48,7 +47,6 @@ export default function GameLocalTouchSplit({
         setInfoText("BANG!");
         setOk2Shoot(true);
         holsterPlay();
-        setStartTime(new Date());
       }, randomTime);
     }
   }, [playerTwoReady, playerOneReady]);

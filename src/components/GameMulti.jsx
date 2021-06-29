@@ -19,7 +19,6 @@ export default function GameMulti({
   const [playerOneReady, setPlayerOneReady] = useState(false);
   const [playerTwoReady, setPlayerTwoReady] = useState(false);
   const [gun1Loaded, setGun1Loaded] = useState(true);
-  const [gun2Loaded, setGun2Loaded] = useState(true);
   const [player1Reaction, setPlayer1Reaction] = useState(0);
   const [player2Reaction, setPlayer2Reaction] = useState(0);
 
@@ -58,6 +57,8 @@ export default function GameMulti({
     const server = gameList.filter((game) => {
       if (game.servName === joinedServer) {
         return game.id;
+      } else {
+        return null;
       }
     });
 

@@ -3,11 +3,8 @@ import { useState } from "react";
 
 import firebase from "firebase/app";
 import "firebase/firestore";
-import "firebase/auth";
-import { useAuthState } from "react-firebase-hooks/auth";
 
 import Game from "./components/Game";
-import Login from "./components/Login";
 
 firebase.initializeApp({
   apiKey: process.env.REACT_APP_apiKey,
@@ -19,11 +16,7 @@ firebase.initializeApp({
   measurementId: process.env.REACT_APP_measurementId,
 });
 
-const auth = firebase.auth();
 const firestore = firebase.firestore();
-
-//DEBUGgia varten
-auth.signOut();
 
 function App() {
   const [gameMode, setGameMode] = useState("menu");
@@ -33,7 +26,6 @@ function App() {
       <Game
         gameMode={gameMode}
         setGameMode={setGameMode}
-        auth={auth}
         firestore={firestore}
       />
     </div>

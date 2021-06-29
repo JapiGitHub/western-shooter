@@ -25,6 +25,8 @@ export default function MultiPlayerMode({
     const server = gameList.filter((game) => {
       if (game.servName === joinedServer) {
         return game.id;
+      } else {
+        return null;
       }
     });
 

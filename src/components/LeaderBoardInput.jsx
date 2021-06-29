@@ -1,14 +1,12 @@
-import React, { useEffect, useRef } from "react";
+import React, { useRef } from "react";
 import "./leaderBoardInput.scss";
 
 export default function LeaderBoardInput({
-  setLeaderBoardName,
   firestore,
   player1Hero,
   player2Hero,
   winner,
   ldbTime,
-  setShowLeaderBoard,
   setShowLeaderBoardInput,
   showLeaderBoardInput,
 }) {
@@ -57,7 +55,7 @@ export default function LeaderBoardInput({
           : "leaderBoardInputContainer ldbInputHide"
       }
     >
-      <img src="./assets/wantedboard1.gif"></img>
+      <img src="./assets/wantedboard1.gif" alt="wantedboard"></img>
       <form onSubmit={sendLeader}>
         You were fast enough for leaderboard:
         <input

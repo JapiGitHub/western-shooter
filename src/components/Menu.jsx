@@ -6,22 +6,16 @@ import MenuMusicLoboGlueWorm from "../sounds/LoboLocoGlueworm.mp3";
 export default function Menu({
   gameMode,
   setGameMode,
-  auth,
   showMenu,
   setShowMenu,
-  user,
   setTheme,
   difficulty,
   setDifficulty,
   setScreenSlide,
 }) {
-  const [playerAvatar, setPlayerAvatar] = useState(
+  /*   const [playerAvatar, setPlayerAvatar] = useState(
     user ? auth.currentUser.photoURL : null
-  );
-
-  const [profileMenuOpen, setProfileMenuOpen] = useState(false);
-
-  const [difficultyInfo, setDifficultyInfo] = useState("normal");
+  ); */
 
   const [song, setSong] = useState(MenuMusicLoboGlueWorm);
   const [play, { stop }] = useSound(song);
@@ -66,10 +60,6 @@ export default function Menu({
     setScreenSlide("game");
   };
 
-  const profileClick = () => {
-    setProfileMenuOpen(!profileMenuOpen);
-  };
-
   return (
     <div className={showMenu ? "menuContainer" : "menuContainer hideMenu"}>
       <aside className="dirt"></aside>
@@ -100,19 +90,6 @@ export default function Menu({
       </button>
       <button className="btn theme2Button" onClick={() => setTheme("sepia")}>
         Oldie
-      </button>
-      {user ? (
-        <img
-          alt=""
-          className="avatar"
-          src={playerAvatar}
-          onClick={profileClick}
-        ></img>
-      ) : null}
-      <button
-        className={profileMenuOpen ? "profileMenu btn" : "profileMenu hide btn"}
-      >
-        Logout
       </button>
 
       <div className="difficultyInfo">

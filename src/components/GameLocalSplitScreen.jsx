@@ -21,8 +21,6 @@ import fall from "../sounds/fall.mp3";
 export default function GameLocalSplitScreen({
   setPlayerAnim,
   setPlayer2Anim,
-  slideGame,
-  setSlideGame,
   difficulty,
   firestore,
   player1Hero,
@@ -47,7 +45,6 @@ export default function GameLocalSplitScreen({
   const [showLeaderBoardInput, setShowLeaderBoardInput] = useState(false);
   const [winner, setWinner] = useState(0);
 
-  const [leaderBoardName, setLeaderBoardName] = useState("unknown");
   const [ldbTime, setLdbTime] = useState(888);
 
   const [infoText, setInfoText] = useState("Ready?");
@@ -70,7 +67,6 @@ export default function GameLocalSplitScreen({
 
   const playerTwoReadyCheckBox = useRef();
   const playerOneReadyCheckBox = useRef();
-  const ldbInputRef = useRef();
 
   const fatalityTime = difficulty;
 
@@ -286,8 +282,7 @@ export default function GameLocalSplitScreen({
       <label className="player2ReadyLabel" htmlFor="p2">
         Keyboard {score[1]}
         <input
-          className="keybInput"
-          className="readyCheckBox p2check"
+          className="keybInput readyCheckBox p2check"
           type="checkbox"
           checked={playerTwoReady}
           id="p2"
@@ -311,23 +306,14 @@ export default function GameLocalSplitScreen({
 
       <div className="infoText">{infoText}</div>
 
-      <LeaderBoard
-        setLeaderBoardName={setLeaderBoardName}
-        firestore={firestore}
-        player1Hero={player1Hero}
-        ldbTime={ldbTime}
-        setShowLeaderBoard={setShowLeaderBoard}
-        showLeaderBoard={showLeaderBoard}
-      />
+      <LeaderBoard firestore={firestore} showLeaderBoard={showLeaderBoard} />
 
       <LeaderBoardInput
-        setLeaderBoardName={setLeaderBoardName}
         firestore={firestore}
         player1Hero={player1Hero}
         player2Hero={player2Hero}
         winner={winner}
         ldbTime={ldbTime}
-        setShowLeaderBoard={setShowLeaderBoard}
         setShowLeaderBoardInput={setShowLeaderBoardInput}
         showLeaderBoardInput={showLeaderBoardInput}
       />

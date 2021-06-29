@@ -1,7 +1,5 @@
 import React, { useState } from "react";
 import "./multiPlayerLobby.scss";
-import Login from "./Login";
-import { useAuthState } from "react-firebase-hooks/auth";
 import { useCollectionData } from "react-firebase-hooks/firestore";
 
 export default function MultiPlayerLobby({
@@ -79,7 +77,6 @@ export default function MultiPlayerLobby({
           <ul>
             {gameList &&
               gameList.map((game) => {
-                console.error("gameee:", game);
                 if (game.lastOnline > Date.now() - HangOutTimeWithoutPing) {
                   return (
                     <li
@@ -90,6 +87,8 @@ export default function MultiPlayerLobby({
                       {game.servName}
                     </li>
                   );
+                } else {
+                  return null;
                 }
               })}
           </ul>

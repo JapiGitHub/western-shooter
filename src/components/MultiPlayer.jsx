@@ -15,7 +15,7 @@ export default function MultiPlayer({ setGameMode, firestore }) {
 
   return (
     <div>
-      {joinedServer == "" ? (
+      {joinedServer === "" ? (
         <MultiPlayerLobby
           firestore={firestore}
           setGameMode={setGameMode}

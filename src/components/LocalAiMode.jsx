@@ -1,26 +1,17 @@
-import React, { useState } from "react";
+import React from "react";
 
 import HeroSelectorAI from "./HeroSelectorAI";
 import GameLocalAI from "./GameLocalAI";
 
 export default function LocalAiMode({
   setGameMode,
-  showMenu,
   setShowMenu,
   difficulty,
-  firestore,
   setScreenSlide,
-  screenSlide,
-  playerAnim,
   setPlayerAnim,
-  player2Anim,
   setPlayer2Anim,
-  player2Hero,
-  setPlayer2Hero,
   player1Hero,
   setPlayer1Hero,
-  setShowLeaderBoard,
-  showLeaderBoard,
 }) {
   //playerAnim vaihtoehdot:
   //waiting
@@ -44,13 +35,7 @@ export default function LocalAiMode({
         <GameLocalAI
           setPlayerAnim={setPlayerAnim}
           setPlayer2Anim={setPlayer2Anim}
-          showMenu={showMenu}
           difficulty={difficulty}
-          player1Hero={player1Hero}
-          setShowLeaderBoard={setShowLeaderBoard}
-          showLeaderBoard={showLeaderBoard}
-          setScreenSlide={setScreenSlide}
-          firestore={firestore}
         />
         <HeroSelectorAI
           setPlayer1Hero={setPlayer1Hero}

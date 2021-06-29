@@ -13,6 +13,8 @@ export default function Cactus({ gameMode, screenSlide }) {
               return "cactus1";
             case "leaderboard":
               return "cactus1 ldbCactus1";
+            default:
+              return "cactus1 hideCactus1";
           }
         })()}
       >
@@ -27,6 +29,8 @@ export default function Cactus({ gameMode, screenSlide }) {
               return "cactus2";
             case "leaderboard":
               return "cactus2 ldbCactus2";
+            default:
+              return "cactus1 hideCactus1";
           }
         })()}
       >
@@ -41,6 +45,8 @@ export default function Cactus({ gameMode, screenSlide }) {
               return "cactus3";
             case "leaderboard":
               return "cactus3 ldbCactus3";
+            default:
+              return "cactus1 hideCactus1";
           }
         })()}
       >

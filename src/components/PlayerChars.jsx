@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import "./playerChars.scss";
 
 export default function PlayerChars({
@@ -7,7 +7,6 @@ export default function PlayerChars({
   player2Hero,
   player1Hero,
   screenSlide,
-  setScreenSlide,
 }) {
   return (
     <>
@@ -20,6 +19,8 @@ export default function PlayerChars({
               return "player2char";
             case "leaderboard":
               return "player2char ldbPlayer2";
+            default:
+              return "player2char hidePlayer2";
           }
         })()}
       >
@@ -39,6 +40,8 @@ export default function PlayerChars({
               return "player1char";
             case "leaderboard":
               return "player1char ldbPlayer1";
+            default:
+              return "player2char hidePlayer2";
           }
         })()}
       >
