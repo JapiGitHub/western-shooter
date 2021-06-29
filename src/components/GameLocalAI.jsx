@@ -61,6 +61,7 @@ export default function GameLocalAI({
       setPlayer1Reaction(0);
       setOk2Shoot(false);
       setAiAlive(true);
+      setRandomTime(3500 + Math.floor(Math.random() * 6000));
     }, 3000);
 
     //reactio ajan pään yläpuolella oleva haihtuva teksti
@@ -70,13 +71,12 @@ export default function GameLocalAI({
   };
 
   useEffect(() => {
-    setRandomTime(3500 + Math.floor(Math.random() * 3000));
+    setRandomTime(3500 + Math.floor(Math.random() * 6000));
     setPlayerOneReady(false);
   }, []);
 
-  //onko tää ihan turha?
   useEffect(() => {
-    setStartTime(3500 + Math.floor(Math.random() * 3000));
+    setStartTime(3500 + Math.floor(Math.random() * 6000));
   }, [randomTime]);
 
   //kun pelaajat valmiita, niin aloita timeri
@@ -169,10 +169,15 @@ export default function GameLocalAI({
   };
 
   const playerOneReadyClick = () => {
-    console.log("klikattu ykköstä");
     //focus takaisin p2 key listeneriin
     playerTwoReadyCheckBox.current.focus();
     setPlayerOneReady(true);
+  };
+
+  const empty = () => {
+    //tää pitää olla jotta vältytään tolta errorilta:
+    //Warning: You provided a `checked` prop to a form field without an `onChange` handler. This will render a read-only field. If the field should be mutable use `defaultChecked`. Otherwise, set either `onChange` or `readOnly`.
+    // jos laittaa defaultChecked, niin ready ei vaihdu vihreäksi
   };
 
   return (
@@ -188,6 +193,7 @@ export default function GameLocalAI({
           className="readyCheckBox p1check"
           type="checkbox"
           checked={playerOneReady}
+          onChange={empty}
           ref={playerOneReadyCheckBox}
           onClick={playerOneReadyClick}
           id="p1"
@@ -216,6 +222,7 @@ export default function GameLocalAI({
           className="readyCheckBox p2check"
           type="checkbox"
           checked={true}
+          onChange={empty}
           ref={playerTwoReadyCheckBox}
           onClick={playerOneReadyClick}
           id="p2"

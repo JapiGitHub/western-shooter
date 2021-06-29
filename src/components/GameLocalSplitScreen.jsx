@@ -32,14 +32,20 @@ export default function GameLocalSplitScreen({
 }) {
   const [playerOneReady, setPlayerOneReady] = useState(false);
   const [playerTwoReady, setPlayerTwoReady] = useState(false);
+
   const [gun1Loaded, setGun1Loaded] = useState(true);
   const [gun2Loaded, setGun2Loaded] = useState(true);
+  //vain yksi laukaus per ase
+
   const [shotFired, setShotFired] = useState(false);
+  //vain yksi onnistunut laukaus per round. varaslähtö voi toki olla myös.
+
   const [score, setScore] = useState([0, 0]);
 
   const [p1ReactText, setP1ReactText] = useState("");
   const [p2ReactText, setP2ReactText] = useState("");
   const [reactTextFade, setReactTextFade] = useState(false);
+
   const [fatality, setFatality] = useState(false);
 
   const [showLeaderBoardInput, setShowLeaderBoardInput] = useState(false);
@@ -56,6 +62,7 @@ export default function GameLocalSplitScreen({
   const [pistolCock1Play] = useSound(pistolCock1);
   const [holsterPlay] = useSound(holster);
 
+  //äänet
   const [pistolShotFromLeftPlay] = useSound(pistolShotFromLeft);
   const [pistolShotFromRightPlay] = useSound(pistolShotFromRight);
   const [RicochetToLeftPlay] = useSound(ricochetToLeft);
@@ -101,6 +108,7 @@ export default function GameLocalSplitScreen({
       setP2ReactText();
       setReactTextFade(false);
       setFatality(false);
+      setRandomTime(3500 + Math.floor(Math.random() * 6000));
     }, 3000);
 
     //reactio ajan pään yläpuolella oleva haihtuva teksti
@@ -116,7 +124,7 @@ export default function GameLocalSplitScreen({
   });
 
   useEffect(() => {
-    setRandomTime(3500 + Math.floor(Math.random() * 3000));
+    setRandomTime(3500 + Math.floor(Math.random() * 6000));
     setPlayerOneReady(false);
     setPlayerTwoReady(false);
     if (!showLeaderBoardInput) {
@@ -148,39 +156,42 @@ export default function GameLocalSplitScreen({
     setShowLeaderBoard(false);
     setScreenSlide("game");
     //SHOOTING
-    if (playerOneReady === true && playerTwoReady === true) {
-      if (gun1Loaded === true && shotFired === false) {
-        if (ok2Shoot === false) {
-          //varaslähtö
-          pistolShotFromRightPlay();
-          setPlayer2Anim("shooting");
-          setGun1Loaded(false);
-          RicochetToLeftPlay();
-          playerTwoReadyCheckBox.current.focus();
-          console.log(document.activeElement);
-        } else {
-          //onnistunut laukaus
-          const triggerTime = new Date();
-          setShotFired(true);
-          setPlayer2Anim("shooting");
+    if (
+      playerOneReady === true &&
+      playerTwoReady === true &&
+      gun1Loaded === true &&
+      shotFired === false
+    ) {
+      if (ok2Shoot === false) {
+        //varaslähtö
+        pistolShotFromRightPlay();
+        setPlayer2Anim("shooting");
+        setGun1Loaded(false);
+        RicochetToLeftPlay();
+        playerTwoReadyCheckBox.current.focus();
+        console.log(document.activeElement);
+      } else {
+        //onnistunut laukaus
+        const triggerTime = new Date();
+        setShotFired(true);
+        setPlayer2Anim("shooting");
 
-          setP1ReactText(`${triggerTime - startTime} ms`);
-          if (triggerTime - startTime < fatalityTime) {
-            fatalityFromRightPlay();
-            setFatality(true);
-            setInfoText("Fatality!");
-            setPlayerAnim("fatality");
-          } else {
-            pistolShotFromRightPlay();
-            setInfoText("Mouse wins");
-            setPlayerAnim("die");
-          }
-          setWinner(2);
-          checkLeaderBoardTimes(triggerTime - startTime, "player2");
-          setScore([score[0] + 1, score[1]]);
-          setOk2Shoot(false);
-          NextRoundReset();
+        setP1ReactText(`${triggerTime - startTime} ms`);
+        if (triggerTime - startTime < fatalityTime) {
+          fatalityFromRightPlay();
+          setFatality(true);
+          setInfoText("Fatality!");
+          setPlayerAnim("fatality");
+        } else {
+          pistolShotFromRightPlay();
+          setInfoText("Mouse wins");
+          setPlayerAnim("die");
         }
+        setWinner(2);
+        checkLeaderBoardTimes(triggerTime - startTime, "player2");
+        setScore([score[0] + 1, score[1]]);
+        setOk2Shoot(false);
+        NextRoundReset();
       }
     }
   };
@@ -192,39 +203,42 @@ export default function GameLocalSplitScreen({
     setShowLeaderBoardInput(false);
     setScreenSlide("game");
 
-    if (playerTwoReady === true && playerOneReady === true) {
-      if (gun2Loaded === true && shotFired === false) {
-        if (ok2Shoot === false) {
-          //varaslähtö
-          pistolShotFromLeftPlay();
-          setPlayerAnim("shooting");
-          setGun2Loaded(false);
-          RicochetToRightPlay();
+    if (
+      playerTwoReady === true &&
+      playerOneReady === true &&
+      gun2Loaded === true &&
+      shotFired === false
+    ) {
+      if (ok2Shoot === false) {
+        //varaslähtö
+        pistolShotFromLeftPlay();
+        setPlayerAnim("shooting");
+        setGun2Loaded(false);
+        RicochetToRightPlay();
+      } else {
+        //onnistunut laukaus
+        const triggerTime = new Date();
+        setShotFired(true);
+        setPlayerAnim("shooting");
+
+        FallPlay();
+        setP2ReactText(`${triggerTime - startTime} ms`);
+        if (triggerTime - startTime < fatalityTime) {
+          fatalityFromLeftPlay();
+          setFatality(true);
+          setInfoText("Fatality!");
+          setPlayer2Anim("fatality");
         } else {
-          //onnistunut laukaus
-          const triggerTime = new Date();
-          setShotFired(true);
-          setPlayerAnim("shooting");
-
-          FallPlay();
-          setP2ReactText(`${triggerTime - startTime} ms`);
-          if (triggerTime - startTime < fatalityTime) {
-            fatalityFromLeftPlay();
-            setFatality(true);
-            setInfoText("Fatality!");
-            setPlayer2Anim("fatality");
-          } else {
-            pistolShotFromLeftPlay();
-            setInfoText("Keyboard wins");
-            setPlayer2Anim("die");
-          }
-          setWinner(1);
-          checkLeaderBoardTimes(triggerTime - startTime, "player1");
-          setScore([score[0], score[1] + 1]);
-          setOk2Shoot(false);
-
-          NextRoundReset();
+          pistolShotFromLeftPlay();
+          setInfoText("Keyboard wins");
+          setPlayer2Anim("die");
         }
+        setWinner(1);
+        checkLeaderBoardTimes(triggerTime - startTime, "player1");
+        setScore([score[0], score[1] + 1]);
+        setOk2Shoot(false);
+
+        NextRoundReset();
       }
     }
   };
@@ -235,6 +249,12 @@ export default function GameLocalSplitScreen({
     setPlayerOneReady(true);
     setShowLeaderBoard(false);
     setScreenSlide("game");
+  };
+
+  const empty = () => {
+    //tää pitää olla jotta vältytään tolta errorilta:
+    //Warning: You provided a `checked` prop to a form field without an `onChange` handler. This will render a read-only field. If the field should be mutable use `defaultChecked`. Otherwise, set either `onChange` or `readOnly`.
+    // jos laittaa defaultChecked, niin ready ei vaihdu vihreäksi
   };
 
   return (
@@ -252,6 +272,7 @@ export default function GameLocalSplitScreen({
           className="readyCheckBox p1check"
           type="checkbox"
           checked={playerOneReady}
+          onChange={empty}
           ref={playerOneReadyCheckBox}
           onClick={playerOneReadyClick}
           id="p1"
@@ -285,6 +306,7 @@ export default function GameLocalSplitScreen({
           className="keybInput readyCheckBox p2check"
           type="checkbox"
           checked={playerTwoReady}
+          onChange={empty}
           id="p2"
           name="p2"
         />

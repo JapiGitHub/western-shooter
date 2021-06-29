@@ -23,9 +23,9 @@ export default function LeaderBoard({ firestore, showLeaderBoard }) {
       <img src="./assets/wantedboard.gif" alt="wantedboard"></img>
       <div className="leaderBoardList">
         {leaderBoard &&
-          leaderBoard.slice(0, 15).map((ldbEntry) => {
+          leaderBoard.slice(0, 15).map((ldbEntry, index) => {
             return (
-              <div className="leaderBoardEntry">
+              <div className="leaderBoardEntry" key={index}>
                 <img
                   src={`./assets/${ldbEntry.hero}.avatar.gif`}
                   className="ldbHero"

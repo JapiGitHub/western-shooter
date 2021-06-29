@@ -21,7 +21,7 @@ export default function HeroSelector({
     <>
       <div className="heroes-box-keyboard">
         {heroesList.map((hero) => (
-          <div className="hero-avatar-keyboard">
+          <div className="hero-avatar-keyboard" key={hero}>
             <img
               className={player2Hero === hero ? "chosen" : null}
               src={`./assets/${hero}.avatar.gif`}
@@ -36,7 +36,7 @@ export default function HeroSelector({
 
       <div className="heroes-box-mouse">
         {heroesList.map((hero) => (
-          <div className="hero-avatar-mouse">
+          <div className="hero-avatar-mouse" key={hero}>
             <img
               className={player1Hero === hero ? "chosen" : null}
               src={`./assets/${hero}.avatar.gif`}
