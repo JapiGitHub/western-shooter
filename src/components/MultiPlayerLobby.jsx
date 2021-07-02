@@ -32,14 +32,20 @@ export default function MultiPlayerLobby({
 
     setGameCreatorP1(true);
 
+    //CHECK ETTEI OLE JO SAMANNIMISTÄ SERVERIÄ OLEMASSA!
+
     await gameServersRef.add({
       servName: createName,
       open: true,
-      ready: [false, false],
-      score: [0, 0],
-      shotFired: [false, false],
+      ready1: false,
+      ready2: false,
+      score1: 0,
+      score2: 0,
+      shotFired1: false,
+      shotFired2: false,
       lastOnline: Date.now(),
-      lastReactionTimes: [888, 888],
+      lastReactionTime1: 888,
+      lastReactionTime2: 888,
     });
 
     setJoinedServer(createName);

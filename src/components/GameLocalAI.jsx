@@ -102,6 +102,8 @@ export default function GameLocalAI({
         }
       }, randomTime + AIbaseTime);
     }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [playerOneReady]);
 
   //voiton checkaus

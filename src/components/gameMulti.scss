@@ -130,6 +130,10 @@
     background-color: #1ed65c;
   }
 
+  input:checked ~ .checkMarkNetwork {
+    background-color: #1ed65c;
+  }
+
   .infoText {
     position: absolute;
     top: 0;

@@ -111,26 +111,39 @@ export default function GameLocalSplitScreen({
       setRandomTime(3500 + Math.floor(Math.random() * 6000));
     }, 3000);
 
-    //reactio ajan pään yläpuolella oleva haihtuva teksti
+    //reactioajan pään yläpuolella haihtuva teksti
     setTimeout(() => {
       setReactTextFade(true);
     }, 800);
   };
 
   useEffect(() => {
-    if (!showLeaderBoardInput) {
-      playerTwoReadyCheckBox.current.focus();
-    }
-  });
-
-  useEffect(() => {
     setRandomTime(3500 + Math.floor(Math.random() * 6000));
     setPlayerOneReady(false);
     setPlayerTwoReady(false);
-    if (!showLeaderBoardInput) {
-      playerTwoReadyCheckBox.current.focus();
-    }
   }, []);
+
+  useEffect(() => {
+    if (!showLeaderBoardInput) {
+      setScreenSlide("game");
+      playerTwoReadyCheckBox.current.focus();
+    } else {
+      setScreenSlide("leaderboard");
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [showLeaderBoardInput]);
+
+  useEffect(() => {
+    if (!showLeaderBoard) {
+      setScreenSlide("game");
+      playerTwoReadyCheckBox.current.focus();
+    } else {
+      setScreenSlide("leaderboard");
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [showLeaderBoard]);
 
   //kun pelaajat valmiita, niin aloita timeri
   useEffect(() => {
@@ -149,12 +162,14 @@ export default function GameLocalSplitScreen({
         setStartTime(new Date());
       }, randomTime);
     }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [playerTwoReady, playerOneReady]);
 
   //mouse player2
   const actionClick = (e) => {
     setShowLeaderBoard(false);
-    setScreenSlide("game");
+    //setScreenSlide("game");
     //SHOOTING
     if (
       playerOneReady === true &&
@@ -201,7 +216,7 @@ export default function GameLocalSplitScreen({
     setPlayerTwoReady(true);
     setShowLeaderBoard(false);
     setShowLeaderBoardInput(false);
-    setScreenSlide("game");
+    //setScreenSlide("game");
 
     if (
       playerTwoReady === true &&
@@ -248,7 +263,7 @@ export default function GameLocalSplitScreen({
     playerTwoReadyCheckBox.current.focus();
     setPlayerOneReady(true);
     setShowLeaderBoard(false);
-    setScreenSlide("game");
+    //setScreenSlide("game");
   };
 
   const empty = () => {

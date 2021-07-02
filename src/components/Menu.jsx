@@ -17,7 +17,7 @@ export default function Menu({
     user ? auth.currentUser.photoURL : null
   ); */
 
-  const [song, setSong] = useState(MenuMusicLoboGlueWorm);
+  const [song] = useState(MenuMusicLoboGlueWorm);
   const [play, { stop }] = useSound(song);
   const [menuMusic, setMenuMusic] = useState(false);
 
@@ -104,6 +104,8 @@ export default function Menu({
               return <>Ranger. Texas Ranger.</>;
             case "300":
               return <>Hold my hand.</>;
+            default:
+              return <>Ranger. Texas Ranger.</>;
           }
         })()}
       </div>

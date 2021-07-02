@@ -15,6 +15,8 @@ export default function GameMulti({
   joinedServer,
   setGameCreatorP1,
   gameCreatorP1,
+  yourServer,
+  setYourServer,
 }) {
   const [playerOneReady, setPlayerOneReady] = useState(false);
   const [playerTwoReady, setPlayerTwoReady] = useState(false);
@@ -40,6 +42,23 @@ export default function GameMulti({
   //firebase
   const gameServersRef = firestore.collection("gameServers");
   const [gameList] = useCollectionData(gameServersRef, { idField: "id" });
+  const [chosenServer, setChosenServer] = useState([]);
+
+  useEffect(async () => {
+    await gameServersRef.onSnapshot((snapshot) =>
+      snapshot.docs.map((doc) => {
+        if (doc.data().servName === joinedServer) {
+          setChosenServer(doc.data());
+          return doc.data();
+        }
+      })
+    );
+  }, []);
+
+  useEffect(() => {
+    console.log("servName", chosenServer.servName);
+    console.log("ready", chosenServer.ready1);
+  }, [chosenServer]);
 
   const playerOneReadyClick = async () => {
     setPlayerOneReady(true);
@@ -64,13 +83,8 @@ export default function GameMulti({
 
     const exportReadyData = {
       ready: gameCreatorP1
-        ? [true, server[0].ready[1]]
-        : [server[0].ready[0], true],
-      lastOnline: Date.now(),
-    };
-
-    const exportReadyData2 = {
-      ready: [true, true],
+        ? [true, server[0].ready2]
+        : [server[0].ready1, true],
       lastOnline: Date.now(),
     };
 
@@ -79,10 +93,6 @@ export default function GameMulti({
 
     await gameServersRef.doc(server[0].id).update(exportReadyData);
   };
-
-  useEffect(() => {
-    //päivitä ready statet
-  }, [gameList]);
 
   const pushReady = async () => {};
 
@@ -175,7 +185,7 @@ export default function GameMulti({
         <input
           className="readyCheckBox p1check"
           type="checkbox"
-          checked={playerOneReady}
+          checked={chosenServer.ready1}
           ref={playerOneReadyCheckBox}
           onClick={playerOneReadyClick}
           id="p1"
@@ -191,7 +201,7 @@ export default function GameMulti({
         <input
           className="readyCheckBox p2check"
           type="checkbox"
-          checked={playerTwoReady}
+          checked={chosenServer.ready2}
           ref={playerTwoReadyCheckBox}
           id="p2"
           name="p2"

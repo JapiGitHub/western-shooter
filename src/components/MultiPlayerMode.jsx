@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import PlayerChars from "./PlayerChars";
 import Cactus from "./Cactus";
 import { useCollectionData } from "react-firebase-hooks/firestore";
@@ -21,6 +21,26 @@ export default function MultiPlayerMode({
   const gameServersRef = firestore.collection("gameServers");
   const [gameList] = useCollectionData(gameServersRef, { idField: "id" });
 
+  const [serversSnapshot, setServersSnapshot] = useState([]);
+  const [yourServer, setYourServer] = useState([]);
+
+  useEffect(() => {
+    gameServersRef.onSnapshot((snapshot) =>
+      setServersSnapshot(snapshot.docs.map((doc) => doc.data()))
+    );
+
+    gameServersRef.onSnapshot((snapshot) =>
+      snapshot.docs.map((doc) => {
+        if (doc.data().servName === joinedServer) {
+          setYourServer(doc.data());
+          return doc.data();
+        } else {
+          return null;
+        }
+      })
+    );
+  }, []);
+
   const backToMenu = () => {
     const server = gameList.filter((game) => {
       if (game.servName === joinedServer) {
@@ -30,9 +50,21 @@ export default function MultiPlayerMode({
       }
     });
 
+    console.log("indianstyle:", serversSnapshot);
+    console.log("indianstyle yourserver:", yourServer);
+
     //toi [0] pitää olla tuolla
     console.log("id: ", server[0].servName);
     console.log("ready : ", server[0].ready);
+
+    console.log(
+      "p1 ready ref : ",
+      gameList.filter((game) => {
+        if (game.servName === joinedServer) {
+          return game;
+        }
+      })
+    );
 
     console.log(gameServersRef);
   };
@@ -59,6 +91,8 @@ export default function MultiPlayerMode({
           joinedServer={joinedServer}
           setGameCreatorP1={setGameCreatorP1}
           gameCreatorP1={gameCreatorP1}
+          yourServer={yourServer}
+          setYourServer={setYourServer}
         />
         <PlayerChars
           playerAnim={playerAnim}
