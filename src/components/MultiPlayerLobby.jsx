@@ -37,15 +37,11 @@ export default function MultiPlayerLobby({
     await gameServersRef.add({
       servName: createName,
       open: true,
-      ready1: false,
-      ready2: false,
-      score1: 0,
-      score2: 0,
-      shotFired1: false,
-      shotFired2: false,
+      ready: [false, false],
+      score: [0, 0],
+      shotFired: [false, false],
       lastOnline: Date.now(),
-      lastReactionTime1: 888,
-      lastReactionTime2: 888,
+      lastReactionTime: [888, 888],
     });
 
     setJoinedServer(createName);

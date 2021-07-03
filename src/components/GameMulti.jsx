@@ -43,12 +43,15 @@ export default function GameMulti({
   const gameServersRef = firestore.collection("gameServers");
   const [gameList] = useCollectionData(gameServersRef, { idField: "id" });
   const [chosenServer, setChosenServer] = useState([]);
+  let exportReadyData = { ready: [false, false], lastOnline: 0 };
+  const [serverLoaded, setServerLoaded] = useState(false);
 
   useEffect(async () => {
     await gameServersRef.onSnapshot((snapshot) =>
       snapshot.docs.map((doc) => {
         if (doc.data().servName === joinedServer) {
           setChosenServer(doc.data());
+          setServerLoaded(true);
           return doc.data();
         }
       })
@@ -61,6 +64,7 @@ export default function GameMulti({
   }, [chosenServer]);
 
   const playerOneReadyClick = async () => {
+    console.log("ready clicked");
     setPlayerOneReady(true);
     //pushReady();
     // const exportData = {
@@ -81,12 +85,17 @@ export default function GameMulti({
       }
     });
 
-    const exportReadyData = {
-      ready: gameCreatorP1
-        ? [true, server[0].ready2]
-        : [server[0].ready1, true],
-      lastOnline: Date.now(),
-    };
+    if (gameCreatorP1) {
+      exportReadyData = {
+        ready: [true, chosenServer.ready[1]],
+        lastOnline: Date.now(),
+      };
+    } else {
+      exportReadyData = {
+        ready: [chosenServer.ready[0], true],
+        lastOnline: Date.now(),
+      };
+    }
 
     console.log("server : ", server[0]);
     console.log("server ID : ", server[0].id);
@@ -101,6 +110,19 @@ export default function GameMulti({
     setRandomTime(3500 + Math.floor(Math.random() * 3000));
     setPlayerOneReady(false);
   }, []);
+
+  useEffect(() => {
+    if (serverLoaded) {
+      setPlayerOneReady(chosenServer.ready[0]);
+    } else {
+      console.log("db connecting");
+    }
+    if (serverLoaded) {
+      setPlayerTwoReady(chosenServer.ready[1]);
+    } else {
+      console.log("db connecting");
+    }
+  }, [chosenServer.ready]);
 
   //kun pelaajat valmiita, niin aloita timeri
   useEffect(() => {
@@ -185,7 +207,7 @@ export default function GameMulti({
         <input
           className="readyCheckBox p1check"
           type="checkbox"
-          checked={chosenServer.ready1}
+          checked={serverLoaded ? chosenServer.ready[0] : false}
           ref={playerOneReadyCheckBox}
           onClick={playerOneReadyClick}
           id="p1"
@@ -201,7 +223,7 @@ export default function GameMulti({
         <input
           className="readyCheckBox p2check"
           type="checkbox"
-          checked={chosenServer.ready2}
+          checked={serverLoaded ? chosenServer.ready[1] : false}
           ref={playerTwoReadyCheckBox}
           id="p2"
           name="p2"
