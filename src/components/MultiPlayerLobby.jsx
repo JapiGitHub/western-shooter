@@ -8,6 +8,7 @@ export default function MultiPlayerLobby({
   setJoinedServer,
   setGameCreatorP1,
   setScreenSlide,
+  screenSlide,
 }) {
   //const [gameList, setGameList] = useState(["aaa", "bbb", "ccc", "cccp"]);
   const [createName, setCreateName] = useState("");

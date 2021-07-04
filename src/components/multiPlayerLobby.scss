@@ -32,8 +32,11 @@
 }
 
 .gameList {
+  position: absolute;
+  left: 0;
+  bottom: 0;
   height: 80vh;
-  width: 100vw;
+  width: 50vw;
   display: grid;
   place-items: center;
 

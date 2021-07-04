@@ -7,6 +7,7 @@ export default function MultiPlayer({
   setGameMode,
   firestore,
   setScreenSlide,
+  screenSlide,
 }) {
   const [joinedServer, setJoinedServer] = useState("");
   const [gameCreatorP1, setGameCreatorP1] = useState(false);
@@ -27,6 +28,7 @@ export default function MultiPlayer({
           setJoinedServer={setJoinedServer}
           setGameCreatorP1={setGameCreatorP1}
           setScreenSlide={setScreenSlide}
+          screenSlide={screenSlide}
         />
       ) : (
         <MultiPlayerMode

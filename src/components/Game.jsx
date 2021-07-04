@@ -112,6 +112,7 @@ export default function Game({ gameMode, setGameMode, firestore }) {
           setGameMode={setGameMode}
           firestore={firestore}
           setScreenSlide={setScreenSlide}
+          screenSlide={screenSlide}
         />
       ) : null}
       <Cactus gameMode={gameMode} screenSlide={screenSlide} />
@@ -139,6 +140,20 @@ export default function Game({ gameMode, setGameMode, firestore }) {
         showMenu={showMenu}
         screenSlide={screenSlide}
         setScreenSlide={setScreenSlide}
+      />
+      <img
+        src="./assets/saloon.gif"
+        alt="saloon"
+        className={(() => {
+          switch (screenSlide) {
+            case "menu":
+              return "saloon menuSaloon";
+            case "lobby":
+              return "saloon";
+            default:
+              return "saloon menuSaloon";
+          }
+        })()}
       />
     </div>
   );

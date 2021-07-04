@@ -95,6 +95,7 @@
     background-color: burlywood;
     cursor: pointer;
     transition: all 0.2s ease;
+    z-index: 7;
   }
 
   .btn:focus {
@@ -313,5 +314,18 @@
     100% {
       top: -25vh;
     }
+  }
+
+  .saloon {
+    position: absolute;
+    bottom: 20vh;
+    right: 3vw;
+    height: 80vh;
+    z-index: 3;
+    transition: all var(--slideTime) ease;
+  }
+
+  .menuSaloon {
+    right: -100vw;
   }
 }
