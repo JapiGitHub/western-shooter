@@ -7,6 +7,7 @@ export default function MultiPlayerLobby({
   firestore,
   setJoinedServer,
   setGameCreatorP1,
+  setScreenSlide,
 }) {
   //const [gameList, setGameList] = useState(["aaa", "bbb", "ccc", "cccp"]);
   const [createName, setCreateName] = useState("");
@@ -50,11 +51,12 @@ export default function MultiPlayerLobby({
   const backToMenuClick = (e) => {
     e.preventDefault();
     setGameMode("menu");
+    setScreenSlide("menu");
   };
 
   return (
     <>
-      <main className="lobbyBG">
+      <main>
         <header className="createGame">
           <button className="btn backToMenu" onClick={backToMenuClick}>
             Back

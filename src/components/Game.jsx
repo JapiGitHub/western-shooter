@@ -30,13 +30,15 @@ export default function Game({ gameMode, setGameMode, firestore }) {
         className={(() => {
           switch (screenSlide) {
             case "menu":
-              return "menuHorizon";
+              return "horizon";
             case "game":
-              return "menuHorizon menuSlide";
+              return "horizon menuSlide";
             case "leaderboard":
-              return "menuHorizon menuSlide";
+              return "horizon menuSlide";
+            case "lobby":
+              return "horizon lobbyHorizon";
             default:
-              return "menuHorizon";
+              return "horizon";
           }
         })()}
       ></img>
@@ -106,12 +108,27 @@ export default function Game({ gameMode, setGameMode, firestore }) {
       ) : null}
 
       {gameMode === "network" ? (
-        <MultiPlayer setGameMode={setGameMode} firestore={firestore} />
+        <MultiPlayer
+          setGameMode={setGameMode}
+          firestore={firestore}
+          setScreenSlide={setScreenSlide}
+        />
       ) : null}
       <Cactus gameMode={gameMode} screenSlide={screenSlide} />
       <img
         alt="cow"
-        className={gameMode !== "menu" ? "cow hideCow" : "cow"}
+        className={(() => {
+          switch (screenSlide) {
+            case "menu":
+              return "cow";
+            case "game":
+              return "cow menuCow";
+            case "lobby":
+              return "cow lobbyCow";
+            default:
+              return "cow menuCow";
+          }
+        })()}
         src="./assets/cow.gif"
       ></img>
       <PlayerChars

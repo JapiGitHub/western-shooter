@@ -51,6 +51,7 @@ export default function Menu({
     stop();
     setGameMode("network");
     setShowMenu(false);
+    setScreenSlide("lobby");
   };
 
   const modeTouch = () => {

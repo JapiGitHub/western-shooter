@@ -15,12 +15,16 @@
   transition: all var(--slideTime) ease;
 }
 
-.hideCactus1 {
+.menuCactus1 {
   right: 89vw;
 }
 
 .ldbCactus1 {
   top: 50.7vh;
+}
+
+.lobbyCactus1 {
+  right: 110vw;
 }
 
 .cactus2 {
@@ -33,12 +37,16 @@
   transition: all var(--slideTime) ease;
 }
 
-.hideCactus2 {
+.menuCactus2 {
   right: 130vw;
 }
 
 .ldbCactus2 {
   top: 63vh;
+}
+
+.lobbyCactus2 {
+  right: 130vw;
 }
 
 .cactus3 {
@@ -50,12 +58,16 @@
   z-index: 5;
   transition: all var(--slideTime) ease;
 }
-.hideCactus3 {
+.menuCactus3 {
   left: -180vw;
 }
 
 .ldbCactus3 {
   bottom: 8vh;
+}
+
+.lobbyCactus3 {
+  left: -200vw;
 }
 
 .cactus4 {
@@ -67,10 +79,14 @@
   z-index: 5;
   transition: all var(--slideTime) ease;
 }
-.hideCactus4 {
+.menuCactus4 {
   left: 60vw;
 }
 
 .cactusGif {
   height: 100%;
+}
+
+.lobbyCactus4 {
+  left: -100vw;
 }

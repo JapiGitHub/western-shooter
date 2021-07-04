@@ -139,7 +139,7 @@
     z-index: -2;
   }
 
-  .menuHorizon {
+  .horizon {
     position: absolute;
     bottom: 40vh;
     left: -5vw;
@@ -148,18 +148,12 @@
     transition: all var(--slideTime) ease;
   }
 
-  .horizon {
-    position: absolute;
-    bottom: 40vh;
-    left: -2vw;
-    height: 25vh;
-    background: linear-gradient(rgb(116, 204, 255), rgb(184, 229, 255));
-
-    transition: all var(--slideTime) ease;
-  }
-
   .menuSlide {
     left: 0vw;
+  }
+
+  .lobbyHorizon {
+    left: -8vw;
   }
 
   .cow {
@@ -170,8 +164,12 @@
     transition: all var(--slideTime) ease;
   }
 
-  .hideCow {
+  .menuCow {
     left: 135vw;
+  }
+
+  .lobbyCow {
+    left: -130vw;
   }
 
   .cloud {

@@ -42,34 +42,6 @@ export default function MultiPlayerMode({
   }, []);
 
   const backToMenu = () => {
-    const server = gameList.filter((game) => {
-      if (game.servName === joinedServer) {
-        return game.id;
-      } else {
-        return null;
-      }
-    });
-
-    console.log("indianstyle:", serversSnapshot);
-    console.log("indianstyle yourserver:", yourServer);
-
-    //toi [0] pitää olla tuolla
-    console.log("id: ", server[0].servName);
-    console.log("ready : ", server[0].ready);
-
-    console.log(
-      "p1 ready ref : ",
-      gameList.filter((game) => {
-        if (game.servName === joinedServer) {
-          return game;
-        }
-      })
-    );
-
-    console.log(gameServersRef);
-  };
-
-  const backToMenu2 = () => {
     setGameMode("menu");
     setGameCreatorP1(false);
   };

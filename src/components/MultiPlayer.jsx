@@ -3,7 +3,11 @@ import MultiPlayerLobby from "./MultiPlayerLobby";
 import MultiPlayerMode from "./MultiPlayerMode";
 import "./multiPlayer.scss";
 
-export default function MultiPlayer({ setGameMode, firestore }) {
+export default function MultiPlayer({
+  setGameMode,
+  firestore,
+  setScreenSlide,
+}) {
   const [joinedServer, setJoinedServer] = useState("");
   const [gameCreatorP1, setGameCreatorP1] = useState(false);
   //push create true   ,   backToMenu/refresh false
@@ -15,12 +19,14 @@ export default function MultiPlayer({ setGameMode, firestore }) {
 
   return (
     <div>
+      <aside className="dirt"></aside>
       {joinedServer === "" ? (
         <MultiPlayerLobby
           firestore={firestore}
           setGameMode={setGameMode}
           setJoinedServer={setJoinedServer}
           setGameCreatorP1={setGameCreatorP1}
+          setScreenSlide={setScreenSlide}
         />
       ) : (
         <MultiPlayerMode
