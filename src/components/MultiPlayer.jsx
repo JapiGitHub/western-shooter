@@ -37,6 +37,8 @@ export default function MultiPlayer({
           joinedServer={joinedServer}
           gameCreatorP1={gameCreatorP1}
           setGameCreatorP1={setGameCreatorP1}
+          setScreenSlide={setScreenSlide}
+          screenSlide={screenSlide}
         />
       )}
     </div>

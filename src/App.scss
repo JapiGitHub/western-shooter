@@ -157,6 +157,10 @@
     left: -8vw;
   }
 
+  .multiplayerHorizon {
+    left: -16vw;
+  }
+
   .cow {
     position: absolute;
     left: 5vw;
@@ -171,6 +175,10 @@
 
   .lobbyCow {
     left: -130vw;
+  }
+
+  .multiplayerCow {
+    left: -200vw;
   }
 
   .cloud {
@@ -320,12 +328,16 @@
     position: absolute;
     bottom: 20vh;
     right: 3vw;
-    height: 80vh;
+    height: 60vh;
     z-index: 3;
     transition: all var(--slideTime) ease;
   }
 
   .menuSaloon {
     right: -100vw;
+  }
+
+  .multiplayerSaloon {
+    right: 200vw;
   }
 }

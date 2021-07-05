@@ -12,6 +12,8 @@ export default function MultiPlayerMode({
   joinedServer,
   setGameCreatorP1,
   gameCreatorP1,
+  setScreenSlide,
+  screenSlide,
 }) {
   const [playerAnim, setPlayerAnim] = useState("waiting");
   const [player2Anim, setPlayer2Anim] = useState("waiting");
@@ -44,13 +46,13 @@ export default function MultiPlayerMode({
   const backToMenu = () => {
     setGameMode("menu");
     setGameCreatorP1(false);
+    setScreenSlide("menu");
   };
 
   return (
     <>
       <main className="background-world-arena">
         <section className="ground"></section>
-        <img className="horizon" src="./assets/horizon.gif" alt="horizon"></img>
         <button onClick={backToMenu} className="menuButton">
           Menu
         </button>

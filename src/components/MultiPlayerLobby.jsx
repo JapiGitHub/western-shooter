@@ -23,6 +23,7 @@ export default function MultiPlayerLobby({
   const joinGame = (e) => {
     setJoinedServer(e.target.innerText);
     setGameCreatorP1(false);
+    setScreenSlide("multiplayer");
   };
 
   const typeGameNameHandler = (e) => {
@@ -46,6 +47,7 @@ export default function MultiPlayerLobby({
       lastReactionTime: [888, 888],
     });
 
+    setScreenSlide("multiplayer");
     setJoinedServer(createName);
   };
 
@@ -87,7 +89,7 @@ export default function MultiPlayerLobby({
                     <li
                       onClick={joinGame}
                       key={game.servName}
-                      className={game.open ? "OpenServ Serv" : "FullServ Serv"}
+                      className={game.open ? "serv openServ" : "serv fullServ"}
                     >
                       {game.servName}
                     </li>

@@ -19,11 +19,25 @@
 }
 
 .hidePlayer1 {
+  transition: all 0ms;
   left: -100vw;
+  top: 55vh;
 }
 
 .ldbPlayer1 {
+  transition: all var(--slideTime) ease;
+
   top: 52vh;
+}
+
+.lobbyPlayer1 {
+  transition: all 0ms;
+  left: 200vw;
+}
+
+.multiPlayer1 {
+  transition: all var(--slideTime) ease;
+  left: 8vw;
 }
 
 .player2char {
@@ -41,13 +55,26 @@
 }
 
 .hidePlayer2 {
-  right: 100vw;
+  transition: all 0ms;
+  right: 120vw;
   opacity: 1;
 }
 
 .ldbPlayer2 {
+  transition: all var(--slideTime) ease;
+
   top: 52vh;
   opacity: 1;
+}
+
+.lobbyPlayer2 {
+  transition: all 0ms;
+  right: -100vw;
+}
+
+.multiPlayer2 {
+  transition: all var(--slideTime) ease;
+  right: 8vw;
 }
 
 .playerGif {

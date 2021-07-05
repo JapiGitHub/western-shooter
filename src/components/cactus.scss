@@ -26,6 +26,9 @@
 .lobbyCactus1 {
   right: 110vw;
 }
+.multiplayerCactus1 {
+  right: 250vw;
+}
 
 .cactus2 {
   position: absolute;
@@ -48,6 +51,9 @@
 .lobbyCactus2 {
   right: 130vw;
 }
+.multiplayerCactus2 {
+  right: 240vw;
+}
 
 .cactus3 {
   position: absolute;
@@ -69,6 +75,9 @@
 .lobbyCactus3 {
   left: -200vw;
 }
+.multiplayerCactus3 {
+  left: -300vw;
+}
 
 .cactus4 {
   position: absolute;
@@ -83,10 +92,34 @@
   left: 60vw;
 }
 
-.cactusGif {
-  height: 100%;
-}
-
 .lobbyCactus4 {
   left: -100vw;
+}
+.multiplayerCactus4 {
+  left: -140vw;
+}
+
+.cactus5 {
+  position: absolute;
+  bottom: 3vh;
+  left: 160vw;
+  height: 25vh;
+
+  z-index: 5;
+  transition: all var(--slideTime) ease;
+}
+.menuCactus5 {
+  left: 160vw;
+}
+
+.lobbyCactus5 {
+  left: -8vw;
+}
+
+.multiplayerCactus5 {
+  left: -89vw;
+}
+
+.cactusGif {
+  height: 100%;
 }

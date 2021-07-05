@@ -37,6 +37,8 @@ export default function Game({ gameMode, setGameMode, firestore }) {
               return "horizon menuSlide";
             case "lobby":
               return "horizon lobbyHorizon";
+            case "multiplayer":
+              return "horizon multiplayerHorizon";
             default:
               return "horizon";
           }
@@ -126,8 +128,10 @@ export default function Game({ gameMode, setGameMode, firestore }) {
               return "cow menuCow";
             case "lobby":
               return "cow lobbyCow";
+            case "multiplayer":
+              return "cow multiplayerCow";
             default:
-              return "cow menuCow";
+              return "cow multiplayerCow";
           }
         })()}
         src="./assets/cow.gif"
@@ -150,6 +154,8 @@ export default function Game({ gameMode, setGameMode, firestore }) {
               return "saloon menuSaloon";
             case "lobby":
               return "saloon";
+            case "multiplayer":
+              return "saloon multiplayerSaloon";
             default:
               return "saloon menuSaloon";
           }
