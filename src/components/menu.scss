@@ -16,10 +16,6 @@
 
   transition: all 0.7s ease;
 
-  p {
-    font-size: 8vw;
-  }
-
   .cactus {
     position: absolute;
     left: 2vw;
@@ -41,11 +37,14 @@
   .buttonContainer {
     display: flex;
     flex-direction: column;
+    justify-content: flex-end;
+
+    height: 100%;
 
     button {
       padding: 1vh 4vw;
       margin-bottom: 3vh;
-      font-size: 4vh;
+      font-size: 3vh;
       z-index: 9;
     }
   }
@@ -146,5 +145,9 @@
       font-size: 1.3vw;
       padding-bottom: 4vh;
     }
+  }
+
+  .title {
+    font-size: 3vw;
   }
 }

@@ -6,7 +6,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Rye", cursive;
+  font-family: "Press Start 2P", cursive;
 
   //disable highlighti selection
   -ms-user-select: none;
@@ -45,11 +45,6 @@
       left: 40vw;
       padding: 1vh 4vh;
 
-      background-color: #dec787;
-      border-radius: 9px;
-      border-width: 0.4vh;
-      border-color: #000;
-
       font-family: "Press Start 2P", cursive;
       font-size: 3.54vh;
       transition: all 0.2s ease;
@@ -63,7 +58,6 @@
 
     .menuButton:hover {
       transform: scale(1.2);
-      background-color: #faf1db;
     }
 
     .ldbButton {
@@ -73,26 +67,22 @@
 
       top: 16.3vh;
 
-      background-color: #dec787;
       text-align: center;
       padding: 1vh 1vw;
       z-index: 9;
       font-size: 2vh;
       font-family: "Press Start 2P", cursive;
     }
-    .ldbButton:hover {
-      transform: scale(1.2);
-      background-color: #faf1db;
-      color: #000;
-    }
   }
 
   .btn {
-    border-radius: 9px;
-    border-style: solid;
-    border-width: 0.4vh;
-    border-color: black;
-    background-color: burlywood;
+    // border-radius: 9px;
+    // border-style: solid;
+    // border-width: 0.4vh;
+    // border-color: black;
+    background-color: rgba(0, 0, 0, 0.1);
+    border-style: none;
+
     cursor: pointer;
     transition: all 0.2s ease;
     z-index: 7;
@@ -163,14 +153,18 @@
 
   .cow {
     position: absolute;
-    left: 5vw;
+    left: 105vw;
     bottom: 2vh;
     height: 25vh;
     transition: all var(--slideTime) ease;
   }
 
+  .ldbCow {
+    left: 135;
+  }
+
   .menuCow {
-    left: 135vw;
+    left: 5vw;
   }
 
   .lobbyCow {

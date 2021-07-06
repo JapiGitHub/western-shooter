@@ -64,14 +64,12 @@ export default function Menu({
   return (
     <div className={showMenu ? "menuContainer" : "menuContainer hideMenu"}>
       <aside className="dirt"></aside>
-      <p>Shoot first&nbsp;&nbsp;&&nbsp;&nbsp;Die last</p>
+      <p className="title">Shoot first&nbsp;&nbsp;&&nbsp;&nbsp;Die last</p>
       <section className="buttonContainer">
         <button onClick={modeKvM} className="btn">
           Keyboard vs Mouse
         </button>
-        <button onClick={modeTouch} className="btn">
-          Touchscreen (development)
-        </button>
+        {/* <button onClick={modeTouch} className="btn"> Touchscreen (development) </button>*/}
         <button onClick={modeAI} className="btn">
           Single Player vs AI
         </button>

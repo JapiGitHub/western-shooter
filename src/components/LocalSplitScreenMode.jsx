@@ -40,7 +40,7 @@ export default function LocalSplitScreenMode({
       <main className="background-world-arena">
         <section className="ground"></section>
 
-        <button onClick={backToMenu} className="menuButton">
+        <button onClick={backToMenu} className="btn menuButton">
           Menu
         </button>
         <GameLocalSplitScreen

@@ -131,11 +131,13 @@ export default function Game({ gameMode, setGameMode, firestore }) {
         className={(() => {
           switch (screenSlide) {
             case "menu":
-              return "cow";
-            case "game":
               return "cow menuCow";
+            case "game":
+              return "cow";
             case "lobby":
               return "cow lobbyCow";
+            case "leaderboard":
+              return "cow ldbCow";
             case "multiplayer":
               return "cow multiplayerCow";
             default:

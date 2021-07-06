@@ -74,6 +74,7 @@ export default function MultiPlayerLobby({
               maxLength="32"
               autoComplete="off"
               placeholder="type server name"
+              className="serverInput"
             ></input>
             <button className="btn" type="submit">
               Create
