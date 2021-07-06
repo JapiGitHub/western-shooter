@@ -94,7 +94,7 @@
 
   .btn:hover {
     color: #fff;
-    background-color: rgb(56, 29, 13);
+    background-color: rgba(56, 29, 13, 0.6);
     transform: scale(1.2);
   }
 
@@ -333,5 +333,9 @@
 
   .multiplayerSaloon {
     right: 200vw;
+  }
+
+  .menuButtons {
+    height: 10vh;
   }
 }

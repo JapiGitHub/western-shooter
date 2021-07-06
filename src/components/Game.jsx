@@ -14,7 +14,7 @@ export default function Game({ gameMode, setGameMode, firestore }) {
 
   const [difficulty, setDifficulty] = useState(240);
 
-  const [theme, setTheme] = useState("normal");
+  const [theme, setTheme] = useState("sepia");
 
   const [playerAnim, setPlayerAnim] = useState("waiting");
   const [player2Anim, setPlayer2Anim] = useState("waiting");

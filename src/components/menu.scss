@@ -49,6 +49,17 @@
     }
   }
 
+  .graphicsTitle {
+    font-size: 1.7vh;
+    position: absolute;
+    right: 2vw;
+    bottom: 20.5vh;
+    color: #000;
+    text-align: center;
+    width: 10vw;
+    text-shadow: none;
+  }
+
   .musicToggle {
     position: absolute;
     bottom: 3vh;
@@ -64,7 +75,7 @@
     bottom: 9vh;
     right: 2vw;
     width: 10vw;
-    font-size: 2vh;
+    font-size: 1.8vh;
     padding: 1vh 1vw;
   }
 
@@ -75,6 +86,7 @@
     width: 10vw;
     font-size: 2vh;
     padding: 1vh 1vw;
+    margin-bottom: 1vh;
   }
 
   .profileMenu {
@@ -139,10 +151,6 @@
     width: 25vw;
 
     p {
-      text-align: right;
-
-      font-family: "Press Start 2P", cursive;
-      font-size: 1.3vw;
       padding-bottom: 4vh;
     }
   }

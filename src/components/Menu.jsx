@@ -66,17 +66,25 @@ export default function Menu({
       <aside className="dirt"></aside>
       <p className="title">Shoot first&nbsp;&nbsp;&&nbsp;&nbsp;Die last</p>
       <section className="buttonContainer">
-        <button onClick={modeKvM} className="btn">
+        <button onClick={modeKvM} className="btn menuButtons">
           Keyboard vs Mouse
         </button>
-        {/* <button onClick={modeTouch} className="btn"> Touchscreen (development) </button>*/}
-        <button onClick={modeAI} className="btn">
+        {/* <button onClick={modeTouch} className="btn menuButtons"> Touchscreen (development) </button>*/}
+        <button onClick={modeAI} className="btn menuButtons">
           Single Player vs AI
         </button>
-        <button onClick={modeNetwork} className="btn">
+        <button onClick={modeNetwork} className="btn menuButtons">
           Multiplayer (development)
         </button>
       </section>
+
+      <div className="graphicsTitle">Graphics</div>
+      <button className="btn theme2Button" onClick={() => setTheme("sepia")}>
+        Oldie
+      </button>
+      <button className="btn theme1Button" onClick={() => setTheme("normal")}>
+        Hyper Realistic
+      </button>
 
       <button
         className="btn musicToggle"
@@ -84,13 +92,6 @@ export default function Menu({
       >
         Music
       </button>
-      <button className="btn theme1Button" onClick={() => setTheme("normal")}>
-        Normal
-      </button>
-      <button className="btn theme2Button" onClick={() => setTheme("sepia")}>
-        Oldie
-      </button>
-
       <div className="difficultyInfo">
         <p>{difficulty} ms fatalities</p>{" "}
         {(() => {
@@ -100,7 +101,11 @@ export default function Menu({
             case "220":
               return <>Do you feel lucky punk?</>;
             case "240":
-              return <>Ranger. Texas Ranger.</>;
+              return (
+                <>
+                  Ranger,<br></br> Texas Ranger.
+                </>
+              );
             case "300":
               return <>Hold my hand.</>;
             default:
