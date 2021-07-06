@@ -89,15 +89,14 @@ export default function Menu({
       </button>
 
       <section className="settingsContainer">
-        {showSettings ? (
-          <Settings
-            setTheme={setTheme}
-            setMenuMusic={setMenuMusic}
-            menuMusic={menuMusic}
-            difficulty={difficulty}
-            setDifficulty={setDifficulty}
-          />
-        ) : null}
+        <Settings
+          setTheme={setTheme}
+          setMenuMusic={setMenuMusic}
+          menuMusic={menuMusic}
+          difficulty={difficulty}
+          setDifficulty={setDifficulty}
+          showSettings={showSettings}
+        />
       </section>
     </div>
   );

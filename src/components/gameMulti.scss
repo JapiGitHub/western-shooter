@@ -147,7 +147,9 @@
 
     font-size: 8vh;
     color: #1a0403;
-    text-shadow: 0 0 30px #ffffff;
+    text-shadow: #fff 0px 0px 5px, #fff 0px 0px 10px,
+      rgb(255, 217, 0) 0px 0px 15px, #ff2d2d 0px 0px 20px, #ff0000 0px 0px 30px,
+      #ff7a2d 0px 0px 40px, rgb(255, 45, 45) 0px 0px 50px, #fff01f 0px 0px 75px;
   }
 
   .hideInfo {

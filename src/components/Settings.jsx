@@ -6,9 +6,14 @@ export default function Settings({
   menuMusic,
   difficulty,
   setDifficulty,
+  showSettings,
 }) {
   return (
-    <>
+    <div
+      className={
+        showSettings ? "settingsContainerShow" : "settingsContainerHide"
+      }
+    >
       <div className="graphicsTitle">Graphics</div>
       <button className="btn theme2Button" onClick={() => setTheme("sepia")}>
         Oldie
@@ -23,7 +28,7 @@ export default function Settings({
         Music
       </button>
       <div className="difficultyInfo">
-        <p>{difficulty} ms fatalities</p>{" "}
+        <p>{difficulty / 1000}s fatalities</p>{" "}
         {(() => {
           switch (difficulty) {
             case "200":
@@ -70,6 +75,6 @@ export default function Settings({
           Easy
         </button>
       </div>
-    </>
+    </div>
   );
 }

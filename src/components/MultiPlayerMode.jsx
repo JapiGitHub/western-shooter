@@ -59,7 +59,7 @@ export default function MultiPlayerMode({
     <>
       <main className="background-world-arena">
         <section className="ground"></section>
-        <button onClick={backToMenu} className="menuButton">
+        <button onClick={backToMenu} className="btn menuButton">
           Menu
         </button>
         <section className="serverInfo">{joinedServer}</section>

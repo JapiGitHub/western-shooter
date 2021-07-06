@@ -53,12 +53,25 @@
   .settingsButton {
     position: absolute;
     bottom: 5vh;
-    padding-left: 10px;
-    padding-right: 10px;
+    padding-left: 3vh;
+    padding-right: 3vh;
 
     height: 10vh;
 
-    font-size: 3.6vh;
+    font-size: 3vh;
+  }
+
+  .settingsContainerShow {
+    position: absolute;
+    bottom: 0vh;
+    right: 0vw;
+    transition: all 0.7s ease;
+  }
+  .settingsContainerHide {
+    position: absolute;
+    bottom: 0vh;
+    right: -50vw;
+    transition: all 0.7s ease;
   }
 
   .graphicsTitle {
