@@ -8,8 +8,6 @@
   display: grid;
   place-items: center;
 
-  padding-top: 30px;
-
   position: absolute;
   right: 0;
   top: 0;
@@ -35,11 +33,14 @@
     z-index: -1;
   }
   .buttonContainer {
+    position: absolute;
+    bottom: 20vh;
+
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
 
-    height: 100%;
+    height: 60vh;
 
     button {
       padding: 1vh 4vw;
@@ -47,6 +48,17 @@
       font-size: 3vh;
       z-index: 9;
     }
+  }
+
+  .settingsButton {
+    position: absolute;
+    bottom: 5vh;
+    padding-left: 10px;
+    padding-right: 10px;
+
+    height: 10vh;
+
+    font-size: 3.6vh;
   }
 
   .graphicsTitle {
@@ -62,7 +74,7 @@
 
   .musicToggle {
     position: absolute;
-    bottom: 3vh;
+    bottom: 2.5vh;
     right: 2vw;
     width: 4vh;
     height: 4vh;
@@ -81,30 +93,12 @@
 
   .theme2Button {
     position: absolute;
-    bottom: 15vh;
+    bottom: 14.5vh;
     right: 2vw;
     width: 10vw;
     font-size: 2vh;
     padding: 1vh 1vw;
     margin-bottom: 1vh;
-  }
-
-  .profileMenu {
-    position: absolute;
-    top: 110px;
-    left: 10px;
-
-    font-size: 2rem;
-    display: grid;
-    place-items: center;
-
-    width: 200px;
-    height: 100px;
-
-    margin-top: 10px;
-    opacity: 1;
-
-    transition: all 0.2s ease;
   }
 
   .hide {
@@ -121,7 +115,7 @@
 
   .difficultyContainer {
     position: absolute;
-    bottom: 25vh;
+    bottom: 27vh;
     right: 2vw;
     display: flex;
     flex-direction: column;
@@ -144,7 +138,7 @@
     font-family: "Press Start 2P", cursive;
     text-align: right;
     position: absolute;
-    bottom: 50vh;
+    bottom: 47vh;
     right: 2vw;
     font-size: 1.3vw;
     z-index: 10;
@@ -156,6 +150,8 @@
   }
 
   .title {
+    position: absolute;
+    top: 14vh;
     font-size: 3vw;
   }
 }
