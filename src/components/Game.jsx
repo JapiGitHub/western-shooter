@@ -115,6 +115,14 @@ export default function Game({ gameMode, setGameMode, firestore }) {
           firestore={firestore}
           setScreenSlide={setScreenSlide}
           screenSlide={screenSlide}
+          playerAnim={playerAnim}
+          setPlayerAnim={setPlayerAnim}
+          player2Anim={player2Anim}
+          setPlayer2Anim={setPlayer2Anim}
+          player2Hero={player2Hero}
+          setPlayer2Hero={setPlayer2Hero}
+          player1Hero={player1Hero}
+          setPlayer1Hero={setPlayer1Hero}
         />
       ) : null}
       <Cactus gameMode={gameMode} screenSlide={screenSlide} />

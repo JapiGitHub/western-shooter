@@ -8,6 +8,14 @@ export default function MultiPlayer({
   firestore,
   setScreenSlide,
   screenSlide,
+  setPlayerAnim,
+  setPlayer2Anim,
+  playerAnim,
+  player2Anim,
+  player2Hero,
+  setPlayer2Hero,
+  player1Hero,
+  setPlayer1Hero,
 }) {
   const [joinedServer, setJoinedServer] = useState("");
   const [gameCreatorP1, setGameCreatorP1] = useState(false);
@@ -32,6 +40,10 @@ export default function MultiPlayer({
         />
       ) : (
         <MultiPlayerMode
+          player2Hero={player2Hero}
+          setPlayer2Hero={setPlayer2Hero}
+          player1Hero={player1Hero}
+          setPlayer1Hero={setPlayer1Hero}
           setGameMode={setGameMode}
           firestore={firestore}
           joinedServer={joinedServer}
@@ -39,6 +51,10 @@ export default function MultiPlayer({
           setGameCreatorP1={setGameCreatorP1}
           setScreenSlide={setScreenSlide}
           screenSlide={screenSlide}
+          playerAnim={playerAnim}
+          setPlayerAnim={setPlayerAnim}
+          player2Anim={player2Anim}
+          setPlayer2Anim={setPlayer2Anim}
         />
       )}
     </div>

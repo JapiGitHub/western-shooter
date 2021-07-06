@@ -58,13 +58,40 @@ export default function GameMulti({
     );
   }, []);
 
-  useEffect(() => {
-    console.log("servName", chosenServer.servName);
-    console.log("ready", chosenServer.ready1);
-  }, [chosenServer]);
+  const NextRoundReset = () => {
+    console.log("next round reset");
+    setTimeout(async () => {
+      const server = gameList.filter((game) => {
+        if (game.servName === joinedServer) {
+          return game.id;
+        } else {
+          return null;
+        }
+      });
+      exportReadyData = { ready: [false, false] };
+      await gameServersRef.doc(server[0].id).update(exportReadyData);
+
+      setInfoText("Again?");
+      setGun1Loaded(true);
+      setPlayerOneReady(false);
+      setPlayer2Anim("waiting");
+      setPlayerAnim("waiting");
+      //setP1ReactText();
+      //setReactTextFade(false);
+      //setFatality(false);
+      setPlayer1Reaction(0);
+      setOk2Shoot(false);
+      //setAiAlive(true);
+      setRandomTime(3500 + Math.floor(Math.random() * 6000));
+    }, 3000);
+
+    //reactio ajan pään yläpuolella oleva haihtuva teksti
+    setTimeout(() => {
+      //setReactTextFade(true);
+    }, 800);
+  };
 
   const playerOneReadyClick = async () => {
-    console.log("ready clicked");
     setPlayerOneReady(true);
     //pushReady();
     // const exportData = {
@@ -77,6 +104,7 @@ export default function GameMulti({
     //   lastReactionTimes: [888, 888],
     // };
 
+    //your connected server ID
     const server = gameList.filter((game) => {
       if (game.servName === joinedServer) {
         return game.id;
@@ -85,6 +113,7 @@ export default function GameMulti({
       }
     });
 
+    //data for READY?
     if (gameCreatorP1) {
       exportReadyData = {
         ready: [true, chosenServer.ready[1]],
@@ -97,13 +126,9 @@ export default function GameMulti({
       };
     }
 
-    console.log("server : ", server[0]);
-    console.log("server ID : ", server[0].id);
-
+    //update READY to database
     await gameServersRef.doc(server[0].id).update(exportReadyData);
   };
-
-  const pushReady = async () => {};
 
   //määritä randomtime
   useEffect(() => {
@@ -111,13 +136,10 @@ export default function GameMulti({
     setPlayerOneReady(false);
   }, []);
 
+  //update READY state from DB
   useEffect(() => {
     if (serverLoaded) {
       setPlayerOneReady(chosenServer.ready[0]);
-    } else {
-      console.log("db connecting");
-    }
-    if (serverLoaded) {
       setPlayerTwoReady(chosenServer.ready[1]);
     } else {
       console.log("db connecting");
@@ -159,11 +181,11 @@ export default function GameMulti({
         //kuolemisanim 1
       }
     }
+    //NextRoundReset();
   }, [player1Reaction, player2Reaction]);
 
-  //mouse player1
+  //SHOOTING
   const actionClick = () => {
-    //SHOOTING
     if (playerOneReady === true && playerTwoReady === true) {
       if (gun1Loaded === true && shotFired === false) {
         if (ok2Shoot === false) {
@@ -178,22 +200,15 @@ export default function GameMulti({
           setPlayerAnim("die");
           pistolShot2Play();
           setInfoText("mouse wins");
+
+          //reaction time
+          const pullTriggerTime = new Date();
+          const reactTimeConst = pullTriggerTime - startTime;
+          console.log("reaction ms : ", reactTimeConst);
+          setGun1Loaded(false);
+          setPlayer1Reaction(reactTimeConst);
+          setOk2Shoot(false);
         }
-
-        /*         const pullTriggerTime = new Date();
-        const reactTimeConst = pullTriggerTime - startTime;
-
-        console.log(reactTimeConst / 1000, " seconds reaction time player1");
-        setGun1Loaded(false);
-
-        setPlayer1Reaction(reactTimeConst); */
-        /*         if (reactTimeConst < 500) {
-          setPlayerAnim("shooting");
-          setInfoText("Win!");
-          pistolShot2Play();
-        } else {
-          setInfoText("Lost!");
-        } */
       }
     }
   };

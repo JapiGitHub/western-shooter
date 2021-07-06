@@ -14,11 +14,17 @@ export default function MultiPlayerMode({
   gameCreatorP1,
   setScreenSlide,
   screenSlide,
+  playerAnim,
+  setPlayerAnim,
+  player2Anim,
+  setPlayer2Anim,
+  player2Hero,
+  setPlayer2Hero,
+  player1Hero,
+  setPlayer1Hero,
 }) {
-  const [playerAnim, setPlayerAnim] = useState("waiting");
-  const [player2Anim, setPlayer2Anim] = useState("waiting");
-  const [player2Hero, setPlayer2Hero] = useState("cowboy");
-  const [player1Hero, setPlayer1Hero] = useState("sheriff");
+  //const [player2Hero, setPlayer2Hero] = useState("cowboy");
+  //const [player1Hero, setPlayer1Hero] = useState("sheriff");
 
   const gameServersRef = firestore.collection("gameServers");
   const [gameList] = useCollectionData(gameServersRef, { idField: "id" });
@@ -68,12 +74,7 @@ export default function MultiPlayerMode({
           yourServer={yourServer}
           setYourServer={setYourServer}
         />
-        <PlayerChars
-          playerAnim={playerAnim}
-          player2Anim={player2Anim}
-          player2Hero={player2Hero}
-          player1Hero={player1Hero}
-        />
+
         <HeroSelectorAI setPlayer1Hero={setPlayer1Hero} />
 
         <Cactus />

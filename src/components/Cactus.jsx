@@ -43,11 +43,7 @@ export default function Cactus({ gameMode, screenSlide }) {
           }
         })()}
       >
-        <img
-          className="cactusGif"
-          src="./assets/VAARAAAAA.gif"
-          alt="cacti"
-        ></img>
+        <img className="cactusGif" src="./assets/cactus2.gif" alt="cacti"></img>
       </aside>
 
       <aside
