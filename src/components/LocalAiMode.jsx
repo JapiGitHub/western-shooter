@@ -1,4 +1,6 @@
 import React from "react";
+import useSound from "use-sound";
+import SwooshFromLeft from "../sounds/swoosh.left.mp3";
 
 import HeroSelectorAI from "./HeroSelectorAI";
 import GameLocalAI from "./GameLocalAI";
@@ -19,10 +21,13 @@ export default function LocalAiMode({
   //shot
   //dead
 
+  const [SwooshFromLeftPlay] = useSound(SwooshFromLeft);
+
   const backToMenu = () => {
     setGameMode("menu");
     setShowMenu(true);
     setScreenSlide("menu");
+    SwooshFromLeftPlay();
   };
 
   return (

@@ -2,6 +2,10 @@ import React, { useState } from "react";
 import "./multiPlayerLobby.scss";
 import { useCollectionData } from "react-firebase-hooks/firestore";
 
+import useSound from "use-sound";
+import SwooshFromLeft from "../sounds/swoosh.left.mp3";
+import SwooshFromRight from "../sounds/swoosh.right.mp3";
+
 export default function MultiPlayerLobby({
   setGameMode,
   firestore,
@@ -12,6 +16,9 @@ export default function MultiPlayerLobby({
 }) {
   //const [gameList, setGameList] = useState(["aaa", "bbb", "ccc", "cccp"]);
   const [createName, setCreateName] = useState("");
+
+  const [SwooshFromLeftPlay] = useSound(SwooshFromLeft);
+  const [SwooshFromRightPlay] = useSound(SwooshFromRight);
 
   //firestore collection:
   //autoID, servName, open(bool), score[int], ready[bool], shotFired[bool], lastReactTimes[int], lastOnline[timestamp]
@@ -24,6 +31,7 @@ export default function MultiPlayerLobby({
     setJoinedServer(e.target.innerText);
     setGameCreatorP1(false);
     setScreenSlide("multiplayer");
+    SwooshFromLeftPlay();
   };
 
   const typeGameNameHandler = (e) => {
@@ -49,12 +57,14 @@ export default function MultiPlayerLobby({
 
     setScreenSlide("multiplayer");
     setJoinedServer(createName);
+    SwooshFromLeftPlay();
   };
 
   const backToMenuClick = (e) => {
     e.preventDefault();
     setGameMode("menu");
     setScreenSlide("menu");
+    SwooshFromLeftPlay();
   };
 
   return (

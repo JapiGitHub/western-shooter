@@ -1,4 +1,6 @@
 import React from "react";
+import useSound from "use-sound";
+import SwooshFromLeft from "../sounds/swoosh.left.mp3";
 
 import GameLocalSplitScreen from "./GameLocalSplitScreen";
 import HeroSelector from "./HeroSelector";
@@ -28,8 +30,11 @@ export default function LocalSplitScreenMode({
   //shot
   //dead
 
+  const [SwooshFromLeftPlay] = useSound(SwooshFromLeft);
+
   const backToMenu = (e) => {
     e.preventDefault();
+    SwooshFromLeftPlay();
     setGameMode("menu");
     setShowMenu(true);
     setScreenSlide("menu");

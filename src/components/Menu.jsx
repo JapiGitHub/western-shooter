@@ -4,6 +4,8 @@ import Settings from "./Settings";
 import "./menu.scss";
 import useSound from "use-sound";
 import MenuMusicLoboGlueWorm from "../sounds/LoboLocoGlueworm.mp3";
+import SwooshFromLeft from "../sounds/swoosh.left.mp3";
+import SwooshFromRight from "../sounds/swoosh.right.mp3";
 
 export default function Menu({
   gameMode,
@@ -22,6 +24,8 @@ export default function Menu({
   const [song] = useState(MenuMusicLoboGlueWorm);
   const [play, { stop }] = useSound(song);
   const [menuMusic, setMenuMusic] = useState(false);
+  const [SwooshFromLeftPlay] = useSound(SwooshFromLeft);
+  const [SwooshFromRightPlay] = useSound(SwooshFromRight);
 
   const [showSettings, setShowSettings] = useState(false);
 
@@ -41,6 +45,7 @@ export default function Menu({
     setGameMode("split");
     setShowMenu(false);
     setScreenSlide("game");
+    SwooshFromRightPlay();
   };
 
   const modeAI = (e) => {
@@ -49,6 +54,7 @@ export default function Menu({
     setGameMode("ai");
     setShowMenu(false);
     setScreenSlide("game");
+    SwooshFromRightPlay();
   };
 
   const modeNetwork = () => {
@@ -56,6 +62,7 @@ export default function Menu({
     setGameMode("network");
     setShowMenu(false);
     setScreenSlide("lobby");
+    SwooshFromLeftPlay();
   };
 
   const modeTouch = () => {
@@ -63,6 +70,7 @@ export default function Menu({
     setGameMode("touch");
     setShowMenu(false);
     setScreenSlide("game");
+    SwooshFromRightPlay();
   };
 
   return (
