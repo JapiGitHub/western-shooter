@@ -44,6 +44,8 @@ export default function GameMulti({
   const [gameList] = useCollectionData(gameServersRef, { idField: "id" });
   const [chosenServer, setChosenServer] = useState([]);
   let exportReadyData = { ready: [false, false], lastOnline: 0 };
+  let exportShootData = {};
+  let server;
   const [serverLoaded, setServerLoaded] = useState(false);
 
   useEffect(async () => {
@@ -185,7 +187,7 @@ export default function GameMulti({
   }, [player1Reaction, player2Reaction]);
 
   //SHOOTING
-  const actionClick = () => {
+  const actionClick = async () => {
     if (playerOneReady === true && playerTwoReady === true) {
       if (gun1Loaded === true && shotFired === false) {
         if (ok2Shoot === false) {
@@ -196,15 +198,47 @@ export default function GameMulti({
         } else {
           //onnistunut laukaus
           setShotFired(true);
-          setPlayer2Anim("shooting");
-          setPlayerAnim("die");
+          setPlayerAnim("shooting");
+          setPlayer2Anim("die");
           pistolShot2Play();
-          setInfoText("mouse wins");
+          setInfoText("You won!");
 
           //reaction time
           const pullTriggerTime = new Date();
           const reactTimeConst = pullTriggerTime - startTime;
           console.log("reaction ms : ", reactTimeConst);
+          console.log("server : ", chosenServer);
+
+          if (gameCreatorP1) {
+            exportShootData = {
+              lastReactionTime: [
+                reactTimeConst,
+                chosenServer.lastReactionTime[1],
+              ],
+              lastOnline: Date.now(),
+            };
+          } else {
+            exportShootData = {
+              lastReactionTime: [
+                chosenServer.lastReactionTime[0],
+                reactTimeConst,
+              ],
+              lastOnline: Date.now(),
+            };
+          }
+
+          //your connected server ID
+          const server = gameList.filter((game) => {
+            if (game.servName === joinedServer) {
+              return game.id;
+            } else {
+              return null;
+            }
+          });
+
+          //update your reactiontime to DB
+          await gameServersRef.doc(server[0].id).update(exportShootData);
+
           setGun1Loaded(false);
           setPlayer1Reaction(reactTimeConst);
           setOk2Shoot(false);
