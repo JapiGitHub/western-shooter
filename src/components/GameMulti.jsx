@@ -148,6 +148,24 @@ export default function GameMulti({
     }
   }, [chosenServer.ready]);
 
+  useEffect(() => {
+    try {
+      setPlayer2Reaction(chosenServer.lastReactionTime[1]);
+      if (chosenServer.lastReactionTime[1] > player1Reaction) {
+        console.log(
+          "speed: ",
+          chosenServer.lastReactionTime[1],
+          " > ",
+          player1Reaction
+        );
+      } else {
+        console.log("player 2 won");
+      }
+    } catch {
+      console.log("connecting to DB ... ");
+    }
+  }, [shotFired]);
+
   //kun pelaajat valmiita, niin aloita timeri
   useEffect(() => {
     if (playerOneReady === true && playerTwoReady === true) {
@@ -216,6 +234,7 @@ export default function GameMulti({
                 chosenServer.lastReactionTime[1],
               ],
               lastOnline: Date.now(),
+              shotFired: [true, chosenServer.shotFired[0]],
             };
           } else {
             exportShootData = {
@@ -224,6 +243,7 @@ export default function GameMulti({
                 reactTimeConst,
               ],
               lastOnline: Date.now(),
+              shotFired: [chosenServer.shotFired[1], true],
             };
           }
 
