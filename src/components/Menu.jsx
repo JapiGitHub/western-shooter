@@ -13,6 +13,7 @@ export default function Menu({
   showMenu,
   setShowMenu,
   setTheme,
+  theme,
   difficulty,
   setDifficulty,
   setScreenSlide,
@@ -98,6 +99,7 @@ export default function Menu({
 
       <section className="settingsContainer">
         <Settings
+          theme={theme}
           setTheme={setTheme}
           setMenuMusic={setMenuMusic}
           menuMusic={menuMusic}

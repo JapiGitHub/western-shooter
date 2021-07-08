@@ -23,7 +23,7 @@ export default function GameMulti({
   const [gun1Loaded, setGun1Loaded] = useState(true);
   const [player1Reaction, setPlayer1Reaction] = useState(0);
   const [player2Reaction, setPlayer2Reaction] = useState(0);
-
+  const [score, setScore] = useState([0, 0]);
   const [shotFired, setShotFired] = useState(false);
 
   const [infoText, setInfoText] = useState("Ready?");
@@ -70,7 +70,11 @@ export default function GameMulti({
           return null;
         }
       });
-      exportReadyData = { ready: [false, false] };
+      exportReadyData = {
+        ready: [false, false],
+        shotFired: [false, false],
+        lastOnline: Date.now(),
+      };
       await gameServersRef.doc(server[0].id).update(exportReadyData);
 
       setInfoText("Again?");
@@ -83,7 +87,6 @@ export default function GameMulti({
       //setFatality(false);
       setPlayer1Reaction(0);
       setOk2Shoot(false);
-      //setAiAlive(true);
       setRandomTime(3500 + Math.floor(Math.random() * 6000));
     }, 3000);
 
@@ -194,14 +197,16 @@ export default function GameMulti({
         setPlayerAnim("shooting");
         pistolShot2Play();
         //kuolemisanim 2
+        setScore([score[0] + 1, score[1]]);
       } else {
         setInfoText("player 2 wins");
         //ampumis anim 2
         pistolShot2Play();
         //kuolemisanim 1
+        setScore([score[0], score[1] + 1]);
       }
+      NextRoundReset();
     }
-    //NextRoundReset();
   }, [player1Reaction, player2Reaction]);
 
   //SHOOTING
@@ -271,7 +276,7 @@ export default function GameMulti({
     <div className="textSplashFrame" onClick={actionClick}>
       <label className="playerLocalReadyLabel" htmlFor="p1">
         <span className="localPlayerText">
-          You{gameCreatorP1 ? " Creator" : " Joined"}
+          You{gameCreatorP1 ? " Creator" : " Joined"} {score[0]}
         </span>
         <input
           className="readyCheckBox p1check"
@@ -288,7 +293,7 @@ export default function GameMulti({
       </label>
 
       <label className="playerNetworkReadyLabel" htmlFor="p2">
-        Enemy
+        {score[1]} Enemy
         <input
           className="readyCheckBox p2check"
           type="checkbox"

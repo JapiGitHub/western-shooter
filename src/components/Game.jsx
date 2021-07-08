@@ -56,6 +56,7 @@ export default function Game({ gameMode, setGameMode, firestore }) {
           showMenu={showMenu}
           setShowMenu={setShowMenu}
           setTheme={setTheme}
+          theme={theme}
           difficulty={difficulty}
           setDifficulty={setDifficulty}
           setScreenSlide={setScreenSlide}

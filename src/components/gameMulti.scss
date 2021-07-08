@@ -19,79 +19,57 @@
 
   //you
   .playerLocalReadyLabel {
-    font-size: 2rem;
+    font-size: 3vh;
 
-    width: 400px;
+    width: 30vw;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     justify-content: flex-start;
 
     position: absolute;
-    top: 40px;
+    top: 4vh;
     left: 0;
 
-    .avatar {
-      border-radius: 9px;
-      border-color: black;
-      border-width: 4px;
-      border-style: solid;
-      background-color: black;
-
-      position: absolute;
-      top: -20px;
-      left: 383px;
-
-      height: 96px;
-      width: 96px;
-
-      z-index: 20;
-      transition: all 0.2s ease;
-    }
-
-    .avatar:hover {
-      transform: scale(1.1);
-    }
-
     .localPlayerText {
-      margin-left: 80px;
+      margin-left: 4vw;
       font-family: "Press Start 2P", cursive;
     }
   }
 
   //enemy
   .playerNetworkReadyLabel {
-    font-size: 2rem;
+    font-size: 3vh;
     font-family: "Press Start 2P", cursive;
 
-    width: 400px;
+    width: 30vw;
     display: flex;
     flex-direction: column;
     align-items: flex-end;
     justify-content: flex-start;
 
     position: absolute;
-    top: 40px;
+    top: 4vh;
     right: 0;
-    padding-right: 80px;
+    padding-right: 4vw;
   }
 
   .checkMarkLocal {
     position: absolute;
-    top: 90px;
-    left: 80px;
+    top: 9vh;
+    left: 4vw;
 
-    font-size: 1.5rem;
+    font-size: 2vh;
     font-family: "Press Start 2P", cursive;
     display: grid;
     place-items: center;
 
-    border-radius: 9px;
+    border-radius: 0.5vh;
     border-style: solid;
     border-width: 0.4vh;
     border-color: rgb(0, 0, 0);
-    height: 70px;
-    width: 400px;
+    height: 7vh;
+    width: 25vw;
     background-color: crimson;
     transition: all 0.2s ease;
 
@@ -101,20 +79,20 @@
 
   .checkMarkNetwork {
     position: absolute;
-    top: 90px;
-    right: 80px;
+    top: 9vh;
+    right: 4vw;
 
-    font-size: 1.5rem;
+    font-size: 2vh;
     font-family: "Press Start 2P", cursive;
     display: grid;
     place-items: center;
 
-    border-radius: 9px;
+    border-radius: 0.5vh;
     border-style: solid;
     border-width: 0.4vh;
     border-color: rgb(0, 0, 0);
-    height: 70px;
-    width: 400px;
+    height: 7vh;
+    width: 25vw;
     background-color: crimson;
     transition: all 0.2s ease;
 
@@ -147,9 +125,7 @@
 
     font-size: 8vh;
     color: #1a0403;
-    text-shadow: #fff 0px 0px 5px, #fff 0px 0px 10px,
-      rgb(255, 217, 0) 0px 0px 15px, #ff2d2d 0px 0px 20px, #ff0000 0px 0px 30px,
-      #ff7a2d 0px 0px 40px, rgb(255, 45, 45) 0px 0px 50px, #fff01f 0px 0px 75px;
+    text-shadow: #fff 0px 0px 25px;
   }
 
   .hideInfo {

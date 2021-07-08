@@ -81,6 +81,7 @@
     // border-width: 0.4vh;
     // border-color: black;
     background-color: rgba(0, 0, 0, 0.1);
+    border-radius: 0.3vh;
     border-style: none;
 
     cursor: pointer;
@@ -109,6 +110,10 @@
     left: 0;
     overflow: hidden;
     transition: all 0.5s ease;
+  }
+
+  .selectedButton {
+    background-color: rgba(0, 0, 0, 0.5);
   }
 
   .themeSepia {
@@ -157,7 +162,7 @@
   .cow {
     position: absolute;
     left: 105vw;
-    bottom: 2vh;
+    bottom: 10vh;
     height: 25vh;
     transition: all var(--slideTime) ease;
   }
