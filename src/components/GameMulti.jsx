@@ -80,6 +80,7 @@ export default function GameMulti({
       setInfoText("Again?");
       setGun1Loaded(true);
       setPlayerOneReady(false);
+      setPlayerTwoReady(false);
       setPlayer2Anim("waiting");
       setPlayerAnim("waiting");
       //setP1ReactText();
@@ -182,6 +183,13 @@ export default function GameMulti({
       setTimeout((startTime) => {
         setInfoText("BANG!");
         setOk2Shoot(true);
+
+        //DEBUG?
+        setPlayerOneReady(true);
+        setPlayerTwoReady(true);
+        setGun1Loaded(true);
+        setShotFired(false);
+
         holsterPlay();
         setStartTime(new Date());
       }, randomTime);
@@ -192,15 +200,16 @@ export default function GameMulti({
   useEffect(() => {
     if (player1Reaction > 0 && player2Reaction > 0) {
       if (player1Reaction < player2Reaction) {
-        setInfoText("player 1 won");
-        //ampumis anim 1
+        setInfoText("You won");
         setPlayerAnim("shooting");
+        setPlayer2Anim("die");
         pistolShot2Play();
-        //kuolemisanim 2
         setScore([score[0] + 1, score[1]]);
       } else {
         setInfoText("player 2 wins");
         //ampumis anim 2
+        setPlayerAnim("die");
+        setPlayer2Anim("shooting");
         pistolShot2Play();
         //kuolemisanim 1
         setScore([score[0], score[1] + 1]);
@@ -215,16 +224,12 @@ export default function GameMulti({
       if (gun1Loaded === true && shotFired === false) {
         if (ok2Shoot === false) {
           //varaslähtö
-          pistolShot2Play();
+          //RICOCHET MONO EKANA?
           setPlayer2Anim("shooting");
           setGun1Loaded(false);
         } else {
           //onnistunut laukaus
           setShotFired(true);
-          setPlayerAnim("shooting");
-          setPlayer2Anim("die");
-          pistolShot2Play();
-          setInfoText("You won!");
 
           //reaction time
           const pullTriggerTime = new Date();
