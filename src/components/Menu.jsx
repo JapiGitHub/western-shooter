@@ -38,7 +38,7 @@ export default function Menu({
     } else {
       stop();
     }
-  });
+  }, [menuMusic]);
 
   const modeKvM = (e) => {
     e.preventDefault();

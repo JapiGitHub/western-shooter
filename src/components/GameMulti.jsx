@@ -5,6 +5,7 @@ import useSound from "use-sound";
 import pistolShot2 from "../sounds/pistol.shot.2.mp3";
 import pistolCock1 from "../sounds/cock.pistol.1.mp3";
 import holster from "../sounds/holster.mp3";
+import ricochet from "../sounds/ricochet.mp3";
 
 import "./gameMulti.scss";
 
@@ -35,6 +36,7 @@ export default function GameMulti({
   const [pistolShot2Play] = useSound(pistolShot2);
   const [pistolCock1Play] = useSound(pistolCock1);
   const [holsterPlay] = useSound(holster);
+  const [ricochetPlay] = useSound(ricochet);
 
   const playerTwoReadyCheckBox = useRef();
   const playerOneReadyCheckBox = useRef();
@@ -224,8 +226,8 @@ export default function GameMulti({
       if (gun1Loaded === true && shotFired === false) {
         if (ok2Shoot === false) {
           //varaslähtö
-          //RICOCHET MONO EKANA?
-          setPlayer2Anim("shooting");
+          ricochetPlay();
+          setPlayerAnim("shooting");
           setGun1Loaded(false);
         } else {
           //onnistunut laukaus

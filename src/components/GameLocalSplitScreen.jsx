@@ -94,6 +94,10 @@ export default function GameLocalSplitScreen({
     }
   };
 
+  useEffect(() => {
+    playerTwoReadyCheckBox.current.focus();
+  }, [player2Hero, player1Hero]);
+
   const NextRoundReset = () => {
     setTimeout(() => {
       setInfoText("Again?");
@@ -115,12 +119,15 @@ export default function GameLocalSplitScreen({
     setTimeout(() => {
       setReactTextFade(true);
     }, 800);
+
+    playerTwoReadyCheckBox.current.focus();
   };
 
   useEffect(() => {
     setRandomTime(3500 + Math.floor(Math.random() * 6000));
     setPlayerOneReady(false);
     setPlayerTwoReady(false);
+    playerTwoReadyCheckBox.current.focus();
   }, []);
 
   useEffect(() => {
@@ -160,6 +167,7 @@ export default function GameLocalSplitScreen({
         setOk2Shoot(true);
         holsterPlay();
         setStartTime(new Date());
+        playerTwoReadyCheckBox.current.focus();
       }, randomTime);
     }
 
@@ -209,6 +217,7 @@ export default function GameLocalSplitScreen({
         NextRoundReset();
       }
     }
+    playerTwoReadyCheckBox.current.focus();
   };
 
   //keyboard player1
