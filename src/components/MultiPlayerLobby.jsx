@@ -53,6 +53,7 @@ export default function MultiPlayerLobby({
       shotFired: [false, false],
       lastOnline: Date.now(),
       lastReactionTime: [888, 888],
+      lastRandomTime: 3500 + Math.floor(Math.random() * 6000),
     });
 
     setScreenSlide("multiplayer");

@@ -47,7 +47,6 @@ export default function GameMulti({
   const [chosenServer, setChosenServer] = useState([]);
   let exportReadyData = { ready: [false, false], lastOnline: 0 };
   let exportShootData = {};
-  let server;
   const [serverLoaded, setServerLoaded] = useState(false);
 
   useEffect(async () => {
@@ -56,6 +55,7 @@ export default function GameMulti({
         if (doc.data().servName === joinedServer) {
           setChosenServer(doc.data());
           setServerLoaded(true);
+          //DEBUG return ilman constia turha
           return doc.data();
         }
       })
@@ -76,6 +76,7 @@ export default function GameMulti({
         ready: [false, false],
         shotFired: [false, false],
         lastOnline: Date.now(),
+        lastRandomTime: 3500 + Math.floor(Math.random() * 6000),
       };
       await gameServersRef.doc(server[0].id).update(exportReadyData);
 
@@ -90,7 +91,7 @@ export default function GameMulti({
       //setFatality(false);
       setPlayer1Reaction(0);
       setOk2Shoot(false);
-      setRandomTime(3500 + Math.floor(Math.random() * 6000));
+      setRandomTime(chosenServer.lastRandomTime);
     }, 3000);
 
     //reactio ajan pään yläpuolella oleva haihtuva teksti
@@ -140,7 +141,7 @@ export default function GameMulti({
 
   //määritä randomtime
   useEffect(() => {
-    setRandomTime(3500 + Math.floor(Math.random() * 3000));
+    setRandomTime(chosenServer.lastRandomTime);
     setPlayerOneReady(false);
   }, []);
 

@@ -37,10 +37,12 @@ export default function MultiPlayerMode({
       setServersSnapshot(snapshot.docs.map((doc) => doc.data()))
     );
 
+    // DEBUG yourServeriä ei ees käytetä enää missään
     gameServersRef.onSnapshot((snapshot) =>
       snapshot.docs.map((doc) => {
         if (doc.data().servName === joinedServer) {
           setYourServer(doc.data());
+          //DEBUG turha ilman "const ="
           return doc.data();
         } else {
           return null;
