@@ -1,7 +1,12 @@
 import React, { useEffect, useState } from "react";
 
 import useSound from "use-sound";
-import pistolShot2 from "../sounds/pistol.shot.2.mp3";
+import pistolShotFromLeft from "../sounds/pistol.shot.from.left.mp3";
+import pistolShotFromRight from "../sounds/pistol.shot.from.right.mp3";
+import fatalityFromRight from "../sounds/fatality.from.right.mp3";
+import fatalityFromLeft from "../sounds/fatality.from.left.mp3";
+import ricochetToRight from "../sounds/ricochet.to.right.mp3";
+import ricochetToLeft from "../sounds/ricochet.to.left.mp3";
 import pistolCock1 from "../sounds/cock.pistol.1.mp3";
 import holster from "../sounds/holster.mp3";
 
@@ -14,6 +19,7 @@ export default function GameLocalTouchSplit({
   setSlideGame,
   player1Hero,
   player2Hero,
+  difficulty,
 }) {
   const [playerOneReady, setPlayerOneReady] = useState(false);
   const [playerTwoReady, setPlayerTwoReady] = useState(false);
@@ -23,12 +29,25 @@ export default function GameLocalTouchSplit({
   const [fatality, setFatality] = useState(false);
   const [score, setScore] = useState([0, 0]);
 
+  const fatalityTime = difficulty;
+
   const [infoText, setInfoText] = useState("Ready?");
+
+  const [p1ReactText, setP1ReactText] = useState("");
+  const [p2ReactText, setP2ReactText] = useState("");
+  const [reactTextFade, setReactTextFade] = useState(false);
 
   const [randomTime, setRandomTime] = useState(0);
   const [ok2Shoot, setOk2Shoot] = useState(false);
+  const [startTime, setStartTime] = useState(888);
 
-  const [pistolShot2Play] = useSound(pistolShot2);
+  //äänet
+  const [pistolShotFromLeftPlay] = useSound(pistolShotFromLeft);
+  const [pistolShotFromRightPlay] = useSound(pistolShotFromRight);
+  const [RicochetToLeftPlay] = useSound(ricochetToLeft);
+  const [RicochetToRightPlay] = useSound(ricochetToRight);
+  const [fatalityFromRightPlay] = useSound(fatalityFromRight);
+  const [fatalityFromLeftPlay] = useSound(fatalityFromLeft);
   const [pistolCock1Play] = useSound(pistolCock1);
   const [holsterPlay] = useSound(holster);
 
@@ -42,16 +61,16 @@ export default function GameLocalTouchSplit({
       setPlayerTwoReady(false);
       setPlayer2Anim("waiting");
       setPlayerAnim("waiting");
-      //setP1ReactText();
-      //setP2ReactText();
-      //setReactTextFade(false);
+      setP1ReactText();
+      setP2ReactText();
+      setReactTextFade(false);
       setFatality(false);
       setRandomTime(3500 + Math.floor(Math.random() * 6000));
     }, 3000);
 
     //reactioajan pään yläpuolella haihtuva teksti
     setTimeout(() => {
-      //setReactTextFade(true);
+      setReactTextFade(true);
     }, 800);
   };
 
@@ -73,6 +92,7 @@ export default function GameLocalTouchSplit({
         setInfoText("BANG!");
         setOk2Shoot(true);
         holsterPlay();
+        setStartTime(new Date());
       }, randomTime);
     }
   }, [playerTwoReady, playerOneReady]);
@@ -85,16 +105,26 @@ export default function GameLocalTouchSplit({
       if (gun1Loaded === true && shotFired === false) {
         if (ok2Shoot === false) {
           //varaslähtö
-          pistolShot2Play();
+          pistolShotFromRightPlay();
           setPlayer2Anim("shooting");
           setGun1Loaded(false);
+          RicochetToLeftPlay();
         } else {
           //onnistunut laukaus
+          const triggerTime = new Date();
           setShotFired(true);
           setPlayer2Anim("shooting");
-          setPlayerAnim("die");
-          pistolShot2Play();
-          setInfoText("Right wins");
+          setP2ReactText(`${triggerTime - startTime} ms`);
+          if (triggerTime - startTime < fatalityTime) {
+            fatalityFromRightPlay();
+            setFatality(true);
+            setInfoText("Fatality!");
+            setPlayerAnim("fatality");
+          } else {
+            pistolShotFromRightPlay();
+            setInfoText("Mouse wins");
+            setPlayerAnim("die");
+          }
           setScore([score[0] + 1, score[1]]);
           NextRoundReset();
         }
@@ -110,16 +140,26 @@ export default function GameLocalTouchSplit({
       if (gun2Loaded === true && shotFired === false) {
         if (ok2Shoot === false) {
           //varaslähtö
-          pistolShot2Play();
+          pistolShotFromLeftPlay();
           setPlayerAnim("shooting");
           setGun2Loaded(false);
+          RicochetToRightPlay();
         } else {
           //onnistunut laukaus
+          const triggerTime = new Date();
+          setP1ReactText(`${triggerTime - startTime} ms`);
           setShotFired(true);
           setPlayerAnim("shooting");
-          setPlayer2Anim("die");
-          pistolShot2Play();
-          setInfoText("Left wins");
+          if (triggerTime - startTime < fatalityTime) {
+            fatalityFromLeftPlay();
+            setFatality(true);
+            setInfoText("Fatality!");
+            setPlayer2Anim("fatality");
+          } else {
+            pistolShotFromLeftPlay();
+            setInfoText("Keyboard wins");
+            setPlayer2Anim("die");
+          }
           setScore([score[0], score[1] + 1]);
           NextRoundReset();
         }
@@ -176,6 +216,19 @@ export default function GameLocalTouchSplit({
           {playerOneReady ? "Ready!" : "Tap to ready"}
         </span>
       </label>
+
+      <div
+        className={
+          reactTextFade
+            ? "reactionMouseTextFloater hideTime"
+            : "reactionMouseTextFloater"
+        }
+      >
+        <div className={fatality ? "fatality" : "reactMouseTimeText"}>
+          {p1ReactText}
+        </div>
+      </div>
+
       <label className="player2ReadyLabel" htmlFor="p2">
         Left {score[1]}
         <input
@@ -190,6 +243,17 @@ export default function GameLocalTouchSplit({
           {playerTwoReady ? "Ready!" : "Tap to ready"}
         </span>
       </label>
+      <div
+        className={
+          reactTextFade
+            ? "reactionKeybTextFloater hideTime"
+            : "reactionKeybTextFloater"
+        }
+      >
+        <div className={fatality ? "fatality" : "reactKeybTimeText"}>
+          {p2ReactText}
+        </div>
+      </div>
 
       <div className="infoText">{infoText}</div>
     </div>

@@ -47,6 +47,7 @@ export default function TouchSplitMode({
           setPlayer2Anim={setPlayer2Anim}
           player1Hero={player1Hero}
           player2Hero={player2Hero}
+          difficulty={difficulty}
         />
 
         <HeroSelector
