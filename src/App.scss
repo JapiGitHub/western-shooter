@@ -3,6 +3,9 @@
 }
 
 * {
+  //prevent pinch zoom and panning
+  touch-action: pan-x pan-y;
+
   margin: 0;
   padding: 0;
   box-sizing: border-box;

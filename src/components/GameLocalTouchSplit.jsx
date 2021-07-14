@@ -12,13 +12,16 @@ export default function GameLocalTouchSplit({
   setPlayer2Anim,
   slideGame,
   setSlideGame,
+  player1Hero,
+  player2Hero,
 }) {
   const [playerOneReady, setPlayerOneReady] = useState(false);
   const [playerTwoReady, setPlayerTwoReady] = useState(false);
   const [gun1Loaded, setGun1Loaded] = useState(true);
   const [gun2Loaded, setGun2Loaded] = useState(true);
-
   const [shotFired, setShotFired] = useState(false);
+  const [fatality, setFatality] = useState(false);
+  const [score, setScore] = useState([0, 0]);
 
   const [infoText, setInfoText] = useState("Ready?");
 
@@ -28,6 +31,29 @@ export default function GameLocalTouchSplit({
   const [pistolShot2Play] = useSound(pistolShot2);
   const [pistolCock1Play] = useSound(pistolCock1);
   const [holsterPlay] = useSound(holster);
+
+  const NextRoundReset = () => {
+    setTimeout(() => {
+      setInfoText("Again?");
+      setGun1Loaded(true);
+      setGun2Loaded(true);
+      setShotFired(false);
+      setPlayerOneReady(false);
+      setPlayerTwoReady(false);
+      setPlayer2Anim("waiting");
+      setPlayerAnim("waiting");
+      //setP1ReactText();
+      //setP2ReactText();
+      //setReactTextFade(false);
+      setFatality(false);
+      setRandomTime(3500 + Math.floor(Math.random() * 6000));
+    }, 3000);
+
+    //reactioajan pään yläpuolella haihtuva teksti
+    setTimeout(() => {
+      //setReactTextFade(true);
+    }, 800);
+  };
 
   useEffect(() => {
     setRandomTime(3500 + Math.floor(Math.random() * 3000));
@@ -52,7 +78,8 @@ export default function GameLocalTouchSplit({
   }, [playerTwoReady, playerOneReady]);
 
   //Right
-  const actionClickRight = () => {
+  const actionClickRight = (e) => {
+    e.preventDefault();
     //SHOOTING
     if (playerOneReady === true && playerTwoReady === true) {
       if (gun1Loaded === true && shotFired === false) {
@@ -68,13 +95,16 @@ export default function GameLocalTouchSplit({
           setPlayerAnim("die");
           pistolShot2Play();
           setInfoText("Right wins");
+          setScore([score[0] + 1, score[1]]);
+          NextRoundReset();
         }
       }
     }
   };
 
   //left
-  const actionClickLeft = () => {
+  const actionClickLeft = (e) => {
+    e.preventDefault();
     //SHOOTING
     if (playerOneReady === true && playerTwoReady === true) {
       if (gun2Loaded === true && shotFired === false) {
@@ -90,6 +120,8 @@ export default function GameLocalTouchSplit({
           setPlayer2Anim("die");
           pistolShot2Play();
           setInfoText("Left wins");
+          setScore([score[0], score[1] + 1]);
+          NextRoundReset();
         }
       }
     }
@@ -112,7 +144,8 @@ export default function GameLocalTouchSplit({
       }
     >
       <section
-        onClick={actionClickLeft}
+        //onClick={actionClickLeft}
+        onTouchStart={actionClickLeft}
         className={
           playerOneReady === true && playerTwoReady === true
             ? "leftTouchArea touchAreaOn"
@@ -120,7 +153,8 @@ export default function GameLocalTouchSplit({
         }
       ></section>
       <section
-        onClick={actionClickRight}
+        //onClick={actionClickRight}
+        onTouchStart={actionClickRight}
         className={
           playerOneReady === true && playerTwoReady === true
             ? "rightTouchArea touchAreaOn"
@@ -129,7 +163,7 @@ export default function GameLocalTouchSplit({
       ></section>
 
       <label className="player1ReadyLabel" htmlFor="p1">
-        Right
+        {score[0]} Right
         <input
           className="readyCheckBox p1check"
           type="checkbox"
@@ -143,7 +177,7 @@ export default function GameLocalTouchSplit({
         </span>
       </label>
       <label className="player2ReadyLabel" htmlFor="p2">
-        Left
+        Left {score[1]}
         <input
           className="readyCheckBox p2check"
           type="checkbox"

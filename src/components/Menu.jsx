@@ -82,7 +82,9 @@ export default function Menu({
         <button onClick={modeKvM} className="btn menuButtons">
           Keyboard vs Mouse
         </button>
-        {/* <button onClick={modeTouch} className="btn menuButtons"> Touchscreen (development) </button>*/}
+        <button onClick={modeTouch} className="btn menuButtons">
+          Touchscreen (development)
+        </button>
         <button onClick={modeAI} className="btn menuButtons">
           Single Player vs AI
         </button>

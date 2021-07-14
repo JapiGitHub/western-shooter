@@ -3,6 +3,9 @@ import PlayerChars from "./PlayerChars";
 import GameLocalTouchSplit from "./GameLocalTouchSplit";
 import HeroSelector from "./HeroSelector";
 
+import useSound from "use-sound";
+import SwooshFromLeft from "../sounds/swoosh.left.mp3";
+
 export default function TouchSplitMode({
   setGameMode,
   showMenu,
@@ -11,16 +14,22 @@ export default function TouchSplitMode({
   firestore,
   setScreenSlide,
   screenSlide,
+  player1Hero,
+  player2Hero,
+  setPlayer1Hero,
+  setPlayer2Hero,
+  playerAnim,
+  setPlayerAnim,
+  player2Anim,
+  setPlayer2Anim,
 }) {
-  const [playerAnim, setPlayerAnim] = useState("waiting");
-  const [player2Anim, setPlayer2Anim] = useState("waiting");
-  const [player2Hero, setPlayer2Hero] = useState("cowboy");
-  const [player1Hero, setPlayer1Hero] = useState("sheriff");
+  const [SwooshFromLeftPlay] = useSound(SwooshFromLeft);
 
   const backToMenu = () => {
     setGameMode("menu");
     setShowMenu(true);
     setScreenSlide("menu");
+    SwooshFromLeftPlay();
   };
 
   return (
@@ -28,7 +37,7 @@ export default function TouchSplitMode({
       <main className="background-world-arena">
         <section className="ground"></section>
 
-        <button onClick={backToMenu} className="menuButton">
+        <button onClick={backToMenu} className="menuButton btn">
           Menu
         </button>
         <GameLocalTouchSplit
@@ -36,11 +45,15 @@ export default function TouchSplitMode({
           setPlayerAnim={setPlayerAnim}
           player2Anim={playerAnim}
           setPlayer2Anim={setPlayer2Anim}
+          player1Hero={player1Hero}
+          player2Hero={player2Hero}
         />
 
         <HeroSelector
           setPlayer1Hero={setPlayer1Hero}
           setPlayer2Hero={setPlayer2Hero}
+          player1Hero={player1Hero}
+          player2Hero={player2Hero}
         />
       </main>
     </>
