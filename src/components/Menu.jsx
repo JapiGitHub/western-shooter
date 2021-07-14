@@ -77,7 +77,10 @@ export default function Menu({
   return (
     <div className={showMenu ? "menuContainer" : "menuContainer hideMenu"}>
       <aside className="dirt"></aside>
-      <p className="title">Shoot first&nbsp;&nbsp;&&nbsp;&nbsp;Die last</p>
+      <div className="titleContainer">
+        <img src="./assets/title.gif" alt="title" className="title" />
+      </div>
+
       <section className="buttonContainer">
         <button onClick={modeKvM} className="btn menuButtons">
           Keyboard vs Mouse
