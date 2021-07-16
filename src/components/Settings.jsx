@@ -37,7 +37,9 @@ export default function Settings({
         Hyper Realistic
       </button>
       <button
-        className="btn musicToggle"
+        className={
+          menuMusic ? "btn musicToggle selectedButton" : "btn musicToggle"
+        }
         onClick={() => setMenuMusic(!menuMusic)}
       >
         Music
