@@ -4,10 +4,9 @@ import useSound from "use-sound";
 import pistolShotFromLeft from "../sounds/pistol.shot.from.left.mp3";
 import pistolShotFromRight from "../sounds/pistol.shot.from.right.mp3";
 import fatalityFromLeft from "../sounds/fatality.from.left.mp3";
-
+import fatalityVoice from "../sounds/fatality.mp3";
 import pistolCock1 from "../sounds/cock.pistol.1.mp3";
 import holster from "../sounds/holster.mp3";
-
 import ricochetToRight from "../sounds/ricochet.to.right.mp3";
 
 import "./gameLocalAI.scss";
@@ -41,6 +40,7 @@ export default function GameLocalAI({
   const [pistolShotFromRightPlay] = useSound(pistolShotFromRight);
   const [RicochetToRightPlay] = useSound(ricochetToRight);
   const [fatalityFromLeftPlay] = useSound(fatalityFromLeft);
+  const [fatalityVoicePlay] = useSound(fatalityVoice);
 
   const playerTwoReadyCheckBox = useRef();
   const playerOneReadyCheckBox = useRef();
@@ -122,6 +122,7 @@ export default function GameLocalAI({
         if (player1Reaction < fatalityTime) {
           setPlayer2Anim("fatality");
           setInfoText("Fatality!");
+          fatalityVoicePlay();
           fatalityFromLeftPlay();
           setFatality(true);
         } else {
