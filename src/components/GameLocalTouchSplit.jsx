@@ -9,6 +9,7 @@ import ricochetToRight from "../sounds/ricochet.to.right.mp3";
 import ricochetToLeft from "../sounds/ricochet.to.left.mp3";
 import pistolCock1 from "../sounds/cock.pistol.1.mp3";
 import holster from "../sounds/holster.mp3";
+import fatalityVoice from "../sounds/fatality.mp3";
 
 import "./gameLocalTouchSplit.scss";
 
@@ -50,6 +51,7 @@ export default function GameLocalTouchSplit({
   const [fatalityFromLeftPlay] = useSound(fatalityFromLeft);
   const [pistolCock1Play] = useSound(pistolCock1);
   const [holsterPlay] = useSound(holster);
+  const [fatalityVoicePlay] = useSound(fatalityVoice);
 
   const NextRoundReset = () => {
     setTimeout(() => {
@@ -120,9 +122,10 @@ export default function GameLocalTouchSplit({
             setFatality(true);
             setInfoText("Fatality!");
             setPlayerAnim("fatality");
+            fatalityVoicePlay();
           } else {
             pistolShotFromRightPlay();
-            setInfoText("Mouse wins");
+            setInfoText("Right wins");
             setPlayerAnim("die");
           }
           setScore([score[0] + 1, score[1]]);
@@ -155,9 +158,10 @@ export default function GameLocalTouchSplit({
             setFatality(true);
             setInfoText("Fatality!");
             setPlayer2Anim("fatality");
+            fatalityVoicePlay();
           } else {
             pistolShotFromLeftPlay();
-            setInfoText("Keyboard wins");
+            setInfoText("Left wins");
             setPlayer2Anim("die");
           }
           setScore([score[0], score[1] + 1]);

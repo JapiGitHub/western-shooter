@@ -39,7 +39,7 @@ export default function Game({ gameMode, setGameMode, firestore, handle }) {
       <aside className="dirt"></aside>
       <img
         alt="horizon"
-        src="./assets/horizon.wide.gif"
+        src="./assets/horizon.xtra.wide.gif"
         className={(() => {
           switch (screenSlide) {
             case "menu":

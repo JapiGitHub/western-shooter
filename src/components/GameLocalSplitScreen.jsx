@@ -17,6 +17,7 @@ import holster from "../sounds/holster.mp3";
 import ricochetToRight from "../sounds/ricochet.to.right.mp3";
 import ricochetToLeft from "../sounds/ricochet.to.left.mp3";
 import fall from "../sounds/fall.mp3";
+import fatalityVoice from "../sounds/fatality.mp3";
 
 export default function GameLocalSplitScreen({
   setPlayerAnim,
@@ -69,6 +70,7 @@ export default function GameLocalSplitScreen({
   const [RicochetToRightPlay] = useSound(ricochetToRight);
   const [fatalityFromRightPlay] = useSound(fatalityFromRight);
   const [fatalityFromLeftPlay] = useSound(fatalityFromLeft);
+  const [fatalityVoicePlay] = useSound(fatalityVoice);
 
   const [FallPlay] = useSound(fall);
 
@@ -205,6 +207,7 @@ export default function GameLocalSplitScreen({
           setFatality(true);
           setInfoText("Fatality!");
           setPlayerAnim("fatality");
+          fatalityVoicePlay();
         } else {
           pistolShotFromRightPlay();
           setInfoText("Mouse wins");
@@ -252,6 +255,7 @@ export default function GameLocalSplitScreen({
           setFatality(true);
           setInfoText("Fatality!");
           setPlayer2Anim("fatality");
+          fatalityVoicePlay();
         } else {
           pistolShotFromLeftPlay();
           setInfoText("Keyboard wins");

@@ -45,6 +45,7 @@ export default function Menu({
 
   const modeKvM = (e) => {
     e.preventDefault();
+    setMenuMusic(false);
     stop();
     setGameMode("split");
     setShowMenu(false);
@@ -54,6 +55,7 @@ export default function Menu({
 
   const modeAI = (e) => {
     e.preventDefault();
+    setMenuMusic(false);
     stop();
     setGameMode("ai");
     setShowMenu(false);
@@ -62,6 +64,7 @@ export default function Menu({
   };
 
   const modeNetwork = () => {
+    setMenuMusic(false);
     stop();
     setGameMode("network");
     setShowMenu(false);
@@ -70,6 +73,7 @@ export default function Menu({
   };
 
   const modeTouch = () => {
+    setMenuMusic(false);
     stop();
     setGameMode("touch");
     setShowMenu(false);
@@ -80,7 +84,7 @@ export default function Menu({
   return (
     <div className={showMenu ? "menuContainer" : "menuContainer hideMenu"}>
       <div className="titleContainer">
-        <img src="./assets/title.gif" alt="title" className="title" />
+        <img src="./assets/title2.gif" alt="title" className="title" />
       </div>
 
       <section className="buttonContainer">
