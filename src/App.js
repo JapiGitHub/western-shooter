@@ -1,10 +1,14 @@
 import "./App.scss";
 import { useState } from "react";
 
+import Game from "./components/Game";
+
+//fullscreen
+import { FullScreen, useFullScreenHandle } from "react-full-screen";
+
+//firebase
 import firebase from "firebase/app";
 import "firebase/firestore";
-
-import Game from "./components/Game";
 
 firebase.initializeApp({
   apiKey: process.env.REACT_APP_apiKey,
@@ -19,15 +23,20 @@ firebase.initializeApp({
 const firestore = firebase.firestore();
 
 function App() {
+  const handle = useFullScreenHandle();
+
   const [gameMode, setGameMode] = useState("start");
 
   return (
     <div className="App" style={{ cursor: "url(knife.cur),auto" }}>
-      <Game
-        gameMode={gameMode}
-        setGameMode={setGameMode}
-        firestore={firestore}
-      />
+      <FullScreen handle={handle}>
+        <Game
+          gameMode={gameMode}
+          setGameMode={setGameMode}
+          firestore={firestore}
+          handle={handle}
+        />
+      </FullScreen>
     </div>
   );
 }

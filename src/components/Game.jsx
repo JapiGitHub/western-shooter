@@ -10,7 +10,7 @@ import MultiPlayer from "./MultiPlayer";
 import useSound from "use-sound";
 import MenuMusicLoboGlueWorm from "../sounds/LoboLocoGlueworm.mp3";
 
-export default function Game({ gameMode, setGameMode, firestore }) {
+export default function Game({ gameMode, setGameMode, firestore, handle }) {
   const [showMenu, setShowMenu] = useState(true);
   const [screenSlide, setScreenSlide] = useState("menu");
   const [showLeaderBoard, setShowLeaderBoard] = useState(false);
@@ -28,6 +28,7 @@ export default function Game({ gameMode, setGameMode, firestore }) {
   const [play, { stop }] = useSound(menuSong);
 
   const startGame = () => {
+    handle.enter();
     setGameMode("menu");
     play();
   };
