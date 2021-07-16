@@ -17,14 +17,17 @@ export default function Menu({
   difficulty,
   setDifficulty,
   setScreenSlide,
+  play,
+  stop,
+  menuSong,
 }) {
   /*   const [playerAvatar, setPlayerAvatar] = useState(
     user ? auth.currentUser.photoURL : null
   ); */
 
-  const [song] = useState(MenuMusicLoboGlueWorm);
-  const [play, { stop }] = useSound(song);
-  const [menuMusic, setMenuMusic] = useState(false);
+  //const [song] = useState(MenuMusicLoboGlueWorm);
+  //const [play, { stop }] = useSound(song);
+  const [menuMusic, setMenuMusic] = useState(true);
   const [SwooshFromLeftPlay] = useSound(SwooshFromLeft);
   const [SwooshFromRightPlay] = useSound(SwooshFromRight);
 
@@ -38,7 +41,7 @@ export default function Menu({
     } else {
       stop();
     }
-  }, [menuMusic]);
+  }, [menuMusic, gameMode]);
 
   const modeKvM = (e) => {
     e.preventDefault();
@@ -76,7 +79,6 @@ export default function Menu({
 
   return (
     <div className={showMenu ? "menuContainer" : "menuContainer hideMenu"}>
-      <aside className="dirt"></aside>
       <div className="titleContainer">
         <img src="./assets/title.gif" alt="title" className="title" />
       </div>
@@ -86,10 +88,10 @@ export default function Menu({
           Keyboard vs Mouse
         </button>
         <button onClick={modeTouch} className="btn menuButtons">
-          Touchscreen (development)
+          Touchscreen Duel
         </button>
         <button onClick={modeAI} className="btn menuButtons">
-          Single Player vs AI
+          Singleplayer vs AI
         </button>
         <button onClick={modeNetwork} className="btn menuButtons">
           Multiplayer (development)

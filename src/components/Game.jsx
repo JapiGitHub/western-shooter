@@ -7,6 +7,9 @@ import Cactus from "./Cactus";
 import PlayerChars from "./PlayerChars";
 import MultiPlayer from "./MultiPlayer";
 
+import useSound from "use-sound";
+import MenuMusicLoboGlueWorm from "../sounds/LoboLocoGlueworm.mp3";
+
 export default function Game({ gameMode, setGameMode, firestore }) {
   const [showMenu, setShowMenu] = useState(true);
   const [screenSlide, setScreenSlide] = useState("menu");
@@ -21,9 +24,18 @@ export default function Game({ gameMode, setGameMode, firestore }) {
   const [player2Hero, setPlayer2Hero] = useState("sheriff");
   const [player1Hero, setPlayer1Hero] = useState("cowboy");
 
+  const [menuSong] = useState(MenuMusicLoboGlueWorm);
+  const [play, { stop }] = useSound(menuSong);
+
+  const startGame = () => {
+    setGameMode("menu");
+    play();
+  };
+
   return (
     <div className={theme === "normal" ? "screen" : "screen themeSepia"}>
       <aside className="sky"></aside>
+      <aside className="dirt"></aside>
       <img
         alt="horizon"
         src="./assets/horizon.wide.gif"
@@ -49,8 +61,20 @@ export default function Game({ gameMode, setGameMode, firestore }) {
       <img src="./assets/cloud3.gif" alt="cloud" className="cloud cloud3"></img>
       <img src="./assets/cloud3.gif" alt="cloud" className="cloud cloud4"></img>
 
+      {gameMode === "start" ? (
+        <img
+          src="./assets/logo.gif"
+          alt="logo"
+          className="startPic"
+          onClick={startGame}
+        ></img>
+      ) : null}
+
       {gameMode === "menu" ? (
         <Menu
+          menuSong={menuSong}
+          play={play}
+          stop={stop}
           gameMode={gameMode}
           setGameMode={setGameMode}
           showMenu={showMenu}

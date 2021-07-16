@@ -19,7 +19,7 @@ firebase.initializeApp({
 const firestore = firebase.firestore();
 
 function App() {
-  const [gameMode, setGameMode] = useState("menu");
+  const [gameMode, setGameMode] = useState("start");
 
   return (
     <div className="App" style={{ cursor: "url(knife.cur),auto" }}>

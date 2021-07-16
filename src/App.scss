@@ -24,6 +24,14 @@
   image-rendering: -moz-crisp-edges;
   image-rendering: crisp-edges;
 
+  .startPic {
+    position: absolute;
+    top: 30vh;
+    left: 40vw;
+    width: 20vw;
+    z-index: 999;
+  }
+
   .background-world-arena {
     height: 100vh;
     display: grid;
