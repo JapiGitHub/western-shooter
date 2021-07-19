@@ -3,7 +3,7 @@ import useSound from "use-sound";
 import SwooshFromLeft from "../sounds/swoosh.left.mp3";
 
 import HeroSelectorAI from "./HeroSelectorAI";
-import GameLocalAI from "./GameLocalAI";
+import GamePracticeAI from "./GamePracticeAI";
 
 export default function LocalAiMode({
   setGameMode,
@@ -37,7 +37,7 @@ export default function LocalAiMode({
         <button onClick={backToMenu} className="btn menuButton">
           Menu
         </button>
-        <GameLocalAI
+        <GamePracticeAI
           setPlayerAnim={setPlayerAnim}
           setPlayer2Anim={setPlayer2Anim}
           difficulty={difficulty}

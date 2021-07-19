@@ -14,6 +14,34 @@
   grid-template-columns: (repeat(2), 1fr);
   grid-template-rows: (repeat(4), 1fr);
 
+  .practiceDiffButtons {
+    position: absolute;
+    top: 25vh;
+    right: 7vw;
+
+    display: flex;
+
+    article {
+      margin-right: 2vw;
+      display: grid;
+      place-items: center;
+      font-size: 2vh;
+    }
+
+    .fasterButton {
+      height: 5vh;
+      width: 7vw;
+      font-size: 1.5vh;
+    }
+
+    .slowerButton {
+      height: 5vh;
+      width: 7vw;
+      font-size: 1.5vh;
+      margin-right: 1vw;
+    }
+  }
+
   .readyCheckBox {
     opacity: 0;
     margin-left: auto;

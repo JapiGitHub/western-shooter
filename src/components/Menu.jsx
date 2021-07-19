@@ -95,8 +95,9 @@ export default function Menu({
           Touchscreen Duel
         </button>
         <button onClick={modeAI} className="btn menuButtons">
-          Singleplayer vs AI
+          Practice AI
         </button>
+        <button className="btn menuButtons">Survival</button>
         <button onClick={modeNetwork} className="btn menuButtons">
           Multiplayer (development)
         </button>
@@ -119,7 +120,7 @@ export default function Menu({
           showSettings={showSettings}
         />
       </section>
-      <aside className="versionInfo">vers 0.8m</aside>
+      <aside className="versionInfo">vers 0.82</aside>
     </div>
   );
 }

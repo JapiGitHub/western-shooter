@@ -71,49 +71,54 @@ export default function GameMulti({
     );
   }, []);
 
+  //next round reset
   useEffect(() => {
-    console.log("next round reset");
-    setTimeout(async () => {
-      const server = gameList.filter((game) => {
-        if (game.servName === joinedServer) {
-          return game.id;
-        } else {
-          return null;
-        }
-      });
+    if (serverLoaded) {
+      if (chosenServer.shotFired[0] || chosenServer.shotFired[1]) {
+        console.log("next round reset");
+        setTimeout(async () => {
+          const server = gameList.filter((game) => {
+            if (game.servName === joinedServer) {
+              return game.id;
+            } else {
+              return null;
+            }
+          });
 
-      if (gameCreatorP1) {
-        console.log("score menossa DBhen ", score);
-        exportReadyData = {
-          ready: [false, false],
-          shotFired: [false, false],
-          lastOnline: Date.now(),
-          lastRandomTime: 3500 + Math.floor(Math.random() * 6000),
-          score: score,
-          lastReactionTime: [88888, 88888],
-        };
-        await gameServersRef.doc(server[0].id).update(exportReadyData);
+          if (gameCreatorP1) {
+            console.log("score menossa DBhen ", score);
+            exportReadyData = {
+              ready: [false, false],
+              shotFired: [false, false],
+              lastOnline: Date.now(),
+              lastRandomTime: 3500 + Math.floor(Math.random() * 6000),
+              score: score,
+              lastReactionTime: [88888, 88888],
+            };
+            await gameServersRef.doc(server[0].id).update(exportReadyData);
+          }
+
+          setInfoText("Again?");
+          setGun1Loaded(true);
+          setPlayerOneReady(false);
+          setPlayerTwoReady(false);
+          setPlayer2Anim("waiting");
+          setPlayerAnim("waiting");
+          //setP1ReactText();
+          //setReactTextFade(false);
+          //setFatality(false);
+          setPlayer1Reaction(0);
+          setOk2Shoot(false);
+          setRandomTime(chosenServer.lastRandomTime);
+        }, 3000);
+
+        //reactio ajan pään yläpuolella oleva haihtuva teksti
+        setTimeout(() => {
+          //setReactTextFade(true);
+        }, 800);
       }
-
-      setInfoText("Again?");
-      setGun1Loaded(true);
-      setPlayerOneReady(false);
-      setPlayerTwoReady(false);
-      setPlayer2Anim("waiting");
-      setPlayerAnim("waiting");
-      //setP1ReactText();
-      //setReactTextFade(false);
-      //setFatality(false);
-      setPlayer1Reaction(0);
-      setOk2Shoot(false);
-      setRandomTime(chosenServer.lastRandomTime);
-    }, 3000);
-
-    //reactio ajan pään yläpuolella oleva haihtuva teksti
-    setTimeout(() => {
-      //setReactTextFade(true);
-    }, 800);
-  }, [score]);
+    }
+  }, [chosenServer.score]);
 
   const NextRoundReset = () => {};
 
@@ -167,7 +172,7 @@ export default function GameMulti({
     } catch {
       console.log("connecting to DB ... ");
     }
-  }, [shotFired]);
+  }, [chosenServer.shotFired]);
 
   //kun pelaajat valmiita, niin aloita timeri
   useEffect(() => {
@@ -269,6 +274,7 @@ export default function GameMulti({
           });
 
           //update your reactiontime to DB
+          console.log("exporting data to DB", exportShootData);
           await gameServersRef.doc(server[0].id).update(exportShootData);
 
           setPlayer1Reaction(reactTimeConst);

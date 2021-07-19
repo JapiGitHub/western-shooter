@@ -9,9 +9,9 @@ import pistolCock1 from "../sounds/cock.pistol.1.mp3";
 import holster from "../sounds/holster.mp3";
 import ricochetToRight from "../sounds/ricochet.to.right.mp3";
 
-import "./gameLocalAI.scss";
+import "./practiceAI.scss";
 
-export default function GameLocalAI({
+export default function GamePracticeAI({
   setPlayerAnim,
   setPlayer2Anim,
   difficulty,
@@ -46,7 +46,7 @@ export default function GameLocalAI({
   const playerOneReadyCheckBox = useRef();
 
   const fatalityTime = difficulty;
-  const AIbaseTime = 500;
+  const [AIbaseTime, setAIbaseTime] = useState(500);
 
   const NextRoundReset = () => {
     setTimeout(() => {
@@ -110,10 +110,7 @@ export default function GameLocalAI({
   useEffect(() => {
     if (player1Reaction > 0) {
       console.log("reactio: ", player1Reaction);
-      if (
-        player1Reaction < AIbaseTime - score[0] * 50 ||
-        player1Reaction < fatalityTime
-      ) {
+      if (player1Reaction < AIbaseTime) {
         const triggerTime = new Date();
         setAiAlive(false);
         setPlayerAnim("shooting");
@@ -235,6 +232,25 @@ export default function GameLocalAI({
       </label>
 
       <div className="infoText">{infoText}</div>
+      <div className="practiceDiffButtons">
+        <article>{AIbaseTime / 1000}s</article>
+        <button
+          className="btn slowerButton"
+          onClick={() => {
+            setAIbaseTime(AIbaseTime + 10);
+          }}
+        >
+          Slower
+        </button>
+        <button
+          className="btn fasterButton"
+          onClick={() => {
+            setAIbaseTime(AIbaseTime - 10);
+          }}
+        >
+          Faster
+        </button>
+      </div>
     </div>
   );
 }
