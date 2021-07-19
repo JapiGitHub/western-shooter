@@ -52,7 +52,7 @@ export default function MultiPlayerLobby({
       score: [0, 0],
       shotFired: [false, false],
       lastOnline: Date.now(),
-      lastReactionTime: [888, 888],
+      lastReactionTime: [88888, 88888],
       lastRandomTime: 3500 + Math.floor(Math.random() * 6000),
     });
 
