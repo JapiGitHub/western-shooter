@@ -16,6 +16,8 @@ export default function MultiPlayer({
   setPlayer2Hero,
   player1Hero,
   setPlayer1Hero,
+  menuMusic,
+  setMenuMusic,
 }) {
   const [joinedServer, setJoinedServer] = useState("");
   const [gameCreatorP1, setGameCreatorP1] = useState(false);
@@ -37,6 +39,8 @@ export default function MultiPlayer({
           setGameCreatorP1={setGameCreatorP1}
           setScreenSlide={setScreenSlide}
           screenSlide={screenSlide}
+          menuMusic={menuMusic}
+          setMenuMusic={setMenuMusic}
         />
       ) : (
         <MultiPlayerMode

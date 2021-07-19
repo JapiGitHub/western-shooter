@@ -20,6 +20,8 @@ export default function Menu({
   play,
   stop,
   menuSong,
+  menuMusic,
+  setMenuMusic,
 }) {
   /*   const [playerAvatar, setPlayerAvatar] = useState(
     user ? auth.currentUser.photoURL : null
@@ -27,7 +29,7 @@ export default function Menu({
 
   //const [song] = useState(MenuMusicLoboGlueWorm);
   //const [play, { stop }] = useSound(song);
-  const [menuMusic, setMenuMusic] = useState(true);
+
   const [SwooshFromLeftPlay] = useSound(SwooshFromLeft);
   const [SwooshFromRightPlay] = useSound(SwooshFromRight);
 
@@ -43,9 +45,14 @@ export default function Menu({
     }
   }, [menuMusic, gameMode]);
 
+  useEffect(() => {
+    if (menuMusic) {
+      play();
+    }
+  }, []);
+
   const modeKvM = (e) => {
     e.preventDefault();
-    setMenuMusic(false);
     stop();
     setGameMode("split");
     setShowMenu(false);
@@ -55,7 +62,6 @@ export default function Menu({
 
   const modeAI = (e) => {
     e.preventDefault();
-    setMenuMusic(false);
     stop();
     setGameMode("ai");
     setShowMenu(false);
@@ -64,8 +70,6 @@ export default function Menu({
   };
 
   const modeNetwork = () => {
-    setMenuMusic(false);
-    stop();
     setGameMode("network");
     setShowMenu(false);
     setScreenSlide("lobby");
@@ -73,7 +77,6 @@ export default function Menu({
   };
 
   const modeTouch = () => {
-    setMenuMusic(false);
     stop();
     setGameMode("touch");
     setShowMenu(false);

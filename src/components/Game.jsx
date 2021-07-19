@@ -12,6 +12,7 @@ import MenuMusicLoboGlueWorm from "../sounds/LoboLocoGlueworm.mp3";
 
 export default function Game({ gameMode, setGameMode, firestore, handle }) {
   const [showMenu, setShowMenu] = useState(true);
+  const [menuMusic, setMenuMusic] = useState(true);
   const [screenSlide, setScreenSlide] = useState("menu");
   const [showLeaderBoard, setShowLeaderBoard] = useState(false);
 
@@ -25,7 +26,7 @@ export default function Game({ gameMode, setGameMode, firestore, handle }) {
   const [player1Hero, setPlayer1Hero] = useState("cowboy");
 
   const [menuSong] = useState(MenuMusicLoboGlueWorm);
-  const [play, { stop }] = useSound(menuSong);
+  const [play, { stop }] = useSound(menuSong, { interrupt: true });
 
   const startGame = () => {
     handle.enter();
@@ -85,6 +86,8 @@ export default function Game({ gameMode, setGameMode, firestore, handle }) {
           difficulty={difficulty}
           setDifficulty={setDifficulty}
           setScreenSlide={setScreenSlide}
+          menuMusic={menuMusic}
+          setMenuMusic={setMenuMusic}
         />
       ) : null}
 
@@ -157,6 +160,8 @@ export default function Game({ gameMode, setGameMode, firestore, handle }) {
           setPlayer2Hero={setPlayer2Hero}
           player1Hero={player1Hero}
           setPlayer1Hero={setPlayer1Hero}
+          menuMusic={menuMusic}
+          setMenuMusic={setMenuMusic}
         />
       ) : null}
       <Cactus gameMode={gameMode} screenSlide={screenSlide} />
