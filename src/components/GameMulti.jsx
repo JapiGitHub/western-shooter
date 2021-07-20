@@ -67,7 +67,9 @@ export default function GameMulti({
 
   //next round reset
   useEffect(() => {
+    console.log("trying roudn reset");
     if (serverLoaded) {
+      console.log("score nyt ", score);
       if (chosenServer.shotFired[0] && chosenServer.shotFired[1]) {
         console.log("next round reset");
         setTimeout(async () => {
@@ -83,7 +85,7 @@ export default function GameMulti({
             console.log("score menossa DBhen ", score);
             exportReadyData = {
               ready: [false, false],
-              shotFired: [false, false],
+              //shotFired: [false, false],
               lastOnline: Date.now(),
               lastRandomTime: 3500 + Math.floor(Math.random() * 6000),
               score: score,
@@ -110,9 +112,18 @@ export default function GameMulti({
         setTimeout(() => {
           //setReactTextFade(true);
         }, 800);
+      } else {
+        console.log(
+          "trying next round reset failed. serv:",
+          serverLoaded,
+          "  shot1",
+          chosenServer.shotFired[0],
+          "  shot2",
+          chosenServer.shotFired[1]
+        );
       }
     }
-  }, [chosenServer.score]);
+  }, [score]);
 
   //readyClick
   const playerOneReadyClick = async () => {
@@ -132,11 +143,13 @@ export default function GameMulti({
     if (gameCreatorP1) {
       exportReadyData = {
         ready: [true, chosenServer.ready[1]],
+        shotFired: [false, false],
         lastOnline: Date.now(),
       };
     } else {
       exportReadyData = {
         ready: [chosenServer.ready[0], true],
+        shotFired: [false, false],
         lastOnline: Date.now(),
       };
     }
@@ -180,8 +193,11 @@ export default function GameMulti({
           setPlayer2Reaction(chosenServer.lastReactionTime[0]);
         }
 
-        console.log("you  reaction:", player1Reaction);
-        console.log("enem reaction:", player2Reaction);
+        console.log("LOCAL you  reaction:", player1Reaction);
+        console.log("LOCAL enem reaction:", player2Reaction);
+
+        console.log("NET crea  reaction:", chosenServer.lastReactionTime[0]);
+        console.log("NET join  reaction:", chosenServer.lastReactionTime[1]);
       }
     } else {
       console.log("connecting to DB ... updating reactiontimes");
@@ -288,6 +304,8 @@ export default function GameMulti({
           pistolShot2Play();
           if (gameCreatorP1) {
             setScore([score[0] + 1, score[1]]);
+          } else {
+            setScore([score[0], score[1] + 1]);
           }
         } else {
           setInfoText("player 2 wins");
@@ -298,6 +316,8 @@ export default function GameMulti({
           //kuolemisanim 1
           if (gameCreatorP1) {
             setScore([score[0], score[1] + 1]);
+          } else {
+            setScore([score[0] + 1, score[1]]);
           }
         }
         setGun1Loaded(false);
