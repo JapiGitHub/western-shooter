@@ -294,30 +294,35 @@ export default function GameMulti({
         chosenServer.lastReactionTime[1] !== 88888
       ) {
         console.log("kumpikin ampunut");
-
+        pistolShot2Play();
         if (
           chosenServer.lastReactionTime[0] < chosenServer.lastReactionTime[1]
         ) {
-          setInfoText("You won");
-          setPlayerAnim("shooting");
-          setPlayer2Anim("die");
-          pistolShot2Play();
+          // [0]faster
           if (gameCreatorP1) {
+            setInfoText("you/Creator won");
+            setPlayerAnim("shooting");
+            setPlayer2Anim("die");
             setScore([score[0] + 1, score[1]]);
           } else {
-            setScore([score[0], score[1] + 1]);
+            setInfoText("You lost");
+            setPlayer2Anim("shooting");
+            setPlayerAnim("die");
+            setScore([score[0] + 1, score[1]]);
           }
+
+          // [1]faster
         } else {
-          setInfoText("player 2 wins");
-          //ampumis anim 2
-          setPlayerAnim("die");
-          setPlayer2Anim("shooting");
-          pistolShot2Play();
-          //kuolemisanim 1
           if (gameCreatorP1) {
+            setInfoText("You lost");
+            setPlayerAnim("die");
+            setPlayer2Anim("shooting");
             setScore([score[0], score[1] + 1]);
           } else {
-            setScore([score[0] + 1, score[1]]);
+            setInfoText("You/joined won");
+            setPlayer2Anim("die");
+            setPlayerAnim("shooting");
+            setScore([score[0], score[1] + 1]);
           }
         }
         setGun1Loaded(false);
@@ -339,7 +344,7 @@ export default function GameMulti({
         <input
           className="readyCheckBox p1check"
           type="checkbox"
-          checked={serverLoaded ? chosenServer.ready[0] : false}
+          checked={serverLoaded ? playerOneReady : false}
           ref={playerOneReadyCheckBox}
           onClick={playerOneReadyClick}
           id="p1"
@@ -355,7 +360,7 @@ export default function GameMulti({
         <input
           className="readyCheckBox p2check"
           type="checkbox"
-          checked={serverLoaded ? chosenServer.ready[1] : false}
+          checked={serverLoaded ? playerTwoReady : false}
           ref={playerTwoReadyCheckBox}
           onClick={playerOneReadyClick}
           id="p2"
