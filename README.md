@@ -1,19 +1,23 @@
 - Western shooter: Shoot first Die last -
 
-Made with React.
+https://shoot-first-die-last.web.app/
+
+Made with React + firebase
 
 - 3 different heroes
 - fatalities!
 - leaderboard (firebase backend)
+- network multiplayer (firebase)
 - 3d feeling transitions
 - stereo sound
 - difficulty levels
-- menu music
+- music & fullscreen
 - two different filters/themes
 - mobile friendly
 - pixelart is home made
 
 - keyboard vs mouse mode
-- single player ai mode
-- network multiplayer (coming)
-- touchscreen mobile dual (coming)
+- adjustable practice ai mode
+- network multiplayer (almost working 100%)
+- touchscreen mobile duel
+- survival mode (coming)

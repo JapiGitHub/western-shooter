@@ -102,7 +102,7 @@ export default function Menu({
         </button>
         <button className="btn menuButtons">Survival (development)</button>
         <button onClick={modeNetwork} className="btn menuButtons">
-          Multiplayer (soon!)
+          Multiplayer (beta)
         </button>
       </section>
       <button
@@ -123,7 +123,7 @@ export default function Menu({
           showSettings={showSettings}
         />
       </section>
-      <aside className="versionInfo">vers 0.82l</aside>
+      <aside className="versionInfo">vers 0.83</aside>
     </div>
   );
 }
