@@ -100,9 +100,9 @@ export default function Menu({
         <button onClick={modeAI} className="btn menuButtons">
           Practice AI
         </button>
-        <button className="btn menuButtons">Survival</button>
+        <button className="btn menuButtons">Survival (development)</button>
         <button onClick={modeNetwork} className="btn menuButtons">
-          Multiplayer (development)
+          Multiplayer (soon!)
         </button>
       </section>
       <button
@@ -123,7 +123,7 @@ export default function Menu({
           showSettings={showSettings}
         />
       </section>
-      <aside className="versionInfo">vers 0.82</aside>
+      <aside className="versionInfo">vers 0.82h</aside>
     </div>
   );
 }

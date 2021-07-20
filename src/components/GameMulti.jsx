@@ -9,12 +9,6 @@ import ricochet from "../sounds/ricochet.mp3";
 
 import "./gameMulti.scss";
 
-// setScore to DB, muuten tulee vaan lokaalisti creatorille
-// jostain syystä joined jää vaan "set..." kohtaan
-// make game full when 2 players online
-// checkaa, että ready palikat on oikealla puolella ruutua pelaajille
-//
-
 export default function GameMulti({
   setPlayerAnim,
   setPlayer2Anim,
@@ -74,7 +68,7 @@ export default function GameMulti({
   //next round reset
   useEffect(() => {
     if (serverLoaded) {
-      if (chosenServer.shotFired[0] || chosenServer.shotFired[1]) {
+      if (chosenServer.shotFired[0] && chosenServer.shotFired[1]) {
         console.log("next round reset");
         setTimeout(async () => {
           const server = gameList.filter((game) => {
@@ -120,8 +114,7 @@ export default function GameMulti({
     }
   }, [chosenServer.score]);
 
-  const NextRoundReset = () => {};
-
+  //readyClick
   const playerOneReadyClick = async () => {
     setPlayerOneReady(true);
     setRandomTime(chosenServer.lastRandomTime);
@@ -155,26 +148,47 @@ export default function GameMulti({
   //update READY and RANDTime states from DB
   useEffect(() => {
     if (serverLoaded) {
-      setPlayerOneReady(chosenServer.ready[0]);
-      setPlayerTwoReady(chosenServer.ready[1]);
+      if (gameCreatorP1) {
+        setPlayerOneReady(chosenServer.ready[0]);
+        setPlayerTwoReady(chosenServer.ready[1]);
+      } else {
+        setPlayerOneReady(chosenServer.ready[1]);
+        setPlayerTwoReady(chosenServer.ready[0]);
+      }
+
       setRandomTime(chosenServer.lastRandomTime);
-      console.log("randomTime set to ", chosenServer.lastRandomTime);
+      console.log(
+        "randomTime set to ",
+        chosenServer.lastRandomTime,
+        ". from DB"
+      );
     } else {
-      console.log("db connecting");
+      console.log("db connecting .. updating ready&randTime");
     }
   }, [chosenServer.ready]);
 
+  //päivitä locaaliinstateen creatorin enemyn reactioaika
   useEffect(() => {
-    try {
-      if (chosenServer.shotFired[1]) {
-        setPlayer2Reaction(chosenServer.lastReactionTime[1]);
+    if (serverLoaded) {
+      if (
+        chosenServer.lastReactionTime[0] !== 88888 &&
+        chosenServer.lastReactionTime[1] !== 88888
+      ) {
+        if (gameCreatorP1) {
+          setPlayer2Reaction(chosenServer.lastReactionTime[1]);
+        } else {
+          setPlayer2Reaction(chosenServer.lastReactionTime[0]);
+        }
+
+        console.log("you  reaction:", player1Reaction);
+        console.log("enem reaction:", player2Reaction);
       }
-    } catch {
-      console.log("connecting to DB ... ");
+    } else {
+      console.log("connecting to DB ... updating reactiontimes");
     }
   }, [chosenServer.shotFired]);
 
-  //kun pelaajat valmiita, niin aloita timeri
+  //kun pelaajat valmiita,  aloita timeri
   useEffect(() => {
     if (playerOneReady === true && playerTwoReady === true) {
       setInfoText("Ready!");
@@ -190,41 +204,11 @@ export default function GameMulti({
         setInfoText("BANG!");
         setOk2Shoot(true);
 
-        setShotFired(false);
-
         holsterPlay();
         setStartTime(new Date());
       }, randomTime);
     }
   }, [playerTwoReady, playerOneReady]);
-
-  //voiton checkaus
-  useEffect(() => {
-    if (gun1Loaded && !shotFired) {
-      if (player1Reaction < player2Reaction) {
-        setInfoText("You won");
-        setPlayerAnim("shooting");
-        setPlayer2Anim("die");
-        pistolShot2Play();
-        if (gameCreatorP1) {
-          setScore([score[0] + 1, score[1]]);
-        }
-      } else {
-        setInfoText("player 2 wins");
-        //ampumis anim 2
-        setPlayerAnim("die");
-        setPlayer2Anim("shooting");
-        pistolShot2Play();
-        //kuolemisanim 1
-        if (gameCreatorP1) {
-          setScore([score[0], score[1] + 1]);
-        }
-      }
-      setGun1Loaded(false);
-      //NextRoundReset();
-      setShotFired(true);
-    }
-  }, [player1Reaction, player2Reaction]);
 
   //SHOOTING
   const actionClick = async () => {
@@ -251,7 +235,7 @@ export default function GameMulti({
                 chosenServer.lastReactionTime[1],
               ],
               lastOnline: Date.now(),
-              shotFired: [true, chosenServer.shotFired[0]],
+              shotFired: [true, chosenServer.shotFired[1]],
             };
           } else {
             exportShootData = {
@@ -260,7 +244,7 @@ export default function GameMulti({
                 reactTimeConst,
               ],
               lastOnline: Date.now(),
-              shotFired: [chosenServer.shotFired[1], true],
+              shotFired: [chosenServer.shotFired[0], true],
             };
           }
 
@@ -280,11 +264,50 @@ export default function GameMulti({
           setPlayer1Reaction(reactTimeConst);
           console.log("p1 reaction : ", reactTimeConst);
           setOk2Shoot(false);
-          setShotFired(true);
+          //setShotFired(true);
         }
       }
     }
   };
+
+  //voiton checkaus
+  useEffect(() => {
+    if (gun1Loaded && !shotFired) {
+      if (
+        chosenServer.lastReactionTime[0] !== 88888 &&
+        chosenServer.lastReactionTime[1] !== 88888
+      ) {
+        console.log("kumpikin ampunut");
+
+        if (
+          chosenServer.lastReactionTime[0] < chosenServer.lastReactionTime[1]
+        ) {
+          setInfoText("You won");
+          setPlayerAnim("shooting");
+          setPlayer2Anim("die");
+          pistolShot2Play();
+          if (gameCreatorP1) {
+            setScore([score[0] + 1, score[1]]);
+          }
+        } else {
+          setInfoText("player 2 wins");
+          //ampumis anim 2
+          setPlayerAnim("die");
+          setPlayer2Anim("shooting");
+          pistolShot2Play();
+          //kuolemisanim 1
+          if (gameCreatorP1) {
+            setScore([score[0], score[1] + 1]);
+          }
+        }
+        setGun1Loaded(false);
+        //NextRoundReset();
+        setShotFired(true);
+      } else {
+        console.log("odottaa toista ampua");
+      }
+    }
+  }, [chosenServer.lastReactionTime]);
 
   return (
     <div className="textSplashFrame" onClick={actionClick}>
@@ -314,6 +337,7 @@ export default function GameMulti({
           type="checkbox"
           checked={serverLoaded ? chosenServer.ready[1] : false}
           ref={playerTwoReadyCheckBox}
+          onClick={playerOneReadyClick}
           id="p2"
           name="p2"
         />

@@ -5,7 +5,7 @@ import SwooshFromLeft from "../sounds/swoosh.left.mp3";
 import HeroSelectorAI from "./HeroSelectorAI";
 import GamePracticeAI from "./GamePracticeAI";
 
-export default function LocalAiMode({
+export default function PracticeMode({
   setGameMode,
   setShowMenu,
   difficulty,

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Menu from "./Menu";
 import LocalSplitScreenMode from "./LocalSplitScreenMode";
-import LocalAiMode from "./LocalAiMode";
+import PracticeMode from "./PracticeMode";
 import TouchSplitMode from "./TouchSplitMode";
 import Cactus from "./Cactus";
 import PlayerChars from "./PlayerChars";
@@ -65,7 +65,7 @@ export default function Game({ gameMode, setGameMode, firestore, handle }) {
 
       {gameMode === "start" ? (
         <img
-          src="./assets/logo.gif"
+          src="./assets/logo.4.gif"
           alt="logo"
           className="startPic"
           onClick={startGame}
@@ -134,7 +134,7 @@ export default function Game({ gameMode, setGameMode, firestore, handle }) {
       ) : null}
 
       {gameMode === "ai" ? (
-        <LocalAiMode
+        <PracticeMode
           setGameMode={setGameMode}
           setShowMenu={setShowMenu}
           difficulty={difficulty}
