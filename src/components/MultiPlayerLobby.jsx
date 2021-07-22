@@ -21,7 +21,6 @@ export default function MultiPlayerLobby({
   const [createName, setCreateName] = useState("");
 
   const [SwooshFromLeftPlay] = useSound(SwooshFromLeft);
-  const [SwooshFromRightPlay] = useSound(SwooshFromRight);
 
   //firestore collection:
   //autoID, servName, open(bool), score[int], ready[bool], shotFired[bool], lastReactTimes[int], lastOnline[timestamp]
@@ -50,12 +49,16 @@ export default function MultiPlayerLobby({
       open: true,
       ready: [false, false],
       score: [0, 0],
-      shotFired: [false, false],
+      shotFiredCreator: false,
+      shotFiredJoined: false,
       lastOnline: Date.now(),
-      lastReactionTime: [88888, 88888],
+      lastReactionTimeCreator: 88888,
+      lastReactionTimeJoined: 88888,
       lastRandomTime: 3500 + Math.floor(Math.random() * 6000),
       FatalityDifficulty: difficulty,
       tooEarlyRicochet: [false, false],
+      heroCreator: "sheriff",
+      heroJoined: "cowboy",
     });
 
     setScreenSlide("multiplayer");

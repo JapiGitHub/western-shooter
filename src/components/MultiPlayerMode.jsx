@@ -77,6 +77,10 @@ export default function MultiPlayerMode({
           yourServer={yourServer}
           setYourServer={setYourServer}
           difficulty={difficulty}
+          player2Hero={player2Hero}
+          setPlayer2Hero={setPlayer2Hero}
+          player1Hero={player1Hero}
+          setPlayer1Hero={setPlayer1Hero}
         />
 
         <HeroSelectorAI setPlayer1Hero={setPlayer1Hero} />

@@ -20,6 +20,10 @@ export default function GameMulti({
   yourServer,
   setYourServer,
   difficulty,
+  player2Hero,
+  setPlayer2Hero,
+  player1Hero,
+  setPlayer1Hero,
 }) {
   const [playerOneReady, setPlayerOneReady] = useState(false);
   const [playerTwoReady, setPlayerTwoReady] = useState(false);
@@ -54,6 +58,7 @@ export default function GameMulti({
   const [chosenServer, setChosenServer] = useState([]);
   let exportReadyData = { ready: [false, false], lastOnline: 0 };
   let exportShootData = {};
+  let exportHeroData = {};
   const [serverLoaded, setServerLoaded] = useState(false);
 
   useEffect(async () => {
@@ -72,12 +77,53 @@ export default function GameMulti({
     );
   }, []);
 
+  //hero changes to DB
+  useEffect(async () => {
+    //your connected server ID
+    if (serverLoaded) {
+      const server = gameList.filter((game) => {
+        if (game.servName === joinedServer) {
+          return game.id;
+        } else {
+          return null;
+        }
+      });
+
+      //data for hero
+      if (gameCreatorP1) {
+        exportHeroData = {
+          heroCreator: player1Hero,
+          lastOnline: Date.now(),
+        };
+      } else {
+        exportHeroData = {
+          heroJoined: player1Hero,
+          lastOnline: Date.now(),
+        };
+      }
+      //update hero to database
+      await gameServersRef.doc(server[0].id).update(exportHeroData);
+    }
+  }, [player1Hero, player2Hero]);
+  //hero changes from DB:
+  useEffect(() => {
+    if (serverLoaded) {
+      if (gameCreatorP1) {
+        setPlayer1Hero(chosenServer.heroCreator);
+        setPlayer2Hero(chosenServer.heroJoined);
+      } else {
+        setPlayer1Hero(chosenServer.heroJoined);
+        setPlayer2Hero(chosenServer.heroCreator);
+      }
+    }
+  }, [chosenServer.heroCreator, chosenServer.heroJoined]);
+
   //next round reset
   useEffect(() => {
     console.log("trying round reset");
     if (serverLoaded) {
       console.log("score nyt ", score);
-      if (chosenServer.shotFired[0] && chosenServer.shotFired[1]) {
+      if (chosenServer.shotFiredCreator && chosenServer.shotFiredJoined) {
         console.log("next round reset");
         setTimeout(async () => {
           const server = gameList.filter((game) => {
@@ -97,7 +143,8 @@ export default function GameMulti({
               lastOnline: Date.now(),
               lastRandomTime: 3500 + Math.floor(Math.random() * 6000),
               score: score,
-              lastReactionTime: [88888, 88888],
+              lastReactionTimeCreator: 88888,
+              lastReactionTimeJoined: 88888,
               tooEarlyRicochet: [false, false],
             };
             await gameServersRef.doc(server[0].id).update(exportReadyData);
@@ -127,9 +174,9 @@ export default function GameMulti({
           "trying next round reset failed. serv:",
           serverLoaded,
           "  shot1",
-          chosenServer.shotFired[0],
+          chosenServer.shotFiredCreator,
           "  shot2",
-          chosenServer.shotFired[1]
+          chosenServer.shotFiredJoined
         );
       }
     }
@@ -233,16 +280,16 @@ export default function GameMulti({
           //set reactiontime to ricochet-default eli 1 000 000
           if (gameCreatorP1) {
             exportShootData = {
-              lastReactionTime: [1000000, chosenServer.lastReactionTime[1]],
+              lastReactionTimeCreator: 1000000,
               lastOnline: Date.now(),
-              shotFired: [true, chosenServer.shotFired[1]],
+              shotFiredCreator: true,
               tooEarlyRicochet: [true, chosenServer.tooEarlyRicochet[1]],
             };
           } else {
             exportShootData = {
-              lastReactionTime: [chosenServer.lastReactionTime[0], 1000000],
+              lastReactionTimeJoined: 1000000,
               lastOnline: Date.now(),
-              shotFired: [chosenServer.shotFired[0], true],
+              shotFiredJoined: true,
               tooEarlyRicochet: [chosenServer.tooEarlyRicochet[0], true],
             };
           }
@@ -268,21 +315,16 @@ export default function GameMulti({
 
           if (gameCreatorP1) {
             exportShootData = {
-              lastReactionTime: [
-                reactTimeConst,
-                chosenServer.lastReactionTime[1],
-              ],
+              lastReactionTimeCreator: reactTimeConst,
+
               lastOnline: Date.now(),
-              shotFired: [true, chosenServer.shotFired[1]],
+              shotFiredCreator: true,
             };
           } else {
             exportShootData = {
-              lastReactionTime: [
-                chosenServer.lastReactionTime[0],
-                reactTimeConst,
-              ],
+              lastReactionTimeJoined: reactTimeConst,
               lastOnline: Date.now(),
-              shotFired: [chosenServer.shotFired[0], true],
+              shotFiredJoined: true,
             };
           }
 
@@ -313,20 +355,23 @@ export default function GameMulti({
   useEffect(() => {
     if (serverLoaded) {
       if (
-        chosenServer.lastReactionTime[0] !== 88888 &&
-        chosenServer.lastReactionTime[1] !== 88888
+        chosenServer.lastReactionTimeCreator !== 88888 &&
+        chosenServer.lastReactionTimeJoined !== 88888
       ) {
         if (gameCreatorP1) {
-          setPlayer2Reaction(chosenServer.lastReactionTime[1]);
+          setPlayer2Reaction(chosenServer.lastReactionTimeJoined);
         } else {
-          setPlayer2Reaction(chosenServer.lastReactionTime[0]);
+          setPlayer2Reaction(chosenServer.lastReactionTimeCreator);
         }
 
         console.log("LOCAL you  reaction:", player1Reaction);
         console.log("LOCAL enem reaction:", player2Reaction);
 
-        console.log("NET crea  reaction:", chosenServer.lastReactionTime[0]);
-        console.log("NET join  reaction:", chosenServer.lastReactionTime[1]);
+        console.log(
+          "NET crea  reaction:",
+          chosenServer.lastReactionTimeCreator
+        );
+        console.log("NET join  reaction:", chosenServer.lastReactionTimeJoined);
       }
     } else {
       console.log("connecting to DB ... updating reactiontimes");
@@ -342,7 +387,7 @@ export default function GameMulti({
           setPlayer2Anim("shooting");
         }
       } else {
-        if (chosenServer.tooEarlyRicochet[0] && chosenServer.shotFired[0]) {
+        if (chosenServer.tooEarlyRicochet[0] && chosenServer.shotFiredCreator) {
           ricochetPlay();
           setPlayer2Anim("shooting");
         }
@@ -357,18 +402,19 @@ export default function GameMulti({
     //joined ei pääse enää tänne jos se on ampunu ekana ja creatorinlla ollu sillon vielä 88888
     if (
       serverLoaded &&
-      chosenServer.shotFired[0] &&
-      chosenServer.shotFired[1]
+      chosenServer.shotFiredCreator &&
+      chosenServer.shotFiredJoined
     ) {
       console.log("win check 2");
       if (
-        chosenServer.lastReactionTime[0] !== 88888 &&
-        chosenServer.lastReactionTime[1] !== 88888
+        chosenServer.lastReactionTimeCreator !== 88888 &&
+        chosenServer.lastReactionTimeJoined !== 88888
       ) {
         console.log("win check 3 kumpikin ampunut");
         pistolShot2Play();
         if (
-          chosenServer.lastReactionTime[0] < chosenServer.lastReactionTime[1]
+          chosenServer.lastReactionTimeCreator <
+          chosenServer.lastReactionTimeJoined
         ) {
           // [0]faster
           if (gameCreatorP1) {
@@ -402,20 +448,22 @@ export default function GameMulti({
 
         //fatality check
         if (
-          chosenServer.lastReactionTime[0] <
+          chosenServer.lastReactionTimeCreator <
             chosenServer.FatalityDifficulty + 400 ||
-          chosenServer.lastReactionTime[1] <
+          chosenServer.lastReactionTimeJoined <
             chosenServer.FatalityDifficulty + 400
         ) {
           setFatality(true);
           setInfoText("Fatality!");
           fatalityVoicePlay();
           if (gameCreatorP1) {
-            chosenServer.lastReactionTime[0] < chosenServer.lastReactionTime[1]
+            chosenServer.lastReactionTimeCreator <
+            chosenServer.lastReactionTimeJoined
               ? setPlayer2Anim("fatality")
               : setPlayerAnim("fatality");
           } else {
-            chosenServer.lastReactionTime[0] < chosenServer.lastReactionTime[1]
+            chosenServer.lastReactionTimeCreator <
+            chosenServer.lastReactionTimeJoined
               ? setPlayerAnim("fatality")
               : setPlayer2Anim("fatality");
           }
@@ -428,7 +476,10 @@ export default function GameMulti({
         console.log("odottaa toista ampua");
       }
     }
-  }, [chosenServer.lastReactionTime]);
+  }, [
+    chosenServer.lastReactionTimeJoined,
+    chosenServer.lastReactionTimeCreator,
+  ]);
 
   return (
     <div className="textSplashFrame" onClick={actionClick}>
