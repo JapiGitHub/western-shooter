@@ -15,6 +15,7 @@ export default function MultiPlayerLobby({
   screenSlide,
   menuMusic,
   setMenuMusic,
+  difficulty,
 }) {
   //const [gameList, setGameList] = useState(["aaa", "bbb", "ccc", "cccp"]);
   const [createName, setCreateName] = useState("");
@@ -29,6 +30,10 @@ export default function MultiPlayerLobby({
 
   const HangOutTimeWithoutPing = 500000;
 
+  const typeGameNameHandler = (e) => {
+    setCreateName(e.target.value);
+  };
+
   const joinGame = (e) => {
     setJoinedServer(e.target.innerText);
     setGameCreatorP1(false);
@@ -36,17 +41,10 @@ export default function MultiPlayerLobby({
     SwooshFromLeftPlay();
   };
 
-  const typeGameNameHandler = (e) => {
-    setCreateName(e.target.value);
-  };
-
   const createGameHandler = async (e) => {
     e.preventDefault();
-
     setGameCreatorP1(true);
-
     //CHECK ETTEI OLE JO SAMANNIMISTÄ SERVERIÄ OLEMASSA!
-
     await gameServersRef.add({
       servName: createName,
       open: true,
@@ -56,6 +54,8 @@ export default function MultiPlayerLobby({
       lastOnline: Date.now(),
       lastReactionTime: [88888, 88888],
       lastRandomTime: 3500 + Math.floor(Math.random() * 6000),
+      FatalityDifficulty: difficulty,
+      tooEarlyRicochet: [false, false],
     });
 
     setScreenSlide("multiplayer");

@@ -22,6 +22,7 @@ export default function MultiPlayerMode({
   setPlayer2Hero,
   player1Hero,
   setPlayer1Hero,
+  difficulty,
 }) {
   //const [player2Hero, setPlayer2Hero] = useState("cowboy");
   //const [player1Hero, setPlayer1Hero] = useState("sheriff");
@@ -75,6 +76,7 @@ export default function MultiPlayerMode({
           gameCreatorP1={gameCreatorP1}
           yourServer={yourServer}
           setYourServer={setYourServer}
+          difficulty={difficulty}
         />
 
         <HeroSelectorAI setPlayer1Hero={setPlayer1Hero} />

@@ -162,6 +162,7 @@ export default function Game({ gameMode, setGameMode, firestore, handle }) {
           setPlayer1Hero={setPlayer1Hero}
           menuMusic={menuMusic}
           setMenuMusic={setMenuMusic}
+          difficulty={difficulty}
         />
       ) : null}
       <Cactus gameMode={gameMode} screenSlide={screenSlide} />

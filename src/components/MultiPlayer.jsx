@@ -18,6 +18,7 @@ export default function MultiPlayer({
   setPlayer1Hero,
   menuMusic,
   setMenuMusic,
+  difficulty,
 }) {
   const [joinedServer, setJoinedServer] = useState("");
   const [gameCreatorP1, setGameCreatorP1] = useState(false);
@@ -41,9 +42,11 @@ export default function MultiPlayer({
           screenSlide={screenSlide}
           menuMusic={menuMusic}
           setMenuMusic={setMenuMusic}
+          difficulty={difficulty}
         />
       ) : (
         <MultiPlayerMode
+          difficulty={difficulty}
           player2Hero={player2Hero}
           setPlayer2Hero={setPlayer2Hero}
           player1Hero={player1Hero}
@@ -59,6 +62,7 @@ export default function MultiPlayer({
           setPlayerAnim={setPlayerAnim}
           player2Anim={player2Anim}
           setPlayer2Anim={setPlayer2Anim}
+          difficulty={difficulty}
         />
       )}
     </div>
