@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import loggi from "./loggi";
 import { useCollectionData } from "react-firebase-hooks/firestore";
 
 import useSound from "use-sound";
@@ -32,7 +33,9 @@ export default function GameMulti({
   const [player2Reaction, setPlayer2Reaction] = useState(88888);
   const [score, setScore] = useState([0, 0]);
   const [shotFired, setShotFired] = useState(false);
+
   const [localOneClick, setLocalOneClick] = useState(true);
+  const [bothPlayersVarasLahto, setBothPlayersVarasLahto] = useState(false);
 
   const [fatality, setFatality] = useState(false);
 
@@ -65,6 +68,12 @@ export default function GameMulti({
     setPlayer2Anim("waiting");
     setPlayerAnim("waiting");
 
+    //jotta herot alkaa samoista kummallakin
+    if (!gameCreatorP1) {
+      setPlayer1Hero("sheriff");
+      setPlayer2Hero("cowboy");
+    }
+
     await gameServersRef.onSnapshot((snapshot) =>
       snapshot.docs.map((doc) => {
         if (doc.data().servName === joinedServer) {
@@ -76,6 +85,17 @@ export default function GameMulti({
       })
     );
   }, []);
+
+  //kun DB ladannut, niin päivitä herot
+  useEffect(() => {
+    if (gameCreatorP1) {
+      setPlayer1Hero(chosenServer.heroCreator);
+      setPlayer2Hero(chosenServer.heroJoined);
+    } else {
+      setPlayer2Hero(chosenServer.heroCreator);
+      setPlayer1Hero(chosenServer.heroJoined);
+    }
+  }, [serverLoaded]);
 
   //hero changes to DB
   useEffect(async () => {
@@ -120,11 +140,11 @@ export default function GameMulti({
 
   //next round reset
   useEffect(() => {
-    console.log("trying round reset");
+    loggi("trying round reset");
     if (serverLoaded) {
-      console.log("score nyt ", score);
+      loggi("score nyt ", score);
       if (chosenServer.shotFiredCreator && chosenServer.shotFiredJoined) {
-        console.log("next round reset");
+        loggi("next round reset");
         setTimeout(async () => {
           const server = gameList.filter((game) => {
             if (game.servName === joinedServer) {
@@ -136,7 +156,7 @@ export default function GameMulti({
 
           //vain game creator päivittää round resetin
           if (gameCreatorP1) {
-            console.log("score menossa DBhen ", score);
+            loggi("score menossa DBhen ", score);
             exportReadyData = {
               ready: [false, false],
               //shotFired: [false, false],
@@ -145,12 +165,15 @@ export default function GameMulti({
               score: score,
               lastReactionTimeCreator: 88888,
               lastReactionTimeJoined: 88888,
-              tooEarlyRicochet: [false, false],
+              tooEarlyRicochetCreator: false,
+              tooEarlyRicochetJoined: false,
             };
             await gameServersRef.doc(server[0].id).update(exportReadyData);
           }
-
-          setInfoText("Again?");
+          bothPlayersVarasLahto
+            ? setInfoText("Double Fail!")
+            : setInfoText("Again?");
+          setBothPlayersVarasLahto(false);
           setGun1Loaded(true);
           setPlayerOneReady(false);
           setPlayerTwoReady(false);
@@ -159,6 +182,7 @@ export default function GameMulti({
           setLocalOneClick(true);
           //setP1ReactText();
           //setReactTextFade(false);
+
           setFatality(false);
           setPlayer1Reaction(0);
           setOk2Shoot(false);
@@ -170,7 +194,7 @@ export default function GameMulti({
           //setReactTextFade(true);
         }, 800);
       } else {
-        console.log(
+        loggi(
           "trying next round reset failed. serv:",
           serverLoaded,
           "  shot1",
@@ -180,7 +204,7 @@ export default function GameMulti({
         );
       }
     }
-  }, [score]);
+  }, [score, bothPlayersVarasLahto]);
 
   //readyClick
   const playerOneReadyClick = async () => {
@@ -200,13 +224,15 @@ export default function GameMulti({
     if (gameCreatorP1) {
       exportReadyData = {
         ready: [true, chosenServer.ready[1]],
-        shotFired: [false, false],
+        shotFiredCreator: false,
+        shotFiredJoined: false,
         lastOnline: Date.now(),
       };
     } else {
       exportReadyData = {
         ready: [chosenServer.ready[0], true],
-        shotFired: [false, false],
+        shotFiredCreator: false,
+        shotFiredJoined: false,
         lastOnline: Date.now(),
       };
     }
@@ -227,13 +253,9 @@ export default function GameMulti({
       }
 
       setRandomTime(chosenServer.lastRandomTime);
-      console.log(
-        "randomTime set to ",
-        chosenServer.lastRandomTime,
-        ". from DB"
-      );
+      loggi("randomTime set to ", chosenServer.lastRandomTime, ". from DB");
     } else {
-      console.log("db connecting .. updating ready&randTime");
+      loggi("db connecting .. updating ready&randTime");
     }
   }, [chosenServer.ready]);
 
@@ -250,47 +272,59 @@ export default function GameMulti({
       }, 1500);
 
       setTimeout((startTime) => {
-        setInfoText("BANG!");
+        bothPlayersVarasLahto
+          ? setInfoText("Double Fail")
+          : setInfoText("BANG!");
         setOk2Shoot(true);
 
         holsterPlay();
         setStartTime(new Date());
       }, randomTime);
+
+      //tarkista jos toisen tulos on tullut jo, niin voit julistaa sen voittajaksi suorilta
+      setTimeout(() => {
+        //tee tähän shotfirediin REFfi ja linkkaa se current REFfi tähän, ni saat sen hetkisen arvon
+        if (shotFired) {
+          loggi("olit nopeampi kuin 500ms");
+        } else {
+          console.log("!shotfired : ", shotFired);
+        }
+      }, randomTime + 500);
     }
   }, [playerTwoReady, playerOneReady]);
 
   //SHOOTING
   const actionClick = async () => {
-    console.log("actionclick-1/3");
+    loggi("actionclick-1/3");
     if (playerOneReady && playerTwoReady && localOneClick) {
-      console.log("actionclick-2/3");
+      loggi("actionclick-2/3");
       setLocalOneClick(false);
 
       if (gun1Loaded === true && shotFired === false) {
-        console.log("actionclick-3/3");
+        loggi("actionclick-3/3");
 
         if (ok2Shoot === false) {
-          console.log("varaslähtö");
+          loggi("varaslähtö");
 
           //varaslähtö
           ricochetPlay();
           setPlayerAnim("shooting");
           setGun1Loaded(false);
 
-          //set reactiontime to ricochet-default eli 1 000 000
+          //set reactiontime to ricochet-default eli 88887
           if (gameCreatorP1) {
             exportShootData = {
-              lastReactionTimeCreator: 1000000,
+              lastReactionTimeCreator: 88887,
               lastOnline: Date.now(),
               shotFiredCreator: true,
-              tooEarlyRicochet: [true, chosenServer.tooEarlyRicochet[1]],
+              tooEarlyRicochetCreator: true,
             };
           } else {
             exportShootData = {
-              lastReactionTimeJoined: 1000000,
+              lastReactionTimeJoined: 88887,
               lastOnline: Date.now(),
               shotFiredJoined: true,
-              tooEarlyRicochet: [chosenServer.tooEarlyRicochet[0], true],
+              tooEarlyRicochetJoined: true,
             };
           }
           //your connected server ID
@@ -305,13 +339,14 @@ export default function GameMulti({
           await gameServersRef.doc(server[0].id).update(exportShootData);
         } else {
           //onnistunut laukaus
-          console.log("onnistunut laukaus");
+          loggi("onnistunut laukaus");
 
           //reaction time
           const pullTriggerTime = new Date();
           const reactTimeConst = pullTriggerTime - startTime;
-          console.log("reaction ms : ", reactTimeConst);
-          console.log("server : ", chosenServer);
+          loggi("reaction ms : ", reactTimeConst);
+          loggi("server : ", chosenServer);
+          setInfoText("waiting for other");
 
           if (gameCreatorP1) {
             exportShootData = {
@@ -338,12 +373,14 @@ export default function GameMulti({
           });
 
           //update your reactiontime to DB
-          console.log("exporting data to DB", exportShootData);
+          loggi("exporting data to DB", exportShootData);
           await gameServersRef.doc(server[0].id).update(exportShootData);
 
           setPlayer1Reaction(reactTimeConst);
-          console.log("p1 reaction : ", reactTimeConst);
+          loggi("p1 reaction : ", reactTimeConst);
           setOk2Shoot(false);
+
+          //tätä ei tule varaslähdössä. siinä tulee vaan gunLoaded(false)
           setShotFired(true);
         }
       }
@@ -364,40 +401,56 @@ export default function GameMulti({
           setPlayer2Reaction(chosenServer.lastReactionTimeCreator);
         }
 
-        console.log("LOCAL you  reaction:", player1Reaction);
-        console.log("LOCAL enem reaction:", player2Reaction);
+        loggi("LOCAL you  reaction:", player1Reaction);
+        loggi("LOCAL enem reaction:", player2Reaction);
 
-        console.log(
-          "NET crea  reaction:",
-          chosenServer.lastReactionTimeCreator
-        );
-        console.log("NET join  reaction:", chosenServer.lastReactionTimeJoined);
+        loggi("NET crea  reaction:", chosenServer.lastReactionTimeCreator);
+        loggi("NET join  reaction:", chosenServer.lastReactionTimeJoined);
       }
     } else {
-      console.log("connecting to DB ... updating reactiontimes");
+      loggi("connecting to DB ... updating reactiontimes");
     }
   }, [chosenServer.shotFired]);
 
   //varaslähdön checkaus toiselta pelaajalta DBn kautta:
   useEffect(() => {
     if (serverLoaded) {
+      //check enemyn varaslähtö
       if (gameCreatorP1) {
-        if (chosenServer.tooEarlyRicochet[1] && chosenServer.shotFired[1]) {
+        if (
+          chosenServer.tooEarlyRicochetJoined &&
+          chosenServer.shotFiredJoined
+        ) {
           ricochetPlay();
           setPlayer2Anim("shooting");
         }
       } else {
-        if (chosenServer.tooEarlyRicochet[0] && chosenServer.shotFiredCreator) {
+        if (
+          chosenServer.tooEarlyRicochetCreator &&
+          chosenServer.shotFiredCreator
+        ) {
           ricochetPlay();
           setPlayer2Anim("shooting");
         }
       }
+
+      //kummankin varaslähtö:
+      if (
+        chosenServer.tooEarlyRicochetCreator &&
+        chosenServer.tooEarlyRicochetJoined
+      ) {
+        loggi("kumpikin teki varaslähdön!");
+        setBothPlayersVarasLahto(true);
+      }
     }
-  }, [chosenServer.tooEarlyRicochet]);
+  }, [
+    chosenServer.tooEarlyRicochetCreator,
+    chosenServer.tooEarlyRicochetJoined,
+  ]);
 
   //voiton checkaus
   useEffect(() => {
-    console.log("win check 1");
+    loggi("win check 1");
 
     //joined ei pääse enää tänne jos se on ampunu ekana ja creatorinlla ollu sillon vielä 88888
     if (
@@ -405,12 +458,13 @@ export default function GameMulti({
       chosenServer.shotFiredCreator &&
       chosenServer.shotFiredJoined
     ) {
-      console.log("win check 2");
+      loggi("win check 2");
       if (
-        chosenServer.lastReactionTimeCreator !== 88888 &&
-        chosenServer.lastReactionTimeJoined !== 88888
+        chosenServer.lastReactionTimeCreator < 88888 &&
+        chosenServer.lastReactionTimeJoined < 88888 &&
+        !bothPlayersVarasLahto
       ) {
-        console.log("win check 3 kumpikin ampunut");
+        loggi("win check 3 kumpikin ampunut");
         pistolShot2Play();
         if (
           chosenServer.lastReactionTimeCreator <
@@ -449,9 +503,8 @@ export default function GameMulti({
         //fatality check
         if (
           chosenServer.lastReactionTimeCreator <
-            chosenServer.FatalityDifficulty + 400 ||
-          chosenServer.lastReactionTimeJoined <
-            chosenServer.FatalityDifficulty + 400
+            chosenServer.FatalityDifficulty ||
+          chosenServer.lastReactionTimeJoined < chosenServer.FatalityDifficulty
         ) {
           setFatality(true);
           setInfoText("Fatality!");
@@ -473,7 +526,7 @@ export default function GameMulti({
         //NextRoundReset(); menee useEffectillä nykyään
         setShotFired(true);
       } else {
-        console.log("odottaa toista ampua");
+        loggi("odottaa toista ampua");
       }
     }
   }, [

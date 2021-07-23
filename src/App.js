@@ -24,7 +24,6 @@ const firestore = firebase.firestore();
 
 function App() {
   const handle = useFullScreenHandle();
-
   const [gameMode, setGameMode] = useState("start");
 
   return (

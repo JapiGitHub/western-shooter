@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Settings from "./Settings";
+import loggi from "./loggi";
 
 import "./menu.scss";
 import useSound from "use-sound";
@@ -102,7 +103,7 @@ export default function Menu({
         </button>
         <button className="btn menuButtons">Survival (development)</button>
         <button onClick={modeNetwork} className="btn menuButtons">
-          Multiplayer (beta)
+          Network Multiplayer
         </button>
       </section>
       <button
@@ -123,7 +124,7 @@ export default function Menu({
           showSettings={showSettings}
         />
       </section>
-      <aside className="versionInfo">vers 0.85b</aside>
+      <aside className="versionInfo">vers 0.86.3</aside>
     </div>
   );
 }

@@ -27,6 +27,7 @@ export default function MultiPlayerLobby({
   const gameServersRef = firestore.collection("gameServers");
   const [gameList] = useCollectionData(gameServersRef, { idField: "id" });
 
+  //kuinka kauan serveri näkyy viimeisimmästä toiminnasta
   const HangOutTimeWithoutPing = 500000;
 
   const typeGameNameHandler = (e) => {
@@ -56,9 +57,10 @@ export default function MultiPlayerLobby({
       lastReactionTimeJoined: 88888,
       lastRandomTime: 3500 + Math.floor(Math.random() * 6000),
       FatalityDifficulty: difficulty,
-      tooEarlyRicochet: [false, false],
-      heroCreator: "sheriff",
-      heroJoined: "cowboy",
+      tooEarlyRicochetCreator: false,
+      tooEarlyRicochetJoined: false,
+      heroCreator: "cowboy",
+      heroJoined: "sheriff",
     });
 
     setScreenSlide("multiplayer");
