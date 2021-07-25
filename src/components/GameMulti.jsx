@@ -34,6 +34,10 @@ export default function GameMulti({
   const [score, setScore] = useState([0, 0]);
   const [shotFired, setShotFired] = useState(false);
 
+  //reffi setTimeOuttia varten jotta saadaan päivitetty arvo
+  const shotFiredCreatorRef = useRef(false);
+  const shotFiredJoinedRef = useRef(false);
+
   const [localOneClick, setLocalOneClick] = useState(true);
   const [bothPlayersVarasLahto, setBothPlayersVarasLahto] = useState(false);
 
@@ -91,6 +95,8 @@ export default function GameMulti({
     if (gameCreatorP1) {
       setPlayer1Hero(chosenServer.heroCreator);
       setPlayer2Hero(chosenServer.heroJoined);
+      shotFiredCreatorRef.current = chosenServer.shotFiredCreator;
+      shotFiredJoinedRef.current = chosenServer.shotFiredJoined;
     } else {
       setPlayer2Hero(chosenServer.heroCreator);
       setPlayer1Hero(chosenServer.heroJoined);
@@ -193,15 +199,6 @@ export default function GameMulti({
         setTimeout(() => {
           //setReactTextFade(true);
         }, 800);
-      } else {
-        loggi(
-          "trying next round reset failed. serv:",
-          serverLoaded,
-          "  shot1",
-          chosenServer.shotFiredCreator,
-          "  shot2",
-          chosenServer.shotFiredJoined
-        );
       }
     }
   }, [score, bothPlayersVarasLahto]);
@@ -261,7 +258,7 @@ export default function GameMulti({
 
   //kun pelaajat valmiita,  aloita timeri
   useEffect(() => {
-    if (playerOneReady === true && playerTwoReady === true) {
+    if (playerOneReady && playerTwoReady) {
       setInfoText("Ready!");
       pistolCock1Play();
 
@@ -282,14 +279,46 @@ export default function GameMulti({
       }, randomTime);
 
       //tarkista jos toisen tulos on tullut jo, niin voit julistaa sen voittajaksi suorilta
-      setTimeout(() => {
-        //tee tähän shotfirediin REFfi ja linkkaa se current REFfi tähän, ni saat sen hetkisen arvon
-        if (shotFired) {
-          loggi("olit nopeampi kuin 500ms");
+      setTimeout(async () => {
+        //REFfiä käytetään jotta saadaan päivittynyt arvo setTimeOutin sulkujen sisään linkattua. statella se olis se vanha timerin alussa oleva arvo
+        if (gameCreatorP1) {
+          if (shotFiredJoinedRef.current && !shotFiredCreatorRef.current) {
+            loggi("joined oli nopeampi kuin 500ms");
+            //set reactiontime to ricochet-default eli 88887
+            exportShootData = {
+              lastReactionTimeCreator: 80000,
+              lastOnline: Date.now(),
+              shotFiredCreator: true,
+            };
+          }
         } else {
-          console.log("!shotfired : ", shotFired);
+          console.log(
+            "shotFiredJoinedRef",
+            shotFiredJoinedRef.current,
+            "   shotFiredCreatorRef",
+            shotFiredCreatorRef.current
+          );
+          if (!shotFiredJoinedRef.current && shotFiredCreatorRef.current) {
+            loggi("creator oli nopeampi kuin 500ms");
+            exportShootData = {
+              lastReactionTimeJoined: 80000,
+              lastOnline: Date.now(),
+              shotFiredJoined: true,
+            };
+          }
         }
-      }, randomTime + 500);
+
+        //your connected server ID
+        const server = gameList.filter((game) => {
+          if (game.servName === joinedServer) {
+            return game.id;
+          } else {
+            return null;
+          }
+        });
+        //update to DB
+        await gameServersRef.doc(server[0].id).update(exportShootData);
+      }, randomTime + 1000);
     }
   }, [playerTwoReady, playerOneReady]);
 
@@ -449,8 +478,10 @@ export default function GameMulti({
   ]);
 
   //voiton checkaus
-  useEffect(() => {
+  useEffect(async () => {
     loggi("win check 1");
+    shotFiredCreatorRef.current = chosenServer.shotFiredCreator;
+    shotFiredJoinedRef.current = chosenServer.shotFiredJoined;
 
     //joined ei pääse enää tänne jos se on ampunu ekana ja creatorinlla ollu sillon vielä 88888
     if (
@@ -532,6 +563,8 @@ export default function GameMulti({
   }, [
     chosenServer.lastReactionTimeJoined,
     chosenServer.lastReactionTimeCreator,
+    chosenServer.shotFiredCreator,
+    chosenServer.shotFiredJoined,
   ]);
 
   return (
