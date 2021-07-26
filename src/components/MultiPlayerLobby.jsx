@@ -16,6 +16,7 @@ export default function MultiPlayerLobby({
   menuMusic,
   setMenuMusic,
   difficulty,
+  stop,
 }) {
   //const [gameList, setGameList] = useState(["aaa", "bbb", "ccc", "cccp"]);
   const [createName, setCreateName] = useState("");
@@ -39,11 +40,15 @@ export default function MultiPlayerLobby({
     setGameCreatorP1(false);
     setScreenSlide("multiplayer");
     SwooshFromLeftPlay();
+    stop();
   };
 
   const createGameHandler = async (e) => {
     e.preventDefault();
     setGameCreatorP1(true);
+
+    stop();
+
     //CHECK ETTEI OLE JO SAMANNIMISTÄ SERVERIÄ OLEMASSA!
     await gameServersRef.add({
       servName: createName,

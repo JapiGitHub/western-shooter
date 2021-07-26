@@ -19,6 +19,7 @@ export default function MultiPlayer({
   menuMusic,
   setMenuMusic,
   difficulty,
+  stop,
 }) {
   const [joinedServer, setJoinedServer] = useState("");
   const [gameCreatorP1, setGameCreatorP1] = useState(false);
@@ -34,6 +35,7 @@ export default function MultiPlayer({
       <aside className="dirt"></aside>
       {joinedServer === "" ? (
         <MultiPlayerLobby
+          stop={stop}
           firestore={firestore}
           setGameMode={setGameMode}
           setJoinedServer={setJoinedServer}

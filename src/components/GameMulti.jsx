@@ -41,6 +41,11 @@ export default function GameMulti({
   const [localOneClick, setLocalOneClick] = useState(true);
   const [bothPlayersVarasLahto, setBothPlayersVarasLahto] = useState(false);
 
+  //päitten ylle reacto ajan nousu
+  const [p1ReactText, setP1ReactText] = useState("");
+  const [p2ReactText, setP2ReactText] = useState("");
+  const [reactTextFade, setReactTextFade] = useState(false);
+
   const [fatality, setFatality] = useState(false);
 
   const [infoText, setInfoText] = useState("Ready?");
@@ -68,6 +73,7 @@ export default function GameMulti({
   let exportHeroData = {};
   const [serverLoaded, setServerLoaded] = useState(false);
 
+  //alkusäädöt
   useEffect(async () => {
     setPlayer2Anim("waiting");
     setPlayerAnim("waiting");
@@ -131,6 +137,7 @@ export default function GameMulti({
       await gameServersRef.doc(server[0].id).update(exportHeroData);
     }
   }, [player1Hero, player2Hero]);
+
   //hero changes from DB:
   useEffect(() => {
     if (serverLoaded) {
@@ -144,7 +151,7 @@ export default function GameMulti({
     }
   }, [chosenServer.heroCreator, chosenServer.heroJoined]);
 
-  //next round reset
+  //NEXT ROUND RESET
   useEffect(() => {
     loggi("trying round reset");
     if (serverLoaded) {
@@ -186,8 +193,9 @@ export default function GameMulti({
           setPlayer2Anim("waiting");
           setPlayerAnim("waiting");
           setLocalOneClick(true);
-          //setP1ReactText();
-          //setReactTextFade(false);
+          setP1ReactText("");
+          setP2ReactText("");
+          setReactTextFade(false);
 
           setFatality(false);
           setPlayer1Reaction(0);
@@ -197,7 +205,7 @@ export default function GameMulti({
 
         //reactio ajan pään yläpuolella oleva haihtuva teksti
         setTimeout(() => {
-          //setReactTextFade(true);
+          setReactTextFade(true);
         }, 800);
       }
     }
@@ -299,7 +307,7 @@ export default function GameMulti({
             shotFiredCreatorRef.current
           );
           if (!shotFiredJoinedRef.current && shotFiredCreatorRef.current) {
-            loggi("creator oli nopeampi kuin 500ms");
+            loggi("creator oli nopeampi kuin 500ms eiku 1000ms!! hehe");
             exportShootData = {
               lastReactionTimeJoined: 80000,
               lastOnline: Date.now(),
@@ -477,13 +485,12 @@ export default function GameMulti({
     chosenServer.tooEarlyRicochetJoined,
   ]);
 
-  //voiton checkaus
+  //VOITON CHECKAUS
   useEffect(async () => {
     loggi("win check 1");
     shotFiredCreatorRef.current = chosenServer.shotFiredCreator;
     shotFiredJoinedRef.current = chosenServer.shotFiredJoined;
 
-    //joined ei pääse enää tänne jos se on ampunu ekana ja creatorinlla ollu sillon vielä 88888
     if (
       serverLoaded &&
       chosenServer.shotFiredCreator &&
@@ -504,11 +511,13 @@ export default function GameMulti({
           // [0]faster
           if (gameCreatorP1) {
             setInfoText("you/Creator won");
+            setP1ReactText(chosenServer.lastReactionTimeCreator);
             setPlayerAnim("shooting");
             setPlayer2Anim("die");
             setScore([score[0] + 1, score[1]]);
           } else {
             setInfoText("You lost");
+            setP2ReactText(chosenServer.lastReactionTimeCreator);
             setPlayer2Anim("shooting");
             setPlayerAnim("die");
             //jos et ole creator, niin sulla päivittyy vain locaalisti score, jotta menee oikeinpäin ruudulla
@@ -519,11 +528,13 @@ export default function GameMulti({
         } else {
           if (gameCreatorP1) {
             setInfoText("You lost");
+            setP2ReactText(chosenServer.lastReactionTimeJoined);
             setPlayerAnim("die");
             setPlayer2Anim("shooting");
             setScore([score[0], score[1] + 1]);
           } else {
             setInfoText("You/joined won");
+            setP1ReactText(chosenServer.lastReactionTimeJoined);
             setPlayer2Anim("die");
             setPlayerAnim("shooting");
             //jos et ole creator, niin sulla päivittyy vain locaalisti score, jotta menee oikeinpäin ruudulla
@@ -587,6 +598,18 @@ export default function GameMulti({
         </span>
       </label>
 
+      <div
+        className={
+          reactTextFade
+            ? "reactionP2TextFloater hideTime"
+            : "reactionP2TextFloater"
+        }
+      >
+        <div className={fatality ? "fatality" : "reactP2TimeText"}>
+          {p2ReactText}
+        </div>
+      </div>
+
       <label className="playerNetworkReadyLabel" htmlFor="p2">
         {score[1]} Enemy
         <input
@@ -602,6 +625,18 @@ export default function GameMulti({
           {playerTwoReady ? "Ready!" : "Press any key"}
         </span>
       </label>
+
+      <div
+        className={
+          reactTextFade
+            ? "reactionP1TextFloater hideTime"
+            : "reactionP1TextFloater"
+        }
+      >
+        <div className={fatality ? "fatality" : "reactP1TimeText"}>
+          {p1ReactText}
+        </div>
+      </div>
 
       <div className="infoText">{infoText}</div>
     </div>

@@ -124,7 +124,7 @@ export default function Menu({
           showSettings={showSettings}
         />
       </section>
-      <aside className="versionInfo">vers 0.86.3</aside>
+      <aside className="versionInfo">vers 0.86.7</aside>
     </div>
   );
 }
