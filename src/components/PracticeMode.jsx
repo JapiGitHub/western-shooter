@@ -6,6 +6,7 @@ import HeroSelectorAI from "./HeroSelectorAI";
 import GamePracticeAI from "./GamePracticeAI";
 
 export default function PracticeMode({
+  gameMode,
   setGameMode,
   setShowMenu,
   difficulty,
@@ -38,6 +39,7 @@ export default function PracticeMode({
           Menu
         </button>
         <GamePracticeAI
+          gameMode={gameMode}
           setPlayerAnim={setPlayerAnim}
           setPlayer2Anim={setPlayer2Anim}
           difficulty={difficulty}

@@ -135,6 +135,21 @@ export default function Game({ gameMode, setGameMode, firestore, handle }) {
 
       {gameMode === "ai" ? (
         <PracticeMode
+          gameMode={gameMode}
+          setGameMode={setGameMode}
+          setShowMenu={setShowMenu}
+          difficulty={difficulty}
+          setScreenSlide={setScreenSlide}
+          setPlayerAnim={setPlayerAnim}
+          setPlayer2Anim={setPlayer2Anim}
+          player1Hero={player1Hero}
+          setPlayer1Hero={setPlayer1Hero}
+        />
+      ) : null}
+
+      {gameMode === "survival" ? (
+        <PracticeMode
+          gameMode={gameMode}
           setGameMode={setGameMode}
           setShowMenu={setShowMenu}
           difficulty={difficulty}

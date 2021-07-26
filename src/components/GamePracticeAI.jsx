@@ -12,6 +12,7 @@ import ricochetToRight from "../sounds/ricochet.to.right.mp3";
 import "./practiceAI.scss";
 
 export default function GamePracticeAI({
+  gameMode,
   setPlayerAnim,
   setPlayer2Anim,
   difficulty,
@@ -27,7 +28,9 @@ export default function GamePracticeAI({
 
   const [player1Reaction, setPlayer1Reaction] = useState(0);
 
-  const [infoText, setInfoText] = useState("Ready?");
+  const [infoText, setInfoText] = useState(
+    gameMode === "survival" ? "only fatalities win" : "Ready!"
+  );
 
   const [startTime, setStartTime] = useState(888);
   const [randomTime, setRandomTime] = useState(0);
@@ -46,7 +49,9 @@ export default function GamePracticeAI({
   const playerOneReadyCheckBox = useRef();
 
   const fatalityTime = difficulty;
-  const [AIbaseTime, setAIbaseTime] = useState(500);
+  const [AIbaseTime, setAIbaseTime] = useState(
+    gameMode === "survival" ? difficulty : 500
+  );
 
   const NextRoundReset = () => {
     setTimeout(() => {
@@ -132,11 +137,15 @@ export default function GamePracticeAI({
       } else {
         if (aiAlive) {
           setGun1Loaded(false);
-          setInfoText("AI wins");
+          gameMode === "survival"
+            ? setInfoText("You died")
+            : setInfoText("AI wins");
           setPlayer2Anim("shooting");
           pistolShotFromRightPlay();
           setPlayerAnim("die");
-          setScore([score[0], score[1] + 1]);
+          gameMode === "survival"
+            ? setScore([0, 0])
+            : setScore([score[0], score[1] + 1]);
           NextRoundReset();
         }
       }
@@ -217,7 +226,7 @@ export default function GamePracticeAI({
       </div>
 
       <label className="aiReadyLabel" htmlFor="p2">
-        {score[1]} AI
+        {gameMode === "ai" ? score[1] : null} AI
         <input
           className="readyCheckBox p2check"
           type="checkbox"
@@ -232,25 +241,27 @@ export default function GamePracticeAI({
       </label>
 
       <div className="infoText">{infoText}</div>
-      <div className="practiceDiffButtons">
-        <article>{AIbaseTime / 1000}s</article>
-        <button
-          className="btn slowerButton"
-          onClick={() => {
-            setAIbaseTime(AIbaseTime + 10);
-          }}
-        >
-          Slower
-        </button>
-        <button
-          className="btn fasterButton"
-          onClick={() => {
-            setAIbaseTime(AIbaseTime - 10);
-          }}
-        >
-          Faster
-        </button>
-      </div>
+      {gameMode === "ai" ? (
+        <div className="practiceDiffButtons">
+          <article>{AIbaseTime / 1000}s</article>
+          <button
+            className="btn slowerButton"
+            onClick={() => {
+              setAIbaseTime(AIbaseTime + 10);
+            }}
+          >
+            Slower
+          </button>
+          <button
+            className="btn fasterButton"
+            onClick={() => {
+              setAIbaseTime(AIbaseTime - 10);
+            }}
+          >
+            Faster
+          </button>
+        </div>
+      ) : null}
     </div>
   );
 }

@@ -85,6 +85,14 @@ export default function Menu({
     SwooshFromRightPlay();
   };
 
+  const modeSurvival = () => {
+    stop();
+    setGameMode("survival");
+    setShowMenu(false);
+    setScreenSlide("game");
+    SwooshFromRightPlay();
+  };
+
   return (
     <div className={showMenu ? "menuContainer" : "menuContainer hideMenu"}>
       <div className="titleContainer">
@@ -101,7 +109,9 @@ export default function Menu({
         <button onClick={modeAI} className="btn menuButtons">
           Practice AI
         </button>
-        <button className="btn menuButtons">Survival (development)</button>
+        <button onClick={modeSurvival} className="btn menuButtons">
+          Survival (development)
+        </button>
         <button onClick={modeNetwork} className="btn menuButtons">
           Network Multiplayer
         </button>
