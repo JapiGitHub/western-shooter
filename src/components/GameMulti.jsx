@@ -291,7 +291,7 @@ export default function GameMulti({
         //REFfiä käytetään jotta saadaan päivittynyt arvo setTimeOutin sulkujen sisään linkattua. statella se olis se vanha timerin alussa oleva arvo
         if (gameCreatorP1) {
           if (shotFiredJoinedRef.current && !shotFiredCreatorRef.current) {
-            loggi("joined oli nopeampi kuin 500ms");
+            loggi("joined oli nopeampi kuin 1200ms");
             //set reactiontime to ricochet-default eli 88887
             exportShootData = {
               lastReactionTimeCreator: 80000,
@@ -307,7 +307,7 @@ export default function GameMulti({
             shotFiredCreatorRef.current
           );
           if (!shotFiredJoinedRef.current && shotFiredCreatorRef.current) {
-            loggi("creator oli nopeampi kuin 500ms eiku 1000ms!! hehe");
+            loggi("creator oli nopeampi kuin 500ms eiku 1200ms!! hehe");
             exportShootData = {
               lastReactionTimeJoined: 80000,
               lastOnline: Date.now(),
@@ -326,7 +326,7 @@ export default function GameMulti({
         });
         //update to DB
         await gameServersRef.doc(server[0].id).update(exportShootData);
-      }, randomTime + 1000);
+      }, randomTime + 1200);
     }
   }, [playerTwoReady, playerOneReady]);
 

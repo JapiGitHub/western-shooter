@@ -110,7 +110,7 @@ export default function Menu({
           Practice AI
         </button>
         <button onClick={modeSurvival} className="btn menuButtons">
-          Survival (development)
+          Survival
         </button>
         <button onClick={modeNetwork} className="btn menuButtons">
           Network Multiplayer
@@ -134,7 +134,7 @@ export default function Menu({
           showSettings={showSettings}
         />
       </section>
-      <aside className="versionInfo">vers 0.86.7</aside>
+      <aside className="versionInfo">vers 0.86.8</aside>
     </div>
   );
 }
