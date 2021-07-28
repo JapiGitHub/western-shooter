@@ -28,7 +28,7 @@ export default function HeroSelector({
               key={hero}
               name={hero}
               onClick={changePlayer2Hero}
-              alt="avatar"
+              alt="loading"
             ></img>
           </div>
         ))}
@@ -43,7 +43,7 @@ export default function HeroSelector({
               key={hero}
               name={hero}
               onClick={changePlayer1Hero}
-              alt="avatar"
+              alt="loading"
             ></img>
           </div>
         ))}

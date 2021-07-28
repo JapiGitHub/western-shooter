@@ -19,7 +19,7 @@ export default function HeroSelectorAI({ setPlayer1Hero, player1Hero }) {
               key={hero}
               name={hero}
               onClick={changePlayer1Hero}
-              alt="avatar"
+              alt="loading"
             ></img>
           </div>
         ))}
