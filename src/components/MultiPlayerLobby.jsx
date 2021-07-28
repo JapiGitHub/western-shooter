@@ -64,6 +64,8 @@ export default function MultiPlayerLobby({
       tooEarlyRicochetJoined: false,
       heroCreator: "cowboy",
       heroJoined: "sheriff",
+      onlineCreator: true,
+      onlineJoined: false,
     });
 
     setScreenSlide("multiplayer");
@@ -109,7 +111,7 @@ export default function MultiPlayerLobby({
                   if (game.lastOnline > Date.now() - HangOutTimeWithoutPing) {
                     return (
                       <li
-                        onClick={joinGame}
+                        onClick={game.open ? joinGame : null}
                         key={game.servName}
                         className={
                           game.open ? "serv openServ" : "serv fullServ"

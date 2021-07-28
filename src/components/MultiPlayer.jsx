@@ -5,6 +5,7 @@ import "./multiPlayer.scss";
 
 export default function MultiPlayer({
   setGameMode,
+  gameMode,
   firestore,
   setScreenSlide,
   screenSlide,
@@ -54,6 +55,7 @@ export default function MultiPlayer({
           player1Hero={player1Hero}
           setPlayer1Hero={setPlayer1Hero}
           setGameMode={setGameMode}
+          gameMode={gameMode}
           firestore={firestore}
           joinedServer={joinedServer}
           gameCreatorP1={gameCreatorP1}

@@ -12,6 +12,7 @@ import fatalityVoice from "../sounds/fatality.mp3";
 import "./gameMulti.scss";
 
 export default function GameMulti({
+  gameMode,
   setPlayerAnim,
   setPlayer2Anim,
   firestore,
@@ -71,19 +72,25 @@ export default function GameMulti({
   let exportReadyData = { ready: [false, false], lastOnline: 0 };
   let exportShootData = {};
   let exportHeroData = {};
+  let exportOnlineData = {};
   const [serverLoaded, setServerLoaded] = useState(false);
 
   const sendToDB = async (data) => {
     //your connected server ID
-    const server = gameList.filter((game) => {
-      if (game.servName === joinedServer) {
-        return game.id;
-      } else {
-        return null;
-      }
-    });
-    //update your reactiontime to DB
-    await gameServersRef.doc(server[0].id).update(data);
+
+    try {
+      const server = gameList.filter((game) => {
+        if (game.servName === joinedServer) {
+          return game.id;
+        } else {
+          return null;
+        }
+      });
+
+      await gameServersRef.doc(server[0].id).update(data);
+    } catch (err) {
+      console.log("connecting to DB ", err);
+    }
   };
 
   //alkusäädöt
@@ -117,10 +124,50 @@ export default function GameMulti({
       shotFiredCreatorRef.current = chosenServer.shotFiredCreator;
       shotFiredJoinedRef.current = chosenServer.shotFiredJoined;
     } else {
+      //joined
       setPlayer2Hero(chosenServer.heroCreator);
       setPlayer1Hero(chosenServer.heroJoined);
+
+      exportOnlineData = {
+        onlineJoined: true,
+      };
+      sendToDB(exportOnlineData);
     }
   }, [serverLoaded]);
+
+  //server full/open
+  useEffect(() => {
+    if (gameCreatorP1) {
+      if (chosenServer.onlineCreator && chosenServer.onlineJoined) {
+        exportOnlineData = {
+          open: false,
+        };
+      } else {
+        exportOnlineData = {
+          open: true,
+        };
+      }
+
+      //jos creator lähtee, niin sulje serveri
+      if (gameMode !== "network") {
+        console.log("gamemode", gameMode);
+        exportOnlineData = {
+          open: false,
+          lastOnline: chosenServer.lastOnline - 555000,
+        };
+      }
+    } else {
+      //jos joined lähtee pois pelistä, niin tee taas open. tää ei itseasiassa ehdi tulla ku tää componentti tuhoutuu ennenku toi ajaa...
+      if (gameMode !== "network") {
+        console.log("gamemode", gameMode);
+        exportOnlineData = {
+          open: true,
+          onlineJoined: false,
+        };
+      }
+    }
+    sendToDB(exportOnlineData);
+  }, [chosenServer.onlineCreator, chosenServer.onlineJoined, gameMode]);
 
   //hero changes to DB
   useEffect(async () => {

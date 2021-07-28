@@ -81,7 +81,6 @@ export default function GameLocalSplitScreen({
 
   //leaderborad
   const leaderBoardRef = firestore.collection("leaderBoard");
-
   const sortedLeaderBoard = leaderBoardRef.orderBy("time");
   const [leaderBoard] = useCollectionData(sortedLeaderBoard, {
     idField: "id",

@@ -168,6 +168,7 @@ export default function Game({ gameMode, setGameMode, firestore, handle }) {
       {gameMode === "network" ? (
         <MultiPlayer
           setGameMode={setGameMode}
+          gameMode={gameMode}
           firestore={firestore}
           setScreenSlide={setScreenSlide}
           screenSlide={screenSlide}

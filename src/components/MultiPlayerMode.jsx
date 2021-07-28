@@ -8,6 +8,7 @@ import GameMulti from "./GameMulti";
 
 export default function MultiPlayerMode({
   setGameMode,
+  gameMode,
   firestore,
   joinedServer,
   setGameCreatorP1,
@@ -68,6 +69,7 @@ export default function MultiPlayerMode({
         <section className="serverInfo">{joinedServer}</section>
 
         <GameMulti
+          gameMode={gameMode}
           setPlayerAnim={setPlayerAnim}
           setPlayer2Anim={setPlayer2Anim}
           firestore={firestore}
