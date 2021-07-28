@@ -36,6 +36,10 @@ export default function Game({ gameMode, setGameMode, firestore, handle }) {
 
   return (
     <div className={theme === "normal" ? "screen" : "screen themeSepia"}>
+      <aside className="portraitVsLandscape">
+        <p>Nope. Just use the landscape.</p>
+        <img src="./assets/portrait.gif" alt="landscape pls" />
+      </aside>
       <aside className="sky"></aside>
       <aside className="dirt"></aside>
       <img

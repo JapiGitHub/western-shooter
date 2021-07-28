@@ -132,6 +132,53 @@
     transition: all 0.5s ease;
   }
 
+  //pls use the landscape huomautus
+  .portraitVsLandscape {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    opacity: 0;
+    background-color: #dec787;
+    z-index: -10;
+    display: grid;
+    place-items: center;
+
+    img {
+      width: 40vw;
+      height: 40vw;
+      z-index: -10;
+      animation: rotateToLeft 5s infinite;
+    }
+
+    @keyframes rotateToLeft {
+      from {
+        transform: rotate(0deg);
+      }
+
+      to {
+        transform: rotate(-45deg);
+      }
+    }
+
+    p {
+      position: absolute;
+      top: 68vh;
+      left: 30vw;
+      width: 40vw;
+      text-align: center;
+      font-size: 4vw;
+    }
+  }
+
+  @media (orientation: portrait) {
+    .portraitVsLandscape {
+      opacity: 1;
+      z-index: 9999;
+    }
+  }
+
   .selectedButton {
     background-color: rgba(0, 0, 0, 0.5);
   }
