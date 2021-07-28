@@ -73,6 +73,19 @@ export default function GameMulti({
   let exportHeroData = {};
   const [serverLoaded, setServerLoaded] = useState(false);
 
+  const sendToDB = async (data) => {
+    //your connected server ID
+    const server = gameList.filter((game) => {
+      if (game.servName === joinedServer) {
+        return game.id;
+      } else {
+        return null;
+      }
+    });
+    //update your reactiontime to DB
+    await gameServersRef.doc(server[0].id).update(data);
+  };
+
   //alkusäädöt
   useEffect(async () => {
     setPlayer2Anim("waiting");
@@ -113,14 +126,6 @@ export default function GameMulti({
   useEffect(async () => {
     //your connected server ID
     if (serverLoaded) {
-      const server = gameList.filter((game) => {
-        if (game.servName === joinedServer) {
-          return game.id;
-        } else {
-          return null;
-        }
-      });
-
       //data for hero
       if (gameCreatorP1) {
         exportHeroData = {
@@ -134,7 +139,7 @@ export default function GameMulti({
         };
       }
       //update hero to database
-      await gameServersRef.doc(server[0].id).update(exportHeroData);
+      sendToDB(exportHeroData);
     }
   }, [player1Hero, player2Hero]);
 
@@ -159,14 +164,6 @@ export default function GameMulti({
       if (chosenServer.shotFiredCreator && chosenServer.shotFiredJoined) {
         loggi("next round reset");
         setTimeout(async () => {
-          const server = gameList.filter((game) => {
-            if (game.servName === joinedServer) {
-              return game.id;
-            } else {
-              return null;
-            }
-          });
-
           //vain game creator päivittää round resetin
           if (gameCreatorP1) {
             loggi("score menossa DBhen ", score);
@@ -181,7 +178,7 @@ export default function GameMulti({
               tooEarlyRicochetCreator: false,
               tooEarlyRicochetJoined: false,
             };
-            await gameServersRef.doc(server[0].id).update(exportReadyData);
+            sendToDB(exportReadyData);
           }
           bothPlayersVarasLahto
             ? setInfoText("Double Fail!")
@@ -216,15 +213,6 @@ export default function GameMulti({
     setPlayerOneReady(true);
     setRandomTime(chosenServer.lastRandomTime);
 
-    //your connected server ID
-    const server = gameList.filter((game) => {
-      if (game.servName === joinedServer) {
-        return game.id;
-      } else {
-        return null;
-      }
-    });
-
     //data for READY?
     if (gameCreatorP1) {
       exportReadyData = {
@@ -243,7 +231,7 @@ export default function GameMulti({
     }
 
     //update READY to database
-    await gameServersRef.doc(server[0].id).update(exportReadyData);
+    sendToDB(exportReadyData);
   };
 
   //update READY and RANDTime states from DB
@@ -316,16 +304,8 @@ export default function GameMulti({
           }
         }
 
-        //your connected server ID
-        const server = gameList.filter((game) => {
-          if (game.servName === joinedServer) {
-            return game.id;
-          } else {
-            return null;
-          }
-        });
         //update to DB
-        await gameServersRef.doc(server[0].id).update(exportShootData);
+        sendToDB(exportShootData);
       }, randomTime + 1200);
     }
   }, [playerTwoReady, playerOneReady]);
@@ -340,10 +320,10 @@ export default function GameMulti({
       if (gun1Loaded === true && shotFired === false) {
         loggi("actionclick-3/3");
 
+        //varaslähtö
         if (ok2Shoot === false) {
           loggi("varaslähtö");
 
-          //varaslähtö
           ricochetPlay();
           setPlayerAnim("shooting");
           setGun1Loaded(false);
@@ -364,16 +344,8 @@ export default function GameMulti({
               tooEarlyRicochetJoined: true,
             };
           }
-          //your connected server ID
-          const server = gameList.filter((game) => {
-            if (game.servName === joinedServer) {
-              return game.id;
-            } else {
-              return null;
-            }
-          });
-          //update your reactiontime to DB
-          await gameServersRef.doc(server[0].id).update(exportShootData);
+
+          sendToDB(exportShootData);
         } else {
           //onnistunut laukaus
           loggi("onnistunut laukaus");
@@ -400,18 +372,8 @@ export default function GameMulti({
             };
           }
 
-          //your connected server ID
-          const server = gameList.filter((game) => {
-            if (game.servName === joinedServer) {
-              return game.id;
-            } else {
-              return null;
-            }
-          });
-
           //update your reactiontime to DB
-          loggi("exporting data to DB", exportShootData);
-          await gameServersRef.doc(server[0].id).update(exportShootData);
+          sendToDB(exportShootData);
 
           setPlayer1Reaction(reactTimeConst);
           loggi("p1 reaction : ", reactTimeConst);

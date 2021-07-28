@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./multiPlayerLobby.scss";
 import { useCollectionData } from "react-firebase-hooks/firestore";
 
@@ -28,7 +28,7 @@ export default function MultiPlayerLobby({
   const gameServersRef = firestore.collection("gameServers");
   const [gameList] = useCollectionData(gameServersRef, { idField: "id" });
 
-  //kuinka kauan serveri näkyy viimeisimmästä toiminnasta
+  //kuinka kauan serveri näkyy viimeisimmästä toiminnasta (lastOnline kenttä)
   const HangOutTimeWithoutPing = 500000;
 
   const typeGameNameHandler = (e) => {
@@ -46,10 +46,8 @@ export default function MultiPlayerLobby({
   const createGameHandler = async (e) => {
     e.preventDefault();
     setGameCreatorP1(true);
-
     stop();
 
-    //CHECK ETTEI OLE JO SAMANNIMISTÄ SERVERIÄ OLEMASSA!
     await gameServersRef.add({
       servName: createName,
       open: true,
@@ -106,22 +104,25 @@ export default function MultiPlayerLobby({
         </header>
         <section className="gameList">
           <ul>
-            {gameList &&
-              gameList.map((game) => {
-                if (game.lastOnline > Date.now() - HangOutTimeWithoutPing) {
-                  return (
-                    <li
-                      onClick={joinGame}
-                      key={game.servName}
-                      className={game.open ? "serv openServ" : "serv fullServ"}
-                    >
-                      {game.servName}
-                    </li>
-                  );
-                } else {
-                  return null;
-                }
-              })}
+            {gameList
+              ? gameList.map((game) => {
+                  if (game.lastOnline > Date.now() - HangOutTimeWithoutPing) {
+                    return (
+                      <li
+                        onClick={joinGame}
+                        key={game.servName}
+                        className={
+                          game.open ? "serv openServ" : "serv fullServ"
+                        }
+                      >
+                        {game.servName}
+                      </li>
+                    );
+                  } else {
+                    return null;
+                  }
+                })
+              : "Loading ..."}
           </ul>
         </section>
       </main>
