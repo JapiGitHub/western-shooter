@@ -17,7 +17,7 @@
   .titleContainer {
     position: absolute;
     left: 8vw;
-    top: -5vh;
+    top: 5vh;
     width: 84vw;
   }
 
@@ -61,7 +61,7 @@
     }
 
     .menuButtons {
-      height: 8vh;
+      height: 7.5vh;
     }
   }
 
@@ -175,11 +175,5 @@
     p {
       padding-bottom: 4vh;
     }
-  }
-
-  .title {
-    position: absolute;
-    top: 14vh;
-    font-size: 3vw;
   }
 }
