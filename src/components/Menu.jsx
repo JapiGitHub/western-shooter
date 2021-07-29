@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from "react";
 import Settings from "./Settings";
-import loggi from "./loggi";
 
 import "./menu.scss";
 import useSound from "use-sound";
-import MenuMusicLoboGlueWorm from "../sounds/LoboLocoGlueworm.mp3";
 import SwooshFromLeft from "../sounds/swoosh.left.mp3";
 import SwooshFromRight from "../sounds/swoosh.right.mp3";
 
@@ -44,12 +42,14 @@ export default function Menu({
     } else {
       stop();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [menuMusic, gameMode]);
 
   useEffect(() => {
     if (menuMusic) {
       play();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const modeKvM = (e) => {
@@ -96,7 +96,7 @@ export default function Menu({
   return (
     <div className={showMenu ? "menuContainer" : "menuContainer hideMenu"}>
       <div className="titleContainer">
-        <img src="./assets/title2.gif" alt="title" className="title" />
+        <img src="./assets/title2.gif" alt="loading title" className="title" />
       </div>
 
       <section className="buttonContainer">

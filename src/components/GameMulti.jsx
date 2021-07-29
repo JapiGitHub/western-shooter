@@ -19,8 +19,6 @@ export default function GameMulti({
   joinedServer,
   setGameCreatorP1,
   gameCreatorP1,
-  yourServer,
-  setYourServer,
   difficulty,
   player2Hero,
   setPlayer2Hero,
@@ -69,10 +67,7 @@ export default function GameMulti({
   const gameServersRef = firestore.collection("gameServers");
   const [gameList] = useCollectionData(gameServersRef, { idField: "id" });
   const [chosenServer, setChosenServer] = useState([]);
-  let exportReadyData = { ready: [false, false], lastOnline: 0 };
-  let exportShootData = {};
-  let exportHeroData = {};
-  let exportOnlineData = {};
+
   const [serverLoaded, setServerLoaded] = useState(false);
 
   const sendToDB = async (data) => {
@@ -94,7 +89,7 @@ export default function GameMulti({
   };
 
   //alkusäädöt
-  useEffect(async () => {
+  useEffect(() => {
     setPlayer2Anim("waiting");
     setPlayerAnim("waiting");
 
@@ -104,16 +99,22 @@ export default function GameMulti({
       setPlayer2Hero("cowboy");
     }
 
-    await gameServersRef.onSnapshot((snapshot) =>
-      snapshot.docs.map((doc) => {
-        if (doc.data().servName === joinedServer) {
-          setChosenServer(doc.data());
-          setServerLoaded(true);
-          //DEBUG return ilman constia turha
-          return doc.data();
-        }
-      })
-    );
+    const alkuSaadot = async () => {
+      await gameServersRef.onSnapshot((snapshot) =>
+        snapshot.docs.map((doc) => {
+          if (doc.data().servName === joinedServer) {
+            setChosenServer(doc.data());
+            setServerLoaded(true);
+            return doc.data();
+          } else {
+            return null;
+          }
+        })
+      );
+    };
+    // asynccina tässä, ku useEffectiä ei kannata laittaa asynciksi (race conditions)
+    alkuSaadot();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   //kun DB ladannut, niin päivitä herot
@@ -128,66 +129,72 @@ export default function GameMulti({
       setPlayer2Hero(chosenServer.heroCreator);
       setPlayer1Hero(chosenServer.heroJoined);
 
-      exportOnlineData = {
+      const exportOnlineData = {
         onlineJoined: true,
       };
       sendToDB(exportOnlineData);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [serverLoaded]);
 
   //server full/open
   useEffect(() => {
     if (gameCreatorP1) {
       if (chosenServer.onlineCreator && chosenServer.onlineJoined) {
-        exportOnlineData = {
+        const exportOnlineData = {
           open: false,
         };
+        sendToDB(exportOnlineData);
       } else {
-        exportOnlineData = {
+        const exportOnlineData = {
           open: true,
         };
+        sendToDB(exportOnlineData);
       }
 
       //jos creator lähtee, niin sulje serveri
       if (gameMode !== "network") {
         console.log("gamemode", gameMode);
-        exportOnlineData = {
+        const exportOnlineData = {
           open: false,
           lastOnline: chosenServer.lastOnline - 555000,
         };
+        sendToDB(exportOnlineData);
       }
     } else {
       //jos joined lähtee pois pelistä, niin tee taas open. tää ei itseasiassa ehdi tulla ku tää componentti tuhoutuu ennenku toi ajaa...
       if (gameMode !== "network") {
         console.log("gamemode", gameMode);
-        exportOnlineData = {
+        const exportOnlineData = {
           open: true,
           onlineJoined: false,
         };
+        sendToDB(exportOnlineData);
       }
     }
-    sendToDB(exportOnlineData);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [chosenServer.onlineCreator, chosenServer.onlineJoined, gameMode]);
 
   //hero changes to DB
-  useEffect(async () => {
+  useEffect(() => {
     //your connected server ID
     if (serverLoaded) {
       //data for hero
       if (gameCreatorP1) {
-        exportHeroData = {
+        const exportHeroData = {
           heroCreator: player1Hero,
           lastOnline: Date.now(),
         };
+        sendToDB(exportHeroData);
       } else {
-        exportHeroData = {
+        const exportHeroData = {
           heroJoined: player1Hero,
           lastOnline: Date.now(),
         };
+        sendToDB(exportHeroData);
       }
-      //update hero to database
-      sendToDB(exportHeroData);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [player1Hero, player2Hero]);
 
   //hero changes from DB:
@@ -201,6 +208,7 @@ export default function GameMulti({
         setPlayer2Hero(chosenServer.heroCreator);
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [chosenServer.heroCreator, chosenServer.heroJoined]);
 
   //NEXT ROUND RESET
@@ -214,7 +222,7 @@ export default function GameMulti({
           //vain game creator päivittää round resetin
           if (gameCreatorP1) {
             loggi("score menossa DBhen ", score);
-            exportReadyData = {
+            const exportReadyData = {
               ready: [false, false],
               //shotFired: [false, false],
               lastOnline: Date.now(),
@@ -253,6 +261,7 @@ export default function GameMulti({
         }, 800);
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [score, bothPlayersVarasLahto]);
 
   //readyClick
@@ -262,23 +271,22 @@ export default function GameMulti({
 
     //data for READY?
     if (gameCreatorP1) {
-      exportReadyData = {
+      const exportReadyData = {
         ready: [true, chosenServer.ready[1]],
         shotFiredCreator: false,
         shotFiredJoined: false,
         lastOnline: Date.now(),
       };
+      sendToDB(exportReadyData);
     } else {
-      exportReadyData = {
+      const exportReadyData = {
         ready: [chosenServer.ready[0], true],
         shotFiredCreator: false,
         shotFiredJoined: false,
         lastOnline: Date.now(),
       };
+      sendToDB(exportReadyData);
     }
-
-    //update READY to database
-    sendToDB(exportReadyData);
   };
 
   //update READY and RANDTime states from DB
@@ -297,6 +305,7 @@ export default function GameMulti({
     } else {
       loggi("db connecting .. updating ready&randTime");
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [chosenServer.ready]);
 
   //kun pelaajat valmiita,  aloita timeri
@@ -328,11 +337,12 @@ export default function GameMulti({
           if (shotFiredJoinedRef.current && !shotFiredCreatorRef.current) {
             loggi("joined oli nopeampi kuin 1200ms");
             //set reactiontime to ricochet-default eli 88887
-            exportShootData = {
+            const exportShootData = {
               lastReactionTimeCreator: 80000,
               lastOnline: Date.now(),
               shotFiredCreator: true,
             };
+            sendToDB(exportShootData);
           }
         } else {
           console.log(
@@ -343,18 +353,19 @@ export default function GameMulti({
           );
           if (!shotFiredJoinedRef.current && shotFiredCreatorRef.current) {
             loggi("creator oli nopeampi kuin 500ms eiku 1200ms!! hehe");
-            exportShootData = {
+            const exportShootData = {
               lastReactionTimeJoined: 80000,
               lastOnline: Date.now(),
               shotFiredJoined: true,
             };
+            sendToDB(exportShootData);
           }
         }
 
         //update to DB
-        sendToDB(exportShootData);
       }, randomTime + 1200);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [playerTwoReady, playerOneReady]);
 
   //SHOOTING
@@ -377,22 +388,22 @@ export default function GameMulti({
 
           //set reactiontime to ricochet-default eli 88887
           if (gameCreatorP1) {
-            exportShootData = {
+            const exportShootData = {
               lastReactionTimeCreator: 88887,
               lastOnline: Date.now(),
               shotFiredCreator: true,
               tooEarlyRicochetCreator: true,
             };
+            sendToDB(exportShootData);
           } else {
-            exportShootData = {
+            const exportShootData = {
               lastReactionTimeJoined: 88887,
               lastOnline: Date.now(),
               shotFiredJoined: true,
               tooEarlyRicochetJoined: true,
             };
+            sendToDB(exportShootData);
           }
-
-          sendToDB(exportShootData);
         } else {
           //onnistunut laukaus
           loggi("onnistunut laukaus");
@@ -405,22 +416,21 @@ export default function GameMulti({
           setInfoText("waiting for other");
 
           if (gameCreatorP1) {
-            exportShootData = {
+            const exportShootData = {
               lastReactionTimeCreator: reactTimeConst,
 
               lastOnline: Date.now(),
               shotFiredCreator: true,
             };
+            sendToDB(exportShootData);
           } else {
-            exportShootData = {
+            const exportShootData = {
               lastReactionTimeJoined: reactTimeConst,
               lastOnline: Date.now(),
               shotFiredJoined: true,
             };
+            sendToDB(exportShootData);
           }
-
-          //update your reactiontime to DB
-          sendToDB(exportShootData);
 
           setPlayer1Reaction(reactTimeConst);
           loggi("p1 reaction : ", reactTimeConst);
@@ -456,6 +466,7 @@ export default function GameMulti({
     } else {
       loggi("connecting to DB ... updating reactiontimes");
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [chosenServer.shotFired]);
 
   //varaslähdön checkaus toiselta pelaajalta DBn kautta:
@@ -489,13 +500,14 @@ export default function GameMulti({
         setBothPlayersVarasLahto(true);
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     chosenServer.tooEarlyRicochetCreator,
     chosenServer.tooEarlyRicochetJoined,
   ]);
 
   //VOITON CHECKAUS
-  useEffect(async () => {
+  useEffect(() => {
     loggi("win check 1");
     shotFiredCreatorRef.current = chosenServer.shotFiredCreator;
     shotFiredJoinedRef.current = chosenServer.shotFiredJoined;
@@ -580,6 +592,7 @@ export default function GameMulti({
         loggi("odottaa toista ampua");
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     chosenServer.lastReactionTimeJoined,
     chosenServer.lastReactionTimeCreator,

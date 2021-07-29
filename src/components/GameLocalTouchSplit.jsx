@@ -97,6 +97,7 @@ export default function GameLocalTouchSplit({
         setStartTime(new Date());
       }, randomTime);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [playerTwoReady, playerOneReady]);
 
   //Right
@@ -128,7 +129,10 @@ export default function GameLocalTouchSplit({
             setInfoText("Right wins");
             setPlayerAnim("die");
           }
-          setScore([score[0] + 1, score[1]]);
+          //setScore([score[0] + 1, score[1]]);
+          setScore((prevScore) => {
+            return [prevScore[0] + 1, prevScore[1]];
+          });
           NextRoundReset();
         }
       }
@@ -164,7 +168,9 @@ export default function GameLocalTouchSplit({
             setInfoText("Left wins");
             setPlayer2Anim("die");
           }
-          setScore([score[0], score[1] + 1]);
+          setScore((prevScore) => {
+            return [prevScore[0], prevScore[1] + 1];
+          });
           NextRoundReset();
         }
       }

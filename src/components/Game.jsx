@@ -12,7 +12,7 @@ import MenuMusicLoboGlueWorm from "../sounds/LoboLocoGlueworm.mp3";
 
 export default function Game({ gameMode, setGameMode, firestore, handle }) {
   const [showMenu, setShowMenu] = useState(true);
-  const [menuMusic, setMenuMusic] = useState(true);
+  const [menuMusic, setMenuMusic] = useState(false);
   const [screenSlide, setScreenSlide] = useState("menu");
   const [showLeaderBoard, setShowLeaderBoard] = useState(false);
 
@@ -32,6 +32,7 @@ export default function Game({ gameMode, setGameMode, firestore, handle }) {
     handle.enter();
     setGameMode("menu");
     play();
+    setMenuMusic(true);
   };
 
   return (

@@ -8,11 +8,12 @@ Made with React + firebase
 - leaderboard (keyb & mouse modessa)
 - network multiplayer (firebasella)
 - 3d feeling transitions
-- stereo sound
+- stereo sound in singleplayer modes, so you hear the direction of shots, ricochets (too early false start), etc.
 - music & fullscreen
 - two different filters/themes
 - mobile friendly
 - pixelart is home made
+- portrait to landscape "automatic"
 
 Modes:
 
@@ -21,3 +22,16 @@ Modes:
 - network multiplayer
 - touchscreen mobile duel
 - survival mode
+
+TODO:
+homma paisuu kuin pullataikina, eli vähän jokapaikassa olis refactoringia.
+
+leaderboardin vois laittaa multiplayeriin kanssa.
+
+multiplayer server full/open pitää parannella.
+
+kaatumisäänet puuttuu vielä.
+
+multiplayer lobbyyn vois säätää vielä, että softwareKeyboard ei mobiilissa muuttais ruudun kokoa. (ota alussa ruudun koko muuttujiksi).
+
+poista turhaksi jääviä console.loggeja.

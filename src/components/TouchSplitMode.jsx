@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import PlayerChars from "./PlayerChars";
+import React from "react";
 import GameLocalTouchSplit from "./GameLocalTouchSplit";
 import HeroSelector from "./HeroSelector";
 

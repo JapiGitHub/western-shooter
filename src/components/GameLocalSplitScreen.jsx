@@ -214,7 +214,9 @@ export default function GameLocalSplitScreen({
         }
         setWinner(2);
         checkLeaderBoardTimes(triggerTime - startTime, "player2");
-        setScore([score[0] + 1, score[1]]);
+        setScore((prevScore) => {
+          return [prevScore[0] + 1, prevScore[1]];
+        });
         setOk2Shoot(false);
         NextRoundReset();
       }
@@ -262,7 +264,10 @@ export default function GameLocalSplitScreen({
         }
         setWinner(1);
         checkLeaderBoardTimes(triggerTime - startTime, "player1");
-        setScore([score[0], score[1] + 1]);
+        //setScore([score[0], score[1] + 1]);
+        setScore((prevScore) => {
+          return [prevScore[0], prevScore[1] + 1];
+        });
         setOk2Shoot(false);
 
         NextRoundReset();

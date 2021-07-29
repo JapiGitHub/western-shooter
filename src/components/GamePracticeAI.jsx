@@ -132,7 +132,10 @@ export default function GamePracticeAI({
           setInfoText("You won");
           setPlayer2Anim("die");
         }
-        setScore([score[0] + 1, score[1]]);
+        //setScore([score[0] + 1, score[1]]);
+        setScore((prevScore) => {
+          return [prevScore[0] + 1, prevScore[1]];
+        });
         NextRoundReset();
       } else {
         if (aiAlive) {
@@ -145,11 +148,14 @@ export default function GamePracticeAI({
           setPlayerAnim("die");
           gameMode === "survival"
             ? setScore([0, 0])
-            : setScore([score[0], score[1] + 1]);
+            : setScore((prevScore) => {
+                return [prevScore[0], prevScore[1] + 1];
+              });
           NextRoundReset();
         }
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [player1Reaction]);
 
   //mouse player1

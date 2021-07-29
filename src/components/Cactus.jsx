@@ -72,7 +72,6 @@ export default function Cactus({ gameMode, screenSlide }) {
       </aside>
 
       <aside
-        className={gameMode === "menu" ? "cactus4 hideCactus4" : "cactus4"}
         className={(() => {
           switch (screenSlide) {
             case "menu":

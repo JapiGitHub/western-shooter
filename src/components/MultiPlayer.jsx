@@ -66,7 +66,6 @@ export default function MultiPlayer({
           setPlayerAnim={setPlayerAnim}
           player2Anim={player2Anim}
           setPlayer2Anim={setPlayer2Anim}
-          difficulty={difficulty}
         />
       )}
     </div>
