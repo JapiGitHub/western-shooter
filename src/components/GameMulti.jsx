@@ -94,9 +94,17 @@ export default function GameMulti({
     if (leaderBoardTime < leaderBoard[14].time) {
       setLdbTime(leaderBoardTime);
       setShowLeaderBoardInput(true);
-      setScreenSlide("leaderboard");
+      setScreenSlide("leaderboardMulti");
     }
   };
+
+  useEffect(() => {
+    if (showLeaderBoard) {
+      setScreenSlide("leaderboardMulti");
+    } else {
+      setScreenSlide("multiplayer");
+    }
+  }, [showLeaderBoard]);
 
   //shoot, ready, ricochet, otherPlrFaster data to gameServers DB
   const sendToDB = async (data) => {

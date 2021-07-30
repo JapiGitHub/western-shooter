@@ -5,7 +5,7 @@ Made with React + firebase
 
 - 3 different heroes
 - fatalities and difficulty levesl to get em
-- leaderboard (keyb & mouse modessa)
+- leaderboard (human va human modes (keybVsMouse & network multiplayer))
 - network multiplayer (firebasella)
 - 3d feeling transitions
 - stereo sound in singleplayer modes, so you hear the direction of shots, ricochets (too early false start), etc.
@@ -13,7 +13,7 @@ Made with React + firebase
 - two different filters/themes
 - mobile friendly
 - pixelart is home made
-- portrait to landscape "automatic"
+- portrait to landscape caution
 
 Modes:
 
@@ -25,8 +25,6 @@ Modes:
 
 TODO:
 homma paisuu kuin pullataikina, eli vähän jokapaikassa olis refactoringia.
-
-leaderboardin vois laittaa multiplayeriin kanssa.
 
 multiplayer server full/open pitää parannella.
 
