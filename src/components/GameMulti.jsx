@@ -35,8 +35,8 @@ export default function GameMulti({
   const [playerOneReady, setPlayerOneReady] = useState(false);
   const [playerTwoReady, setPlayerTwoReady] = useState(false);
   const [gun1Loaded, setGun1Loaded] = useState(false);
-  const [player1Reaction, setPlayer1Reaction] = useState(88888);
-  const [player2Reaction, setPlayer2Reaction] = useState(88888);
+  //const [player1Reaction, setPlayer1Reaction] = useState(88888);
+  //const [player2Reaction, setPlayer2Reaction] = useState(88888);
   const [score, setScore] = useState([0, 0]);
   const [shotFired, setShotFired] = useState(false);
 
@@ -104,6 +104,7 @@ export default function GameMulti({
     } else {
       setScreenSlide("multiplayer");
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [showLeaderBoard]);
 
   //shoot, ready, ricochet, otherPlrFaster data to gameServers DB
@@ -192,7 +193,6 @@ export default function GameMulti({
 
       //jos creator lähtee, niin sulje serveri
       if (gameMode !== "network") {
-        console.log("gamemode", gameMode);
         const exportOnlineData = {
           open: false,
           lastOnline: chosenServer.lastOnline - 555000,
@@ -202,7 +202,6 @@ export default function GameMulti({
     } else {
       //jos joined lähtee pois pelistä, niin tee taas open. tää ei itseasiassa ehdi tulla ku tää componentti tuhoutuu ennenku toi ajaa...
       if (gameMode !== "network") {
-        console.log("gamemode", gameMode);
         const exportOnlineData = {
           open: true,
           onlineJoined: false,
@@ -251,15 +250,12 @@ export default function GameMulti({
 
   //NEXT ROUND RESET
   useEffect(() => {
-    loggi("trying round reset");
     if (serverLoaded) {
-      loggi("score nyt ", score);
       if (chosenServer.shotFiredCreator && chosenServer.shotFiredJoined) {
         loggi("next round reset");
         setTimeout(async () => {
           //vain game creator päivittää round resetin
           if (gameCreatorP1) {
-            loggi("score menossa DBhen ", score);
             const exportReadyData = {
               ready: [false, false],
               //shotFired: [false, false],
@@ -288,7 +284,6 @@ export default function GameMulti({
           setReactTextFade(false);
 
           setFatality(false);
-          setPlayer1Reaction(0);
           setOk2Shoot(false);
           setRandomTime(chosenServer.lastRandomTime);
         }, 3000);
@@ -337,11 +332,7 @@ export default function GameMulti({
         setPlayerOneReady(chosenServer.ready[1]);
         setPlayerTwoReady(chosenServer.ready[0]);
       }
-
       setRandomTime(chosenServer.lastRandomTime);
-      loggi("randomTime set to ", chosenServer.lastRandomTime, ". from DB");
-    } else {
-      loggi("db connecting .. updating ready&randTime");
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [chosenServer.ready]);
@@ -373,7 +364,6 @@ export default function GameMulti({
         //REFfiä käytetään jotta saadaan päivittynyt arvo setTimeOutin sulkujen sisään linkattua. statella se olis se vanha timerin alussa oleva arvo
         if (gameCreatorP1) {
           if (shotFiredJoinedRef.current && !shotFiredCreatorRef.current) {
-            loggi("joined oli nopeampi kuin 1200ms");
             //set reactiontime to ricochet-default eli 88887
             const exportShootData = {
               lastReactionTimeCreator: 80000,
@@ -383,14 +373,7 @@ export default function GameMulti({
             sendToDB(exportShootData);
           }
         } else {
-          console.log(
-            "shotFiredJoinedRef",
-            shotFiredJoinedRef.current,
-            "   shotFiredCreatorRef",
-            shotFiredCreatorRef.current
-          );
           if (!shotFiredJoinedRef.current && shotFiredCreatorRef.current) {
-            loggi("creator oli nopeampi kuin 500ms eiku 1200ms!! hehe");
             const exportShootData = {
               lastReactionTimeJoined: 80000,
               lastOnline: Date.now(),
@@ -453,7 +436,6 @@ export default function GameMulti({
           const pullTriggerTime = new Date();
           const reactTimeConst = pullTriggerTime - startTime;
           loggi("reaction ms : ", reactTimeConst);
-          loggi("server : ", chosenServer);
           setInfoText("waiting for other");
 
           if (gameCreatorP1) {
@@ -473,7 +455,6 @@ export default function GameMulti({
             sendToDB(exportShootData);
           }
 
-          setPlayer1Reaction(reactTimeConst);
           loggi("p1 reaction : ", reactTimeConst);
           setOk2Shoot(false);
 
@@ -483,32 +464,6 @@ export default function GameMulti({
       }
     }
   };
-
-  //DEBUG tarviiko tätä enää?
-  //päivitä locaaliinstateen creatorin enemyn reactioaika
-  useEffect(() => {
-    if (serverLoaded) {
-      if (
-        chosenServer.lastReactionTimeCreator !== 88888 &&
-        chosenServer.lastReactionTimeJoined !== 88888
-      ) {
-        if (gameCreatorP1) {
-          setPlayer2Reaction(chosenServer.lastReactionTimeJoined);
-        } else {
-          setPlayer2Reaction(chosenServer.lastReactionTimeCreator);
-        }
-
-        loggi("LOCAL you  reaction:", player1Reaction);
-        loggi("LOCAL enem reaction:", player2Reaction);
-
-        loggi("NET crea  reaction:", chosenServer.lastReactionTimeCreator);
-        loggi("NET join  reaction:", chosenServer.lastReactionTimeJoined);
-      }
-    } else {
-      loggi("connecting to DB ... updating reactiontimes");
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [chosenServer.shotFired]);
 
   //varaslähdön checkaus toiselta pelaajalta DBn kautta:
   useEffect(() => {

@@ -31,5 +31,3 @@ multiplayer server full/open pitää parannella.
 kaatumisäänet puuttuu vielä.
 
 multiplayer lobbyyn vois säätää vielä, että softwareKeyboard ei mobiilissa muuttais ruudun kokoa. (ota alussa ruudun koko muuttujiksi).
-
-poista turhaksi jääviä console.loggeja.
