@@ -121,7 +121,10 @@ export default function GameMulti({
 
       await gameServersRef.doc(server[0].id).update(data);
     } catch (err) {
-      console.log("connecting to DB ", err);
+      console.log(
+        "connection to DB not ready yet (propably connection is OK after this): ",
+        err
+      );
     }
   };
 
@@ -391,17 +394,13 @@ export default function GameMulti({
 
   //SHOOTING
   const actionClick = async () => {
-    loggi("actionclick-1/3");
     if (showLeaderBoard) {
       setShowLeaderBoard(false);
     }
     if (playerOneReady && playerTwoReady && localOneClick) {
-      loggi("actionclick-2/3");
       setLocalOneClick(false);
 
       if (gun1Loaded === true && shotFired === false) {
-        loggi("actionclick-3/3");
-
         //varaslähtö
         if (ok2Shoot === false) {
           loggi("varaslähtö");
@@ -504,7 +503,6 @@ export default function GameMulti({
 
   //VOITON CHECKAUS
   useEffect(() => {
-    loggi("win check 1");
     shotFiredCreatorRef.current = chosenServer.shotFiredCreator;
     shotFiredJoinedRef.current = chosenServer.shotFiredJoined;
 
@@ -513,13 +511,13 @@ export default function GameMulti({
       chosenServer.shotFiredCreator &&
       chosenServer.shotFiredJoined
     ) {
-      loggi("win check 2");
+      loggi("win check 1");
       if (
         chosenServer.lastReactionTimeCreator < 88888 &&
         chosenServer.lastReactionTimeJoined < 88888 &&
         !bothPlayersVarasLahto
       ) {
-        loggi("win check 3 kumpikin ampunut");
+        loggi("win check 2 : kumpikin ampunut");
         pistolShot2Play();
         if (
           chosenServer.lastReactionTimeCreator <

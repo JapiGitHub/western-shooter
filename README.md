@@ -8,7 +8,7 @@ Made with React (+ firebase backend)
 - difficulty levels set the threshold for fatalitities.
 - leaderboard (in human vs human modes (keybVsMouse & network multiplayer)).
 - network multiplayer (google firebase).
-- "3d feeling" transitions.
+- "3d feeling" transitions and clouds.
 - stereo sound in singleplayer modes, so you hear the direction of shots, ricochets (too early false start), etc.
 - menu music & fullscreen.
 - two different filters/themes.
