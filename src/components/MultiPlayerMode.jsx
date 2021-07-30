@@ -22,6 +22,8 @@ export default function MultiPlayerMode({
   player1Hero,
   setPlayer1Hero,
   difficulty,
+  showLeaderBoard,
+  setShowLeaderBoard,
 }) {
   const backToMenu = () => {
     setGameMode("menu");
@@ -51,6 +53,10 @@ export default function MultiPlayerMode({
           setPlayer2Hero={setPlayer2Hero}
           player1Hero={player1Hero}
           setPlayer1Hero={setPlayer1Hero}
+          setScreenSlide={setScreenSlide}
+          screenSlide={screenSlide}
+          showLeaderBoard={showLeaderBoard}
+          setShowLeaderBoard={setShowLeaderBoard}
         />
 
         <HeroSelectorAI setPlayer1Hero={setPlayer1Hero} />

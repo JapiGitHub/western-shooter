@@ -86,7 +86,7 @@ export default function GameLocalSplitScreen({
     idField: "id",
   });
 
-  const checkLeaderBoardTimes = (leaderBoardTime, player) => {
+  const checkLeaderBoardTimes = (leaderBoardTime) => {
     //vertaa vain tohon 15. aikaan jotta record history näkyy databasessa.
     if (leaderBoardTime < leaderBoard[14].time) {
       setLdbTime(leaderBoardTime);
@@ -213,7 +213,7 @@ export default function GameLocalSplitScreen({
           setPlayerAnim("die");
         }
         setWinner(2);
-        checkLeaderBoardTimes(triggerTime - startTime, "player2");
+        checkLeaderBoardTimes(triggerTime - startTime);
         setScore((prevScore) => {
           return [prevScore[0] + 1, prevScore[1]];
         });
@@ -263,7 +263,7 @@ export default function GameLocalSplitScreen({
           setPlayer2Anim("die");
         }
         setWinner(1);
-        checkLeaderBoardTimes(triggerTime - startTime, "player1");
+        checkLeaderBoardTimes(triggerTime - startTime);
         //setScore([score[0], score[1] + 1]);
         setScore((prevScore) => {
           return [prevScore[0], prevScore[1] + 1];

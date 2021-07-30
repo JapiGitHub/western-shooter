@@ -23,6 +23,8 @@ export default function PlayerChars({
               return "player2char lobbyPlayer2";
             case "multiplayer":
               return "player2char multiPlayer2";
+            case "leaderboardMulti":
+              return "player2char ldbPlayer2";
             default:
               return "player2char hidePlayer2";
           }
@@ -48,6 +50,8 @@ export default function PlayerChars({
               return "player1char lobbyPlayer1";
             case "multiplayer":
               return "player1char multiPlayer1";
+            case "leaderboardMulti":
+              return "player1char ldbPlayer1";
             default:
               return "player1char hidePlayer1";
           }

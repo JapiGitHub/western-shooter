@@ -105,6 +105,9 @@ export default function Cactus({ gameMode, screenSlide }) {
               return "cactus5 lobbyCactus5";
             case "multiplayer":
               return "cactus5 multiplayerCactus5";
+
+            case "leaderboardMulti":
+              return "cactus5 multiplayerCactus5";
             default:
               return "cactus5 menuCactus5";
           }

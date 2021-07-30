@@ -21,6 +21,8 @@ export default function MultiPlayer({
   setMenuMusic,
   difficulty,
   stop,
+  showLeaderBoard,
+  setShowLeaderBoard,
 }) {
   const [joinedServer, setJoinedServer] = useState("");
   const [gameCreatorP1, setGameCreatorP1] = useState(false);
@@ -66,6 +68,8 @@ export default function MultiPlayer({
           setPlayerAnim={setPlayerAnim}
           player2Anim={player2Anim}
           setPlayer2Anim={setPlayer2Anim}
+          showLeaderBoard={showLeaderBoard}
+          setShowLeaderBoard={setShowLeaderBoard}
         />
       )}
     </div>

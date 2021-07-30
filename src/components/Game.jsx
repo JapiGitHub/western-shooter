@@ -58,6 +58,8 @@ export default function Game({ gameMode, setGameMode, firestore, handle }) {
               return "horizon lobbyHorizon";
             case "multiplayer":
               return "horizon multiplayerHorizon";
+            case "leaderboardMulti":
+              return "horizon multiplayerHorizon";
             default:
               return "horizon";
           }
@@ -185,6 +187,8 @@ export default function Game({ gameMode, setGameMode, firestore, handle }) {
           setMenuMusic={setMenuMusic}
           difficulty={difficulty}
           stop={stop}
+          showLeaderBoard={showLeaderBoard}
+          setShowLeaderBoard={setShowLeaderBoard}
         />
       ) : null}
       <Cactus gameMode={gameMode} screenSlide={screenSlide} />
@@ -227,6 +231,8 @@ export default function Game({ gameMode, setGameMode, firestore, handle }) {
             case "lobby":
               return "saloon";
             case "multiplayer":
+              return "saloon multiplayerSaloon";
+            case "leaderboardMulti":
               return "saloon multiplayerSaloon";
             default:
               return "saloon menuSaloon";

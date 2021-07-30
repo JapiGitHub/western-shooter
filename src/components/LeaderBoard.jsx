@@ -3,7 +3,12 @@ import { useCollectionData } from "react-firebase-hooks/firestore";
 
 import "./leaderBoard.scss";
 
-export default function LeaderBoard({ firestore, showLeaderBoard }) {
+export default function LeaderBoard({
+  firestore,
+  showLeaderBoard,
+  setShowLeaderBoard,
+  gameMode,
+}) {
   const leaderBoardRef = firestore.collection("leaderBoard");
 
   //leaderborad
@@ -14,6 +19,7 @@ export default function LeaderBoard({ firestore, showLeaderBoard }) {
 
   return (
     <div
+      onClick={gameMode === "multiplayer" ? setShowLeaderBoard(false) : null}
       className={
         showLeaderBoard
           ? "leaderBoardContainer"

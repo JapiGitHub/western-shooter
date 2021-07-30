@@ -2,6 +2,9 @@ import React, { useEffect, useRef, useState } from "react";
 import loggi from "./loggi";
 import { useCollectionData } from "react-firebase-hooks/firestore";
 
+import LeaderBoard from "./LeaderBoard";
+import LeaderBoardInput from "./LeaderBoardInput";
+
 import useSound from "use-sound";
 import pistolShot2 from "../sounds/pistol.shot.2.mp3";
 import pistolCock1 from "../sounds/cock.pistol.1.mp3";
@@ -24,6 +27,10 @@ export default function GameMulti({
   setPlayer2Hero,
   player1Hero,
   setPlayer1Hero,
+  setScreenSlide,
+  screenSlide,
+  showLeaderBoard,
+  setShowLeaderBoard,
 }) {
   const [playerOneReady, setPlayerOneReady] = useState(false);
   const [playerTwoReady, setPlayerTwoReady] = useState(false);
@@ -63,16 +70,37 @@ export default function GameMulti({
   const playerTwoReadyCheckBox = useRef();
   const playerOneReadyCheckBox = useRef();
 
-  //firebase
+  //FIREBASE FIRESTORE DB
+  //gameServers / network multiplayer
   const gameServersRef = firestore.collection("gameServers");
   const [gameList] = useCollectionData(gameServersRef, { idField: "id" });
   const [chosenServer, setChosenServer] = useState([]);
 
   const [serverLoaded, setServerLoaded] = useState(false);
 
+  //leaderborad
+  const [showLeaderBoardInput, setShowLeaderBoardInput] = useState(true);
+  const [ldbTime, setLdbTime] = useState(888);
+  const [winner, setWinner] = useState(0);
+
+  const leaderBoardRef = firestore.collection("leaderBoard");
+  const sortedLeaderBoard = leaderBoardRef.orderBy("time");
+  const [leaderBoard] = useCollectionData(sortedLeaderBoard, {
+    idField: "id",
+  });
+
+  const checkLeaderBoardTimes = (leaderBoardTime) => {
+    //vertaa vain tohon 15. aikaan jotta record history näkyy databasessa.
+    if (leaderBoardTime < leaderBoard[14].time) {
+      setLdbTime(leaderBoardTime);
+      setShowLeaderBoardInput(true);
+      setScreenSlide("leaderboard");
+    }
+  };
+
+  //shoot, ready, ricochet, otherPlrFaster data to gameServers DB
   const sendToDB = async (data) => {
     //your connected server ID
-
     try {
       const server = gameList.filter((game) => {
         if (game.servName === joinedServer) {
@@ -92,6 +120,8 @@ export default function GameMulti({
   useEffect(() => {
     setPlayer2Anim("waiting");
     setPlayerAnim("waiting");
+    setShowLeaderBoard(false);
+    setShowLeaderBoardInput(false);
 
     //jotta herot alkaa samoista kummallakin
     if (!gameCreatorP1) {
@@ -371,6 +401,9 @@ export default function GameMulti({
   //SHOOTING
   const actionClick = async () => {
     loggi("actionclick-1/3");
+    if (showLeaderBoard) {
+      setShowLeaderBoard(false);
+    }
     if (playerOneReady && playerTwoReady && localOneClick) {
       loggi("actionclick-2/3");
       setLocalOneClick(false);
@@ -529,13 +562,17 @@ export default function GameMulti({
           chosenServer.lastReactionTimeCreator <
           chosenServer.lastReactionTimeJoined
         ) {
-          // [0]faster
+          // [0]/creator = faster
           if (gameCreatorP1) {
             setInfoText("you/Creator won");
             setP1ReactText(chosenServer.lastReactionTimeCreator);
             setPlayerAnim("shooting");
             setPlayer2Anim("die");
             setScore([score[0] + 1, score[1]]);
+
+            //leaderboardi
+            setWinner(1);
+            checkLeaderBoardTimes(chosenServer.lastReactionTimeCreator);
           } else {
             setInfoText("You lost");
             setP2ReactText(chosenServer.lastReactionTimeCreator);
@@ -545,7 +582,7 @@ export default function GameMulti({
             setScore([score[0], score[1] + 1]);
           }
 
-          // [1]faster
+          // [1]/joined = faster
         } else {
           if (gameCreatorP1) {
             setInfoText("You lost");
@@ -560,6 +597,10 @@ export default function GameMulti({
             setPlayerAnim("shooting");
             //jos et ole creator, niin sulla päivittyy vain locaalisti score, jotta menee oikeinpäin ruudulla
             setScore([score[0] + 1, score[1]]);
+
+            //leaderboard
+            setWinner(2);
+            checkLeaderBoardTimes(chosenServer.lastReactionTimeJoined);
           }
         }
 
@@ -601,7 +642,7 @@ export default function GameMulti({
   ]);
 
   return (
-    <div className="textSplashFrame" onClick={actionClick}>
+    <div className="textSplashFrameMulti" onClick={actionClick}>
       <label className="playerLocalReadyLabel" htmlFor="p1">
         <span className="localPlayerText">
           You{gameCreatorP1 ? " Creator" : " Joined"} {score[0]}
@@ -661,6 +702,33 @@ export default function GameMulti({
       </div>
 
       <div className="infoText">{infoText}</div>
+
+      <LeaderBoard
+        firestore={firestore}
+        showLeaderBoard={showLeaderBoard}
+        setShowLeaderBoard={setShowLeaderBoard}
+        gameMode={gameMode}
+      />
+
+      <LeaderBoardInput
+        firestore={firestore}
+        player1Hero={player1Hero}
+        player2Hero={player2Hero}
+        winner={winner}
+        ldbTime={ldbTime}
+        setShowLeaderBoardInput={setShowLeaderBoardInput}
+        showLeaderBoardInput={showLeaderBoardInput}
+      />
+
+      <button
+        className="btn ldbButton"
+        onClick={() => {
+          setShowLeaderBoard(true);
+          setScreenSlide("leaderboardMulti");
+        }}
+      >
+        Leaderboard
+      </button>
     </div>
   );
 }
