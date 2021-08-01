@@ -45,3 +45,9 @@ Joidenkin hahmojen varjot pitää piirrustella mirroriksi!
 stateManagmentista VOIS olla hyötyä, kunhan performance ei heikkene..
 
 zombie survival easter egg mode xD!
+
+menu buttonit 3d moving
+
+apple onClick events (a/button wrap div/inputs)
+
+touchScreen ricochetissa bugi

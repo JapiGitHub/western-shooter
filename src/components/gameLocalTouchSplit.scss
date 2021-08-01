@@ -54,10 +54,16 @@
   }
 
   //right / mouse
+  .scoreInfoRight {
+    position: absolute;
+    right: 31vw;
+    top: 8vh;
+    font-size: 6vh;
+  }
+
   .player1ReadyLabelTouch {
     cursor: pointer;
 
-    font-size: 4vh;
     font-family: "Press Start 2P", cursive;
 
     width: 30vw;
@@ -67,7 +73,7 @@
     justify-content: flex-end;
 
     position: absolute;
-    top: 2vh;
+    top: 0vh;
     right: 0;
     padding-right: 4vw;
 
@@ -75,10 +81,16 @@
   }
 
   //left
+  .scoreInfoLeft {
+    position: absolute;
+    left: 31vw;
+    top: 8vh;
+    font-size: 6vh;
+  }
+
   .player2ReadyLabelTouch {
     cursor: pointer;
 
-    font-size: 4vh;
     font-family: "Press Start 2P", cursive;
 
     width: 30vw;
@@ -88,7 +100,7 @@
     justify-content: flex-start;
 
     position: absolute;
-    top: 2vh;
+    top: 0vh;
     left: 0px;
     padding-left: 4vw;
 
@@ -99,7 +111,7 @@
     cursor: pointer;
 
     position: absolute;
-    top: 7vh;
+    top: 4vh;
     right: 4vw;
 
     font-size: 2.5vh;
@@ -107,11 +119,11 @@
     display: grid;
     place-items: center;
 
-    border-radius: 9px;
+    border-radius: 0.7vh;
     border-style: solid;
     border-width: 0.4vh;
     border-color: rgb(0, 0, 0);
-    height: 10vh;
+    height: 14vh;
     width: 25vw;
     background-color: crimson;
     transition: all 0.2s ease;
@@ -124,7 +136,7 @@
     cursor: pointer;
 
     position: absolute;
-    top: 7vh;
+    top: 4vh;
     left: 4vw;
 
     font-size: 2.5vh;
@@ -132,11 +144,11 @@
     display: grid;
     place-items: center;
 
-    border-radius: 9px;
+    border-radius: 0.7vh;
     border-style: solid;
     border-width: 0.4vh;
     border-color: rgb(0, 0, 0);
-    height: 10vh;
+    height: 14vh;
     width: 25vw;
     background-color: crimson;
     transition: all 0.2s ease;
@@ -146,7 +158,7 @@
   }
 
   .checkMark2Touch:focus {
-    border-width: 9px;
+    border-width: 0.7vh;
     height: 20vh;
   }
 
@@ -158,11 +170,11 @@
     background-color: rgb(195, 209, 117);
   }
 
-  input:checked ~ .checkMark1 {
+  input:checked ~ .checkMark1Touch {
     background-color: #1ed65c;
   }
 
-  input:checked ~ .checkMark2 {
+  input:checked ~ .checkMark2Touch {
     background-color: #1ed65c;
   }
 
@@ -179,7 +191,7 @@
 
     font-size: 7vw;
     color: #1a0403;
-    text-shadow: 0 0 30px #ffffff;
+    text-shadow: 0 0 3vh #ffffff;
 
     transition: all 0.9s ease;
     transform: scale(1);
@@ -189,5 +201,55 @@
   .hideInfoTouch {
     opacity: 0;
     transform: scale(0.1);
+  }
+
+  .reactMouseTimeText {
+    font-family: "Press Start 2P", cursive;
+    font-size: 4vh;
+    transition: all 2.5s ease;
+    z-index: 99;
+    color: #fff;
+    text-shadow: -1px -1px 9px rgba(150, 150, 150, 1);
+  }
+
+  .reactionMouseTextFloater {
+    position: absolute;
+    z-index: 99;
+    opacity: 1;
+    right: 19vw;
+    top: 59vh;
+  }
+
+  .reactKeybTimeText {
+    font-family: "Press Start 2P", cursive;
+    font-size: 4vh;
+    transition: all 2.5s ease;
+    z-index: 99;
+    color: #fff;
+    text-shadow: -1px -1px 9px rgba(150, 150, 150, 1);
+  }
+
+  .reactionKeybTextFloater {
+    position: absolute;
+    z-index: 99;
+    opacity: 1;
+    left: 19vw;
+    top: 55vh;
+  }
+
+  .fatality {
+    font-family: "Press Start 2P", cursive;
+    z-index: 99;
+    font-size: 4.05vh;
+    transition: all 0.3s ease;
+    color: crimson;
+    text-shadow: 0 -1px 4px #fff, 0 -2px 1vw rgb(255, 0, 0), 0 -1vw 3vw #ffe600,
+      0 -2vw 6vw #f00;
+  }
+
+  .hideTime {
+    opacity: 0;
+    top: 40vh;
+    transition: all 2.5s ease;
   }
 }

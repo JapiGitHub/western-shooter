@@ -71,12 +71,15 @@ export default function Game({ gameMode, setGameMode, firestore, handle }) {
       <img src="./assets/cloud3.gif" alt="cloud" className="cloud cloud4"></img>
 
       {gameMode === "start" ? (
-        <img
-          src="./assets/logo.4.gif"
-          alt="logo"
-          className="startPic"
-          onClick={startGame}
-        ></img>
+        <>
+          <button onClick={startGame} className="invisibleAppleButton">
+            <img
+              src="./assets/logo.4.gif"
+              alt="logo"
+              className="startPic"
+            ></img>
+          </button>
+        </>
       ) : null}
 
       {gameMode === "menu" ? (

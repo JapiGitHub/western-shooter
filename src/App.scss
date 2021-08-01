@@ -37,6 +37,7 @@
 
     //jotta applen laitteet voi klikata
     cursor: pointer;
+    touch-action: auto;
 
     top: 5vh;
     left: 10vw;

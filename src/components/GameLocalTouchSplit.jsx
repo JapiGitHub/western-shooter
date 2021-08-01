@@ -102,7 +102,7 @@ export default function GameLocalTouchSplit({
 
   //Right
   const actionClickRight = (e) => {
-    e.preventDefault();
+    console.log("nappia painettu");
     //SHOOTING
     if (playerOneReady === true && playerTwoReady === true) {
       if (gun1Loaded === true && shotFired === false) {
@@ -189,7 +189,7 @@ export default function GameLocalTouchSplit({
     <div
       className={
         playerOneReady === true && playerTwoReady === true
-          ? "textSplashFrame touchAreaOn"
+          ? "textSplashFrame"
           : "textSplashFrame"
       }
     >
@@ -212,10 +212,10 @@ export default function GameLocalTouchSplit({
         }
       ></section>
 
+      <div className="scoreInfoRight">{score[0]}</div>
       <label className="player1ReadyLabelTouch" htmlFor="p1">
-        {score[0]} Right
         <input
-          className="readyCheckBox p1check"
+          className="readyCheckBoxTouch p1check"
           type="checkbox"
           checked={playerOneReady}
           onClick={playerOneReadyClick}
@@ -239,10 +239,10 @@ export default function GameLocalTouchSplit({
         </div>
       </div>
 
+      <div className="scoreInfoLeft">{score[1]}</div>
       <label className="player2ReadyLabelTouch" htmlFor="p2">
-        Left {score[1]}
         <input
-          className="readyCheckBox p2check"
+          className="readyCheckBoxTouch p2check"
           type="checkbox"
           checked={playerTwoReady}
           onClick={playerTwoReadyClick}
