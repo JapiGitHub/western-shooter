@@ -193,7 +193,6 @@ export default function GameLocalSplitScreen({
         setGun1Loaded(false);
         RicochetToLeftPlay();
         playerTwoReadyCheckBox.current.focus();
-        console.log(document.activeElement);
       } else {
         //onnistunut laukaus
         const triggerTime = new Date();

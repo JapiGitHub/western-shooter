@@ -35,7 +35,7 @@ export default function Menu({
   const [showSettings, setShowSettings] = useState(false);
 
   //The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page
-  //eli jos teet esim splash startin ja käyttäjän pitää klikata sitä ekana, että pääsee menuun, niin sit toimii
+  //Splash startin ja käyttäjän klikkaa sitä ekana, että pääsee menuun, niin sit toimii äänet ja fullscreen myös tarvii ton user gesturen ennenku toimii
   useEffect(() => {
     if (menuMusic) {
       play();
@@ -134,7 +134,7 @@ export default function Menu({
           showSettings={showSettings}
         />
       </section>
-      <aside className="versionInfo">vers 0.87</aside>
+      <aside className="versionInfo">vers 0.88.2</aside>
     </div>
   );
 }

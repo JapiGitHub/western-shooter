@@ -38,7 +38,6 @@ export default function MultiPlayerMode({
         <button onClick={backToMenu} className="btn menuButton">
           Menu
         </button>
-        <section className="serverInfo">{joinedServer}</section>
 
         <GameMulti
           gameMode={gameMode}
@@ -59,7 +58,10 @@ export default function MultiPlayerMode({
           setShowLeaderBoard={setShowLeaderBoard}
         />
 
-        <HeroSelectorAI setPlayer1Hero={setPlayer1Hero} />
+        <HeroSelectorAI
+          setPlayer1Hero={setPlayer1Hero}
+          player1Hero={player1Hero}
+        />
 
         <Cactus />
       </main>

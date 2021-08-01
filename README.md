@@ -6,15 +6,16 @@ Made with React (+ firebase backend)
 - 3 different heroes.
 - fatalities!
 - difficulty levels set the threshold for fatalitities.
-- leaderboard (in human vs human modes (keybVsMouse & network multiplayer)).
-- network multiplayer (google firebase).
+- leaderboard (in human vs human modes : keybVsMouse & network multiplayer).
+- network multiplayer (google firebase backend).
 - "3d feeling" transitions and clouds.
-- stereo sound in singleplayer modes, so you hear the direction of shots, ricochets (too early false start), etc.
+- stereo sound in singleplayer modes, so you hear the direction of shots, ricochets (too early false start), menu moving, etc.
 - menu music & fullscreen.
 - two different filters/themes.
 - mobile friendly.
 - portrait to landscape caution.
 - pixelart is home made <3
+- custom cursor.
 
 Modes:
 
@@ -36,3 +37,5 @@ multiplayer lobbyyn vois säätää vielä, ettei softwareKeyboard (mobiilissa) 
 edelleen joidenkin hahmojen varjot on väärinpäin!
 
 stateManagmentista VOIS olla hyötyä, kunhan performance ei heikkene..
+
+zombie survival easter egg mode xD!

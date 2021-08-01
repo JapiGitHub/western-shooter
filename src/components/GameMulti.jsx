@@ -32,6 +32,9 @@ export default function GameMulti({
   showLeaderBoard,
   setShowLeaderBoard,
 }) {
+  //Warning: You provided a `checked` prop to a form field without an `onChange` handler. This will render a read-only field. If the field should be mutable use `defaultChecked`. Otherwise, set either `onChange` or `readOnly`.
+  //= tää johtuu tosta "click to ready" palikan toiminnasta, mutta se toimii ihan oikein ja jos muuttais noin ku se ehdottaa, ni ei toimis enää kunnolla. no problem.
+
   const [playerOneReady, setPlayerOneReady] = useState(false);
   const [playerTwoReady, setPlayerTwoReady] = useState(false);
   const [gun1Loaded, setGun1Loaded] = useState(false);
@@ -40,14 +43,14 @@ export default function GameMulti({
   const [score, setScore] = useState([0, 0]);
   const [shotFired, setShotFired] = useState(false);
 
-  //reffi setTimeOuttia varten jotta saadaan päivitetty arvo
+  //reffi setTimeOuttia varten jotta saadaan päivitetty arvo, muuten setTimeout ottais sen ajastimen startissa olevan arvon eikä realtimea
   const shotFiredCreatorRef = useRef(false);
   const shotFiredJoinedRef = useRef(false);
 
   const [localOneClick, setLocalOneClick] = useState(true);
   const [bothPlayersVarasLahto, setBothPlayersVarasLahto] = useState(false);
 
-  //päitten ylle reacto ajan nousu
+  //päitten ylle reactio ajan nousu
   const [p1ReactText, setP1ReactText] = useState("");
   const [p2ReactText, setP2ReactText] = useState("");
   const [reactTextFade, setReactTextFade] = useState(false);
@@ -112,13 +115,14 @@ export default function GameMulti({
     //your connected server ID
     try {
       const server = gameList.filter((game) => {
-        if (game.servName === joinedServer) {
+        if (game.serverId === joinedServer) {
           return game.id;
         } else {
           return null;
         }
       });
 
+      //tää menee vielä vanhan autoIDn kautta, mutta eipä sen väliä ku se toimii
       await gameServersRef.doc(server[0].id).update(data);
     } catch (err) {
       console.log(
@@ -144,7 +148,7 @@ export default function GameMulti({
     const alkuSaadot = async () => {
       await gameServersRef.onSnapshot((snapshot) =>
         snapshot.docs.map((doc) => {
-          if (doc.data().servName === joinedServer) {
+          if (doc.data().serverId === joinedServer) {
             setChosenServer(doc.data());
             setServerLoaded(true);
             return doc.data();
@@ -260,8 +264,8 @@ export default function GameMulti({
           //vain game creator päivittää round resetin
           if (gameCreatorP1) {
             const exportReadyData = {
-              ready: [false, false],
-              //shotFired: [false, false],
+              readyCreator: false,
+              readyJoined: false,
               lastOnline: Date.now(),
               lastRandomTime: 3500 + Math.floor(Math.random() * 6000),
               score: score,
@@ -308,7 +312,7 @@ export default function GameMulti({
     //data for READY?
     if (gameCreatorP1) {
       const exportReadyData = {
-        ready: [true, chosenServer.ready[1]],
+        readyCreator: true,
         shotFiredCreator: false,
         shotFiredJoined: false,
         lastOnline: Date.now(),
@@ -316,7 +320,7 @@ export default function GameMulti({
       sendToDB(exportReadyData);
     } else {
       const exportReadyData = {
-        ready: [chosenServer.ready[0], true],
+        readyJoined: true,
         shotFiredCreator: false,
         shotFiredJoined: false,
         lastOnline: Date.now(),
@@ -329,16 +333,16 @@ export default function GameMulti({
   useEffect(() => {
     if (serverLoaded) {
       if (gameCreatorP1) {
-        setPlayerOneReady(chosenServer.ready[0]);
-        setPlayerTwoReady(chosenServer.ready[1]);
+        setPlayerOneReady(chosenServer.readyCreator);
+        setPlayerTwoReady(chosenServer.readyJoined);
       } else {
-        setPlayerOneReady(chosenServer.ready[1]);
-        setPlayerTwoReady(chosenServer.ready[0]);
+        setPlayerOneReady(chosenServer.readyJoined);
+        setPlayerTwoReady(chosenServer.readyCreator);
       }
       setRandomTime(chosenServer.lastRandomTime);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [chosenServer.ready]);
+  }, [chosenServer.readyJoined, chosenServer.readyCreator]);
 
   //kun pelaajat valmiita,  aloita timeri
   useEffect(() => {
@@ -440,7 +444,6 @@ export default function GameMulti({
           if (gameCreatorP1) {
             const exportShootData = {
               lastReactionTimeCreator: reactTimeConst,
-
               lastOnline: Date.now(),
               shotFiredCreator: true,
             };
@@ -663,6 +666,8 @@ export default function GameMulti({
       </div>
 
       <div className="infoText">{infoText}</div>
+
+      <section className="serverInfo">{chosenServer.servName}</section>
 
       <LeaderBoard
         firestore={firestore}

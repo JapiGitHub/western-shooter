@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import "./multiPlayerLobby.scss";
 import { useCollectionData } from "react-firebase-hooks/firestore";
+import LobbyServerListItem from "./LobbyServerListItem";
+import { nanoid } from "nanoid";
 
 import useSound from "use-sound";
 import SwooshFromLeft from "../sounds/swoosh.left.mp3";
@@ -36,23 +38,23 @@ export default function MultiPlayerLobby({
     setCreateName(e.target.value);
   };
 
-  const joinGame = (e) => {
-    setJoinedServer(e.target.innerText);
-    setGameCreatorP1(false);
-    setScreenSlide("multiplayer");
-    SwooshFromRightPlay();
-    stop();
-  };
-
   const createGameHandler = async (e) => {
     e.preventDefault();
     setGameCreatorP1(true);
     stop();
 
+    console.log("gameList: ", gameList);
+
+    const serverIDconst = nanoid();
+
     await gameServersRef.add({
+      //en käytä autoID:tä tässä koska creatorin pitää päästä määrittämään toi serverin ID minkä se created, jotta se tietää mihin se päivittää gamedataa
+      //pakko laittaa erikseen noi creator ja joined, jotta ne ei päivitä herkästi toisten päälle jos kumpikin tekee about samaan aikaan updaten esim ready tai shot
+      serverId: serverIDconst,
       servName: createName,
       open: true,
-      ready: [false, false],
+      readyCreator: false,
+      readyJoined: false,
       score: [0, 0],
       shotFiredCreator: false,
       shotFiredJoined: false,
@@ -70,7 +72,9 @@ export default function MultiPlayerLobby({
     });
 
     setScreenSlide("multiplayer");
-    setJoinedServer(createName);
+
+    //tähän ID, namen sijasta
+    setJoinedServer(serverIDconst);
     SwooshFromRightPlay();
   };
 
@@ -108,18 +112,19 @@ export default function MultiPlayerLobby({
         <section className="gameList">
           <ul>
             {gameList
-              ? gameList.map((game) => {
-                  if (game.lastOnline > Date.now() - HangOutTimeWithoutPing) {
+              ? gameList.map((server) => {
+                  if (server.lastOnline > Date.now() - HangOutTimeWithoutPing) {
                     return (
-                      <li
-                        onClick={game.open ? joinGame : null}
-                        key={game.servName}
-                        className={
-                          game.open ? "serv openServ" : "serv fullServ"
-                        }
-                      >
-                        {game.servName}
-                      </li>
+                      <LobbyServerListItem
+                        id={server.serverId}
+                        open={server.open}
+                        serverName={server.servName}
+                        setJoinedServer={setJoinedServer}
+                        setGameCreatorP1={setGameCreatorP1}
+                        setScreenSlide={setScreenSlide}
+                        stop={stop}
+                        SwooshFromRightPlay={SwooshFromRightPlay}
+                      />
                     );
                   } else {
                     return null;
