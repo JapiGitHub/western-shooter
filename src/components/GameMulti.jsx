@@ -122,7 +122,8 @@ export default function GameMulti({
         }
       });
 
-      //tää menee vielä vanhan autoIDn kautta, mutta eipä sen väliä ku se toimii
+      //tää menee vielä vanhan autoIDn kautta, mutta eipä sen väliä ku se toimii. Mikään ei kuitenkaan mene enää servNamen kautta jolloin ois voinu tulla ongelmia
+      //chosenServer.update ei onnistu suoraan ku se on snapshot taas siinä. tuntuu, että kaikista fiksuin on vaa tehdä tän autoIDn kautta tää update()
       await gameServersRef.doc(server[0].id).update(data);
     } catch (err) {
       console.log(
@@ -649,7 +650,7 @@ export default function GameMulti({
           name="p2"
         />
         <span className="checkMarkNetwork">
-          {playerTwoReady ? "Ready!" : "Press any key"}
+          {playerTwoReady ? "Ready!" : ""}
         </span>
       </label>
 

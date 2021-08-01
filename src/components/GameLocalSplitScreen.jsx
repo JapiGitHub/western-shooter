@@ -292,8 +292,8 @@ export default function GameLocalSplitScreen({
     <div
       className={
         playerOneReady === true && playerTwoReady === true
-          ? "textSplashFrame touchAreaOn"
-          : "textSplashFrame"
+          ? "textSplashFrameLocal touchAreaOnLocal"
+          : "textSplashFrameLocal"
       }
       onMouseDown={actionClick}
     >

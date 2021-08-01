@@ -34,6 +34,10 @@
 
   .startPic {
     position: absolute;
+
+    //jotta applen laitteet voi klikata
+    cursor: pointer;
+
     top: 5vh;
     left: 10vw;
     width: 80vw;

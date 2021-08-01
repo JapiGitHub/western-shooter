@@ -23,7 +23,7 @@ Modes:
 - adjustable practice AI mode
 - touchscreen mobile duel
 - survival mode
-- network multiplayer!
+- cross-paltfrom network multiplayer!
 
 TODO:
 homma paisuu kuin pullataikina, eli vähän jokapaikassa olis refactoringia.
@@ -34,7 +34,13 @@ kuolin/kaatumisäänet puuttuu vielä.
 
 multiplayer lobbyyn vois säätää vielä, ettei softwareKeyboard (mobiilissa) muuttais ruudun kokoa. (=ota alussa ruudun koko muuttujiksi).
 
-edelleen joidenkin hahmojen varjot on väärinpäin!
+jos creator poistuu, niin serveri katoais.
+ennenku joined tulee, niin char2 ei näy. jos joined lähtee, niin char2 häviää.
+-> onlineCreator/Joined muuta bool -> timestampiksi?
+muuta myös samalla full/open useEffecti.
+offline.hero.waiting = joku blankki/pyörivä kysymysmerkki/tuulenpesä/
+
+Joidenkin hahmojen varjot pitää piirrustella mirroriksi!
 
 stateManagmentista VOIS olla hyötyä, kunhan performance ei heikkene..
 

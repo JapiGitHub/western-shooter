@@ -1,8 +1,12 @@
 .touchAreaOn {
+  cursor: pointer;
+
   z-index: 4000 !important;
 }
 
 .textSplashFrame {
+  cursor: pointer;
+
   z-index: 6;
   //tarviiko enää griddiä, kaikki vissiin vaihdettu jo absoluteen?
   grid-column-start: 1;
@@ -15,6 +19,8 @@
   grid-template-rows: (repeat(4), 1fr);
 
   .leftTouchArea {
+    cursor: pointer;
+
     position: absolute;
     left: 0;
     top: 0;
@@ -26,6 +32,8 @@
   }
 
   .rightTouchArea {
+    cursor: pointer;
+
     position: absolute;
     right: 0;
     top: 0;
@@ -37,6 +45,8 @@
   }
 
   .readyCheckBoxTouch {
+    cursor: pointer;
+
     opacity: 0;
     margin-left: auto;
     margin-right: auto;
@@ -45,6 +55,8 @@
 
   //right / mouse
   .player1ReadyLabelTouch {
+    cursor: pointer;
+
     font-size: 4vh;
     font-family: "Press Start 2P", cursive;
 
@@ -64,6 +76,8 @@
 
   //left
   .player2ReadyLabelTouch {
+    cursor: pointer;
+
     font-size: 4vh;
     font-family: "Press Start 2P", cursive;
 
@@ -82,11 +96,13 @@
   }
 
   .checkMark1Touch {
+    cursor: pointer;
+
     position: absolute;
     top: 7vh;
     right: 4vw;
 
-    font-size: 3vh;
+    font-size: 2.5vh;
     font-family: "Press Start 2P", cursive;
     display: grid;
     place-items: center;
@@ -95,7 +111,7 @@
     border-style: solid;
     border-width: 0.4vh;
     border-color: rgb(0, 0, 0);
-    height: 12vh;
+    height: 10vh;
     width: 25vw;
     background-color: crimson;
     transition: all 0.2s ease;
@@ -105,11 +121,13 @@
   }
 
   .checkMark2Touch {
+    cursor: pointer;
+
     position: absolute;
     top: 7vh;
     left: 4vw;
 
-    font-size: 3vh;
+    font-size: 2.5vh;
     font-family: "Press Start 2P", cursive;
     display: grid;
     place-items: center;
@@ -118,17 +136,13 @@
     border-style: solid;
     border-width: 0.4vh;
     border-color: rgb(0, 0, 0);
-    height: 12vh;
+    height: 10vh;
     width: 25vw;
     background-color: crimson;
     transition: all 0.2s ease;
 
     z-index: 12;
     cursor: pointer;
-  }
-
-  .keybInputTouch {
-    height: 50vh;
   }
 
   .checkMark2Touch:focus {

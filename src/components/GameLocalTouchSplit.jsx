@@ -212,7 +212,7 @@ export default function GameLocalTouchSplit({
         }
       ></section>
 
-      <label className="player1ReadyLabel" htmlFor="p1">
+      <label className="player1ReadyLabelTouch" htmlFor="p1">
         {score[0]} Right
         <input
           className="readyCheckBox p1check"
@@ -222,7 +222,7 @@ export default function GameLocalTouchSplit({
           id="p1"
           name="p1"
         />
-        <span className="checkMark1">
+        <span className="checkMark1Touch">
           {playerOneReady ? "Ready!" : "Tap to ready"}
         </span>
       </label>
@@ -239,7 +239,7 @@ export default function GameLocalTouchSplit({
         </div>
       </div>
 
-      <label className="player2ReadyLabel" htmlFor="p2">
+      <label className="player2ReadyLabelTouch" htmlFor="p2">
         Left {score[1]}
         <input
           className="readyCheckBox p2check"
@@ -249,7 +249,7 @@ export default function GameLocalTouchSplit({
           id="p2"
           name="p2"
         />
-        <span className="checkMark2">
+        <span className="checkMark2Touch">
           {playerTwoReady ? "Ready!" : "Tap to ready"}
         </span>
       </label>
