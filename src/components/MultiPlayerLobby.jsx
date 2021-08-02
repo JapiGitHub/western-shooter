@@ -66,9 +66,12 @@ export default function MultiPlayerLobby({
       tooEarlyRicochetCreator: false,
       tooEarlyRicochetJoined: false,
       heroCreator: "cowboy",
-      heroJoined: "sheriff",
+      heroJoined: "joined",
       onlineCreator: true,
       onlineJoined: false,
+      lastSeenCreator: Date.now(),
+      serverTimeCreator: firestore.FieldValue.serverTimestamp(),
+      lastSeenJoined: 0,
     });
 
     setScreenSlide("multiplayer");

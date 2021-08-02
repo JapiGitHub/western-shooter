@@ -133,6 +133,7 @@ export default function GameLocalTouchSplit({
           setScore((prevScore) => {
             return [prevScore[0] + 1, prevScore[1]];
           });
+          setOk2Shoot(false);
           NextRoundReset();
         }
       }
@@ -171,6 +172,7 @@ export default function GameLocalTouchSplit({
           setScore((prevScore) => {
             return [prevScore[0], prevScore[1] + 1];
           });
+          setOk2Shoot(false);
           NextRoundReset();
         }
       }

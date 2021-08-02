@@ -2,10 +2,21 @@
   cursor: pointer;
 
   z-index: 4000 !important;
+
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 .textSplashFrame {
   cursor: pointer;
+  user-select: none;
+
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 
   z-index: 6;
   //tarviiko enää griddiä, kaikki vissiin vaihdettu jo absoluteen?
@@ -17,6 +28,10 @@
   place-items: center;
   grid-template-columns: (repeat(2), 1fr);
   grid-template-rows: (repeat(4), 1fr);
+
+  .textSplashFrame:focus {
+    outline: none;
+  }
 
   .leftTouchArea {
     cursor: pointer;

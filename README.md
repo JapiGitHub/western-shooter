@@ -34,11 +34,7 @@ kuolin/kaatumisäänet puuttuu vielä.
 
 multiplayer lobbyyn vois säätää vielä, ettei softwareKeyboard (mobiilissa) muuttais ruudun kokoa. (=ota alussa ruudun koko muuttujiksi).
 
-jos creator poistuu, niin serveri katoais.
-ennenku joined tulee, niin char2 ei näy. jos joined lähtee, niin char2 häviää.
--> onlineCreator/Joined muuta bool -> timestampiksi?
-muuta myös samalla full/open useEffecti.
-offline.hero.waiting = joku blankki/pyörivä kysymysmerkki/tuulenpesä/
+siivoa vanhoja turhia stateja&firebase fieldejä pois multip
 
 Joidenkin hahmojen varjot pitää piirrustella mirroriksi!
 
@@ -48,6 +44,9 @@ zombie survival easter egg mode xD!
 
 menu buttonit 3d moving
 
-apple onClick events (a/button wrap div/inputs)
+apple onClick events (a/button wrap div/inputs) & (cursoer: pointer) -> ei toimi vieläkään
 
-touchScreen ricochetissa bugi
+touchScreen screen flickering on clicks off & kumpiki liian ajoissa
+
+multip: jos eri laitteiden kello on eri ajassa, niin noi lastSeen menee myös eri ajassa...
+firestore.FieldValue.serverTimestamp() koitan saada ton kautta

@@ -164,6 +164,37 @@ export default function GameMulti({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  //"pingi" DBhen jotta näkee ootko vielä serverillä. 2,4sek välein
+  useEffect(() => {
+    const timerLastSeen = setInterval(() => {
+      if (gameCreatorP1) {
+        const pingData = { lastSeenCreator: Date.now() };
+        sendToDB(pingData);
+      } else {
+        const pingData = { lastSeenJoined: Date.now() };
+        sendToDB(pingData);
+      }
+
+      //jos joined on mukana niin pidä serveriä täytenä. 15sek turvallinen, jotta ei tuu haasteita eri laitteiden eri aikojen kanssa
+      //pitää tehdä tähän joku mikä laskee noitten timestamppien erotuksen
+      if (gameCreatorP1 && chosenServer.lastSeenJoined + 15000 < Date.now()) {
+        const serverData = {
+          open: true,
+        };
+        setPlayer2Hero("joined");
+        sendToDB(serverData);
+      } else {
+        const serverData = {
+          open: false,
+        };
+        setPlayer2Hero(chosenServer.heroJoined);
+        sendToDB(serverData);
+      }
+    }, 2400);
+    // cleanup interval
+    return () => clearInterval(timerLastSeen);
+  });
+
   //kun DB ladannut, niin päivitä herot
   useEffect(() => {
     if (gameCreatorP1) {
