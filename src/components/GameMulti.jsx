@@ -177,18 +177,20 @@ export default function GameMulti({
 
       //jos joined on mukana niin pidä serveriä täytenä. 15sek turvallinen, jotta ei tuu haasteita eri laitteiden eri aikojen kanssa
       //pitää tehdä tähän joku mikä laskee noitten timestamppien erotuksen
-      if (gameCreatorP1 && chosenServer.lastSeenJoined + 15000 < Date.now()) {
-        const serverData = {
-          open: true,
-        };
-        setPlayer2Hero("joined");
-        sendToDB(serverData);
-      } else {
-        const serverData = {
-          open: false,
-        };
-        setPlayer2Hero(chosenServer.heroJoined);
-        sendToDB(serverData);
+      if (gameCreatorP1) {
+        if (chosenServer.lastSeenJoined + 15000 < Date.now()) {
+          const serverData = {
+            open: true,
+          };
+          setPlayer2Hero("joined");
+          sendToDB(serverData);
+        } else {
+          const serverData = {
+            open: false,
+          };
+          setPlayer2Hero(chosenServer.heroJoined);
+          sendToDB(serverData);
+        }
       }
     }, 2400);
     // cleanup interval

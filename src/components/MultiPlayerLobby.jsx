@@ -4,6 +4,8 @@ import { useCollectionData } from "react-firebase-hooks/firestore";
 import LobbyServerListItem from "./LobbyServerListItem";
 import { nanoid } from "nanoid";
 
+import firebase from "firebase/app";
+
 import useSound from "use-sound";
 import SwooshFromLeft from "../sounds/swoosh.left.mp3";
 import SwooshFromRight from "../sounds/swoosh.right.mp3";
@@ -43,7 +45,10 @@ export default function MultiPlayerLobby({
     setGameCreatorP1(true);
     stop();
 
-    console.log("gameList: ", gameList);
+    console.log(
+      "firestore.FieldValue.serverTimestamp(): ",
+      firebase.firestore.FieldValue.serverTimestamp()
+    );
 
     const serverIDconst = nanoid();
 
@@ -70,7 +75,7 @@ export default function MultiPlayerLobby({
       onlineCreator: true,
       onlineJoined: false,
       lastSeenCreator: Date.now(),
-      serverTimeCreator: firestore.FieldValue.serverTimestamp(),
+      serverTimeCreator: firebase.firestore.FieldValue.serverTimestamp(),
       lastSeenJoined: 0,
     });
 
