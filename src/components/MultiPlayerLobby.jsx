@@ -3,6 +3,8 @@ import "./multiPlayerLobby.scss";
 import { useCollectionData } from "react-firebase-hooks/firestore";
 import LobbyServerListItem from "./LobbyServerListItem";
 import { nanoid } from "nanoid";
+import firebase from "firebase/app";
+import "firebase/firestore";
 
 import useSound from "use-sound";
 import SwooshFromLeft from "../sounds/swoosh.left.mp3";
@@ -66,9 +68,12 @@ export default function MultiPlayerLobby({
       tooEarlyRicochetCreator: false,
       tooEarlyRicochetJoined: false,
       heroCreator: "cowboy",
-      heroJoined: "sheriff",
+      heroJoined: "joined",
       onlineCreator: true,
       onlineJoined: false,
+      pingServerTimeStamp: firebase.firestore.FieldValue.serverTimestamp(),
+      pingCreator: 10000,
+      pingJoined: 0,
     });
 
     setScreenSlide("multiplayer");

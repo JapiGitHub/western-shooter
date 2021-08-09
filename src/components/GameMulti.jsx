@@ -1,6 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
 import loggi from "./loggi";
 import { useCollectionData } from "react-firebase-hooks/firestore";
+import firebase from "firebase/app";
+import "firebase/firestore";
 
 import LeaderBoard from "./LeaderBoard";
 import LeaderBoardInput from "./LeaderBoardInput";
@@ -11,11 +13,13 @@ import pistolCock1 from "../sounds/cock.pistol.1.mp3";
 import holster from "../sounds/holster.mp3";
 import ricochet from "../sounds/ricochet.mp3";
 import fatalityVoice from "../sounds/fatality.mp3";
+import SwooshFromLeft from "../sounds/swoosh.left.mp3";
 
 import "./gameMulti.scss";
 
 export default function GameMulti({
   gameMode,
+  setGameMode,
   setPlayerAnim,
   setPlayer2Anim,
   firestore,
@@ -46,6 +50,11 @@ export default function GameMulti({
   //reffi setTimeOuttia varten jotta saadaan päivitetty arvo, muuten setTimeout ottais sen ajastimen startissa olevan arvon eikä realtimea
   const shotFiredCreatorRef = useRef(false);
   const shotFiredJoinedRef = useRef(false);
+  const pingCreatorRef = useRef(0);
+  const pingJoinedRef = useRef(0);
+  const pingServerTimeStampRef = useRef(0);
+  const heroCreatorRef = useRef("");
+  const heroJoinedRef = useRef("");
 
   const [localOneClick, setLocalOneClick] = useState(true);
   const [bothPlayersVarasLahto, setBothPlayersVarasLahto] = useState(false);
@@ -69,6 +78,7 @@ export default function GameMulti({
   const [holsterPlay] = useSound(holster);
   const [ricochetPlay] = useSound(ricochet);
   const [fatalityVoicePlay] = useSound(fatalityVoice);
+  const [SwooshFromLeftPlay] = useSound(SwooshFromLeft);
 
   const playerTwoReadyCheckBox = useRef();
   const playerOneReadyCheckBox = useRef();
@@ -81,7 +91,7 @@ export default function GameMulti({
 
   const [serverLoaded, setServerLoaded] = useState(false);
 
-  //leaderborad
+  //leaderboard
   const [showLeaderBoardInput, setShowLeaderBoardInput] = useState(true);
   const [ldbTime, setLdbTime] = useState(888);
   const [winner, setWinner] = useState(0);
@@ -135,23 +145,34 @@ export default function GameMulti({
 
   //alkusäädöt
   useEffect(() => {
+    heroJoinedRef.current = "joined";
     setPlayer2Anim("waiting");
     setPlayerAnim("waiting");
     setShowLeaderBoard(false);
     setShowLeaderBoardInput(false);
 
     //jotta herot alkaa samoista kummallakin
-    if (!gameCreatorP1) {
+    if (gameCreatorP1) {
+      setPlayer2Hero("joined");
+      setPlayer1Hero("cowboy");
+    } else {
       setPlayer1Hero("sheriff");
-      setPlayer2Hero("cowboy");
+      const heroData = {
+        heroJoined: "sheriff",
+        lastOnline: Date.now(),
+      };
+      sendToDB(heroData);
     }
 
+    // asynccina tämä osa, ku koko useEffectiä ei kannata laittaa asynciksi (race conditions)
     const alkuSaadot = async () => {
       await gameServersRef.onSnapshot((snapshot) =>
         snapshot.docs.map((doc) => {
           if (doc.data().serverId === joinedServer) {
             setChosenServer(doc.data());
             setServerLoaded(true);
+
+            //returnia ei tarvi enää?
             return doc.data();
           } else {
             return null;
@@ -159,33 +180,123 @@ export default function GameMulti({
         })
       );
     };
-    // asynccina tässä, ku useEffectiä ei kannata laittaa asynciksi (race conditions)
     alkuSaadot();
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  //REFfit timestamppeihin jotta saa currentit käyttöön setIntervallin closureihin
+  useEffect(() => {
+    pingCreatorRef.current = chosenServer.pingCreator;
+    if (chosenServer.pingCreator + 9000 < chosenServer.pingJoined) {
+      setGameMode("menu");
+      setChosenServer([]);
+      SwooshFromLeftPlay();
+      setGameMode("menu");
+      setScreenSlide("menu");
+    }
+  }, [chosenServer.pingCreator]);
+  useEffect(() => {
+    pingJoinedRef.current = chosenServer.pingJoined;
+  }, [chosenServer.pingJoined]);
+  useEffect(() => {
+    pingServerTimeStampRef.current = chosenServer.pingServerTimeStamp;
+  }, [chosenServer.pingServerTimeStamp]);
+  useEffect(() => {
+    heroCreatorRef.current = chosenServer.heroCreator;
+  }, [chosenServer.heroCreator]);
+  useEffect(() => {
+    if (serverLoaded) {
+      console.log("REF setted onnistuneesti");
+      heroJoinedRef.current = chosenServer.heroJoined;
+    } else {
+      console.log("server not loaded for hero Joined");
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [chosenServer.heroJoined]);
 
   //kun DB ladannut, niin päivitä herot
   useEffect(() => {
     if (gameCreatorP1) {
-      setPlayer1Hero(chosenServer.heroCreator);
-      setPlayer2Hero(chosenServer.heroJoined);
-      shotFiredCreatorRef.current = chosenServer.shotFiredCreator;
-      shotFiredJoinedRef.current = chosenServer.shotFiredJoined;
+      if (serverLoaded) {
+        const timerOnlinePing = setInterval(() => {
+          //tähän tarvii REFfin jotta saa tuoreen ajan
+
+          const pingData = {
+            pingCreator: pingServerTimeStampRef.current.toMillis(),
+            pingServerTimeStamp:
+              firebase.firestore.FieldValue.serverTimestamp(),
+          };
+
+          sendToDB(pingData);
+
+          //jos joined yli 4sek pingaamatta, niin voit olettaa, että se on quitannut
+          if (pingJoinedRef.current + 4000 < pingCreatorRef.current) {
+            console.log("joined poissa");
+            console.log("heroJoinedRef.current ", heroJoinedRef.current);
+
+            setPlayer2Hero("joined");
+          } else {
+            //vain joinedista siirtää heron, mutta ei enää valitusta
+
+            console.log(
+              "heroJoinedRef.current joined mukana",
+              heroJoinedRef.current
+            );
+
+            setPlayer2Hero(heroJoinedRef.current);
+
+            if (heroJoinedRef.current === "joined") {
+              console.log("joined -> sheriff");
+              const heroData = {
+                heroJoined: "sheriff",
+              };
+              sendToDB(heroData);
+            }
+          }
+        }, 1000);
+
+        return () => clearInterval(timerOnlinePing);
+      }
+
+      if (serverLoaded) {
+        //setPlayer1Hero(chosenServer.heroCreator);
+        //setPlayer2Hero(chosenServer.heroJoined);
+        shotFiredCreatorRef.current = chosenServer.shotFiredCreator;
+        shotFiredJoinedRef.current = chosenServer.shotFiredJoined;
+      }
     } else {
       //joined
-      setPlayer2Hero(chosenServer.heroCreator);
-      setPlayer1Hero(chosenServer.heroJoined);
+      if (serverLoaded) {
+        setPlayer2Hero(chosenServer.heroCreator);
+        const timerOnlinePing = setInterval(() => {
+          //tähän tarvii REFfin jotta saa tuoreen ajan
+          console.log("to millis", pingServerTimeStampRef.current.toMillis());
+          const pingData = {
+            pingJoined: pingServerTimeStampRef.current.toMillis(),
+          };
 
-      const exportOnlineData = {
-        onlineJoined: true,
-      };
-      sendToDB(exportOnlineData);
+          sendToDB(pingData);
+        }, 1000);
+
+        return () => clearInterval(timerOnlinePing);
+      }
+
+      if (serverLoaded) {
+        //setPlayer2Hero(chosenServer.heroCreator);
+        setPlayer1Hero("sheriff");
+
+        const exportOnlineData = {
+          onlineJoined: true,
+        };
+        sendToDB(exportOnlineData);
+      }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [serverLoaded]);
 
   //server full/open
-  useEffect(() => {
+  /* useEffect(() => {
     if (gameCreatorP1) {
       if (chosenServer.onlineCreator && chosenServer.onlineJoined) {
         const exportOnlineData = {
@@ -218,7 +329,7 @@ export default function GameMulti({
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [chosenServer.onlineCreator, chosenServer.onlineJoined, gameMode]);
+  }, [chosenServer.onlineCreator, chosenServer.onlineJoined, gameMode]); */
 
   //hero changes to DB
   useEffect(() => {
@@ -261,6 +372,7 @@ export default function GameMulti({
     if (serverLoaded) {
       if (chosenServer.shotFiredCreator && chosenServer.shotFiredJoined) {
         loggi("next round reset");
+
         setTimeout(async () => {
           //vain game creator päivittää round resetin
           if (gameCreatorP1) {
@@ -445,14 +557,12 @@ export default function GameMulti({
           if (gameCreatorP1) {
             const exportShootData = {
               lastReactionTimeCreator: reactTimeConst,
-              lastOnline: Date.now(),
               shotFiredCreator: true,
             };
             sendToDB(exportShootData);
           } else {
             const exportShootData = {
               lastReactionTimeJoined: reactTimeConst,
-              lastOnline: Date.now(),
               shotFiredJoined: true,
             };
             sendToDB(exportShootData);
@@ -537,7 +647,12 @@ export default function GameMulti({
 
             //leaderboardi
             setWinner(1);
-            checkLeaderBoardTimes(chosenServer.lastReactionTimeCreator);
+
+            if (window.location.hostname.includes("localhost")) {
+              console.log("no leaderboard in local DB emulator");
+            } else {
+              checkLeaderBoardTimes(chosenServer.lastReactionTimeCreator);
+            }
           } else {
             setInfoText("You lost");
             setP2ReactText(chosenServer.lastReactionTimeCreator);
@@ -565,7 +680,11 @@ export default function GameMulti({
 
             //leaderboard
             setWinner(2);
-            checkLeaderBoardTimes(chosenServer.lastReactionTimeJoined);
+            if (window.location.hostname.includes("localhost")) {
+              console.log("no leaderboard in local DB emulator");
+            } else {
+              checkLeaderBoardTimes(chosenServer.lastReactionTimeJoined);
+            }
           }
         }
 

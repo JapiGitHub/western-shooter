@@ -1,6 +1,7 @@
 .menuContainer {
   height: 100vh;
   width: 100vw;
+  opacity: 1;
 
   color: rgb(0, 0, 0);
   text-shadow: 2px 2px 9px #ffffff;
@@ -11,8 +12,9 @@
   position: absolute;
   right: 0;
   top: 0;
+  z-index: 999;
 
-  transition: all 0.7s ease;
+  transition: all var(--slideTime) ease;
 
   .titleContainer {
     position: absolute;
@@ -84,9 +86,10 @@
   }
   .settingsContainerHide {
     position: absolute;
-    bottom: 0vh;
-    right: -50vw;
+    bottom: -50vh;
+    right: 0vw;
     transition: all 0.7s ease;
+    opacity: 0;
   }
 
   .graphicsTitle {
@@ -96,7 +99,7 @@
     bottom: 20.5vh;
     color: #000;
     text-align: center;
-    width: 10vw;
+    width: 12vw;
     text-shadow: none;
   }
 
@@ -107,14 +110,14 @@
     width: 4vh;
     height: 4vh;
     font-size: 2vh;
-    width: 10vw;
+    width: 12vw;
   }
 
   .theme1Button {
     position: absolute;
     bottom: 9vh;
     right: 2vw;
-    width: 10vw;
+    width: 12vw;
     font-size: 1.8vh;
     padding: 1vh 1vw;
   }
@@ -123,7 +126,7 @@
     position: absolute;
     bottom: 14.5vh;
     right: 2vw;
-    width: 10vw;
+    width: 12vw;
     font-size: 2vh;
     padding: 1vh 1vw;
     margin-bottom: 1vh;
@@ -131,14 +134,7 @@
 
   .hide {
     opacity: 0;
-    transform: translateX(-240px);
-  }
-
-  .hideMenu {
-    right: -100vw;
-    top: 0;
-
-    transition: all 0.5s ease;
+    transform: translateX(-100vw);
   }
 
   .difficultyContainer {
@@ -177,3 +173,28 @@
     }
   }
 }
+
+.hideMenu {
+  right: -100vw;
+  top: 0;
+  opacity: 0;
+
+  transition: all var(--slideTime) ease;
+}
+
+.hideMenuMultipl {
+  right: 100vw;
+  top: 0;
+  opacity: 0;
+
+  transition: all var(--slideTime) ease;
+}
+
+.hideMenuBeginning {
+  top: -100vh;
+  opacity: 0;
+
+  transition: all var(--slideTime) ease;
+}
+
+//<div className={showMenu ? "menuContainer" : "menuContainer hideMenu"}>

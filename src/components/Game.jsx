@@ -82,24 +82,22 @@ export default function Game({ gameMode, setGameMode, firestore, handle }) {
         </>
       ) : null}
 
-      {gameMode === "menu" ? (
-        <Menu
-          menuSong={menuSong}
-          play={play}
-          stop={stop}
-          gameMode={gameMode}
-          setGameMode={setGameMode}
-          showMenu={showMenu}
-          setShowMenu={setShowMenu}
-          setTheme={setTheme}
-          theme={theme}
-          difficulty={difficulty}
-          setDifficulty={setDifficulty}
-          setScreenSlide={setScreenSlide}
-          menuMusic={menuMusic}
-          setMenuMusic={setMenuMusic}
-        />
-      ) : null}
+      <Menu
+        menuSong={menuSong}
+        play={play}
+        stop={stop}
+        gameMode={gameMode}
+        setGameMode={setGameMode}
+        showMenu={showMenu}
+        setShowMenu={setShowMenu}
+        setTheme={setTheme}
+        theme={theme}
+        difficulty={difficulty}
+        setDifficulty={setDifficulty}
+        setScreenSlide={setScreenSlide}
+        menuMusic={menuMusic}
+        setMenuMusic={setMenuMusic}
+      />
 
       {gameMode === "split" ? (
         <LocalSplitScreenMode
