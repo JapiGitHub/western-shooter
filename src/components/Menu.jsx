@@ -37,7 +37,10 @@ export default function Menu({
   //The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page
   //Splash startin ja käyttäjän klikkaa sitä ekana, että pääsee menuun, niin sit toimii äänet ja fullscreen myös tarvii ton user gesturen ennenku toimii
   useEffect(() => {
-    if (menuMusic) {
+    if (
+      (menuMusic && gameMode === "menu") ||
+      (menuMusic && gameMode === "network")
+    ) {
       play();
     } else {
       stop();
@@ -94,7 +97,28 @@ export default function Menu({
   };
 
   return (
-    <div className={showMenu ? "menuContainer" : "menuContainer hideMenu"}>
+    <div
+      className={(() => {
+        switch (gameMode) {
+          case "menu":
+            return "menuContainer";
+          case "split":
+            return "menuContainer hideMenu";
+          case "ai":
+            return "menuContainer hideMenu";
+          case "touch":
+            return "menuContainer hideMenu";
+          case "survival":
+            return "menuContainer hideMenu";
+          case "network":
+            return "menuContainer hideMenuMultipl";
+          case "start":
+            return "menuContainer hideMenuBeginning";
+          default:
+            return "menuContainer hideMenuMultipl";
+        }
+      })()}
+    >
       <div className="titleContainer">
         <img src="./assets/title2.gif" alt="loading title" className="title" />
       </div>
@@ -134,7 +158,7 @@ export default function Menu({
           showSettings={showSettings}
         />
       </section>
-      <aside className="versionInfo">vers 0.88.5</aside>
+      <aside className="versionInfo">vers 0.9.0</aside>
     </div>
   );
 }

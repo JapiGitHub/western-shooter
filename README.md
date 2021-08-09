@@ -12,7 +12,7 @@ Made with React (+ firebase backend)
 - stereo sound in singleplayer modes, so you hear the direction of shots, ricochets (too early false start), menu moving, etc.
 - menu music & fullscreen.
 - two different filters/themes.
-- mobile friendly.
+- mobile & desktop friendly.
 - portrait to landscape caution.
 - pixelart is home made <3
 - custom cursor.

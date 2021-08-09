@@ -22,6 +22,11 @@ firebase.initializeApp({
 
 const firestore = firebase.firestore();
 
+//localhostissa käytä emulaattoria, jotta ne ilmaisen sparkplanin reads/writes ei enää mene yli..
+if (window.location.hostname.includes("localhost")) {
+  firestore.useEmulator("localhost", 8080);
+}
+
 function App() {
   const handle = useFullScreenHandle();
   const [gameMode, setGameMode] = useState("start");

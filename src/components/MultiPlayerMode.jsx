@@ -41,6 +41,7 @@ export default function MultiPlayerMode({
 
         <GameMulti
           gameMode={gameMode}
+          setGameMode={setGameMode}
           setPlayerAnim={setPlayerAnim}
           setPlayer2Anim={setPlayer2Anim}
           firestore={firestore}
