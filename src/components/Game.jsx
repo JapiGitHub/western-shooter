@@ -97,6 +97,10 @@ export default function Game({ gameMode, setGameMode, firestore, handle }) {
         setScreenSlide={setScreenSlide}
         menuMusic={menuMusic}
         setMenuMusic={setMenuMusic}
+        player2Hero={player2Hero}
+        setPlayer2Hero={setPlayer2Hero}
+        player1Hero={player1Hero}
+        setPlayer1Hero={setPlayer1Hero}
       />
 
       {gameMode === "split" ? (

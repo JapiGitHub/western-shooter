@@ -38,15 +38,12 @@ siivoa vanhoja turhia stateja&firebase fieldejä pois multip
 
 Joidenkin hahmojen varjot pitää piirrustella mirroriksi!
 
-stateManagmentista VOIS olla hyötyä, kunhan performance ei heikkene..
+stateManagmentista VOIS olla hyötyä, kunhan performance ei heikkene.. context vs redux
 
 zombie survival easter egg mode xD!
 
-menu buttonit 3d moving
-
-apple onClick events (a/button wrap div/inputs) & (cursoer: pointer) -> ei toimi vieläkään
+apple onClick events (a/button wrap div/inputs) & (cursoer: pointer) -> ei toimi vieläkään ehkä, en oo päässy testaa minnekkää..
 
 touchScreen screen flickering on clicks off & kumpiki liian ajoissa
 
-multip: jos eri laitteiden kello on eri ajassa, niin noi lastSeen menee myös eri ajassa...
-firestore.FieldValue.serverTimestamp() koitan saada ton kautta
+multipl: ampuminen socket.io:n kautta ja sit vasta tulokset firebase DBhen. lagi pienentyis huomattavasti.

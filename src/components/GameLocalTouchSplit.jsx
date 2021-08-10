@@ -102,6 +102,7 @@ export default function GameLocalTouchSplit({
 
   //Right
   const actionClickRight = (e) => {
+    e.preventDefault();
     console.log("nappia painettu");
     //SHOOTING
     if (playerOneReady === true && playerTwoReady === true) {
@@ -179,11 +180,13 @@ export default function GameLocalTouchSplit({
     }
   };
 
-  const playerTwoReadyClick = () => {
+  const playerTwoReadyClick = (e) => {
+    e.preventDefault();
     setPlayerTwoReady(true);
   };
 
-  const playerOneReadyClick = () => {
+  const playerOneReadyClick = (e) => {
+    e.preventDefault();
     setPlayerOneReady(true);
   };
 

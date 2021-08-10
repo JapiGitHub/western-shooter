@@ -21,6 +21,10 @@ export default function Menu({
   menuSong,
   menuMusic,
   setMenuMusic,
+  player2Hero,
+  setPlayer2Hero,
+  player1Hero,
+  setPlayer1Hero,
 }) {
   /*   const [playerAvatar, setPlayerAvatar] = useState(
     user ? auth.currentUser.photoURL : null
@@ -54,6 +58,13 @@ export default function Menu({
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  //vaihtaa "joined" heron pois jos on käyny multiplayerissa ja poistunu ennenku joined pääsi peliin ja hahmo ois sillon muuttunu joksikin oikeaksi
+  useEffect(() => {
+    if (player2Hero === "joined" && gameMode === "menu") {
+      setPlayer2Hero("sheriff");
+    }
+  }, [gameMode]);
 
   const modeKvM = (e) => {
     e.preventDefault();

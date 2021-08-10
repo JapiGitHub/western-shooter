@@ -7,9 +7,11 @@
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .textSplashFrame {
+  -webkit-tap-highlight-color: transparent;
   cursor: pointer;
   user-select: none;
 
@@ -34,6 +36,7 @@
   }
 
   .leftTouchArea {
+    -webkit-tap-highlight-color: transparent;
     cursor: pointer;
 
     position: absolute;
@@ -47,6 +50,7 @@
   }
 
   .rightTouchArea {
+    -webkit-tap-highlight-color: transparent;
     cursor: pointer;
 
     position: absolute;
@@ -60,6 +64,7 @@
   }
 
   .readyCheckBoxTouch {
+    -webkit-tap-highlight-color: transparent;
     cursor: pointer;
 
     opacity: 0;
@@ -77,6 +82,7 @@
   }
 
   .player1ReadyLabelTouch {
+    -webkit-tap-highlight-color: transparent;
     cursor: pointer;
 
     font-family: "Press Start 2P", cursive;
@@ -104,6 +110,7 @@
   }
 
   .player2ReadyLabelTouch {
+    -webkit-tap-highlight-color: transparent;
     cursor: pointer;
 
     font-family: "Press Start 2P", cursive;
@@ -123,6 +130,7 @@
   }
 
   .checkMark1Touch {
+    -webkit-tap-highlight-color: transparent;
     cursor: pointer;
 
     position: absolute;
@@ -148,6 +156,7 @@
   }
 
   .checkMark2Touch {
+    -webkit-tap-highlight-color: transparent;
     cursor: pointer;
 
     position: absolute;
