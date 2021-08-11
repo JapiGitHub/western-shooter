@@ -60,6 +60,7 @@ export default function GameLocalSplitScreen({
   const [randomTime, setRandomTime] = useState(0);
   const [ok2Shoot, setOk2Shoot] = useState(false);
 
+  //pitää olla REFfinä ku tän currentti näkyy sit oikein setTimeout:ssa
   const doubleFailRef = useRef(false);
 
   const [pistolCock1Play] = useSound(pistolCock1);
@@ -270,7 +271,6 @@ export default function GameLocalSplitScreen({
         if (!gun1Loaded) {
           setInfoText("Double fail");
           doubleFailRef.current = true;
-
           NextRoundReset();
         }
       } else {

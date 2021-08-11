@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 
 import useSound from "use-sound";
 import pistolShotFromLeft from "../sounds/pistol.shot.from.left.mp3";
@@ -41,6 +41,9 @@ export default function GameLocalTouchSplit({
   const [randomTime, setRandomTime] = useState(0);
   const [ok2Shoot, setOk2Shoot] = useState(false);
   const [startTime, setStartTime] = useState(888);
+
+  //pitää olla REFfinä jotta tän currentti näkyy sit oikein setTimeout:ssa
+  const doubleFailRef = useRef(false);
 
   //äänet
   const [pistolShotFromLeftPlay] = useSound(pistolShotFromLeft);
@@ -88,13 +91,16 @@ export default function GameLocalTouchSplit({
 
       setTimeout(() => {
         setInfoText("Set ...");
+        doubleFailRef.current = false;
       }, 1500);
 
       setTimeout((startTime) => {
-        setInfoText("BANG!");
-        setOk2Shoot(true);
-        holsterPlay();
-        setStartTime(new Date());
+        if (!doubleFailRef.current) {
+          setInfoText("BANG!");
+          setOk2Shoot(true);
+          holsterPlay();
+          setStartTime(new Date());
+        }
       }, randomTime);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -113,6 +119,11 @@ export default function GameLocalTouchSplit({
           setPlayer2Anim("shooting");
           setGun1Loaded(false);
           RicochetToLeftPlay();
+          if (!gun2Loaded) {
+            setInfoText("Double fail");
+            doubleFailRef.current = true;
+            NextRoundReset();
+          }
         } else {
           //onnistunut laukaus
           const triggerTime = new Date();
@@ -153,6 +164,11 @@ export default function GameLocalTouchSplit({
           setPlayerAnim("shooting");
           setGun2Loaded(false);
           RicochetToRightPlay();
+          if (!gun1Loaded) {
+            setInfoText("Double fail");
+            doubleFailRef.current = true;
+            NextRoundReset();
+          }
         } else {
           //onnistunut laukaus
           const triggerTime = new Date();
