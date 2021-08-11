@@ -246,7 +246,6 @@ export default function GameLocalSplitScreen({
 
   //keyboard player1
   const actionKey = (e) => {
-    console.log("1");
     setPlayerTwoReady(true);
     setShowLeaderBoard(false);
     setShowLeaderBoardInput(false);
@@ -258,11 +257,7 @@ export default function GameLocalSplitScreen({
       gun2Loaded === true &&
       shotFired === false
     ) {
-      console.log("2");
-
       if (ok2Shoot === false) {
-        console.log("3");
-
         //varaslähtö
         pistolShotFromLeftPlay();
         setPlayerAnim("shooting");
