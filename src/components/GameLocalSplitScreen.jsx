@@ -60,6 +60,8 @@ export default function GameLocalSplitScreen({
   const [randomTime, setRandomTime] = useState(0);
   const [ok2Shoot, setOk2Shoot] = useState(false);
 
+  const doubleFailRef = useRef(false);
+
   const [pistolCock1Play] = useSound(pistolCock1);
   const [holsterPlay] = useSound(holster);
 
@@ -87,8 +89,10 @@ export default function GameLocalSplitScreen({
   });
 
   const checkLeaderBoardTimes = (leaderBoardTime) => {
+    console.log("checking leaderboard times");
     //vertaa vain tohon 15. aikaan jotta record history näkyy databasessa.
     if (leaderBoardTime < leaderBoard[14].time) {
+      console.log("fast enough");
       setLdbTime(leaderBoardTime);
       setShowLeaderBoardInput(true);
       setScreenSlide("leaderboard");
@@ -161,22 +165,32 @@ export default function GameLocalSplitScreen({
 
       setTimeout(() => {
         setInfoText("Set ...");
+        doubleFailRef.current = false;
       }, 1500);
 
       setTimeout((startTime) => {
-        setInfoText("BANG!");
-        setOk2Shoot(true);
-        holsterPlay();
-        setStartTime(new Date());
-        playerTwoReadyCheckBox.current.focus();
+        if (!doubleFailRef.current) {
+          console.log("doublefail", doubleFailRef.current);
+          setInfoText("BANG!");
+          setOk2Shoot(true);
+          holsterPlay();
+          setStartTime(new Date());
+          playerTwoReadyCheckBox.current.focus();
+        }
       }, randomTime);
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [playerTwoReady, playerOneReady]);
 
+  //jotta keyboard clickiä odotetaan AINA!!
+  useEffect(() => {
+    playerTwoReadyCheckBox.current.focus();
+  });
+
   //mouse player2
   const actionClick = (e) => {
+    playerTwoReadyCheckBox.current.focus();
     setShowLeaderBoard(false);
     //setScreenSlide("game");
     //SHOOTING
@@ -193,6 +207,12 @@ export default function GameLocalSplitScreen({
         setGun1Loaded(false);
         RicochetToLeftPlay();
         playerTwoReadyCheckBox.current.focus();
+        if (!gun2Loaded) {
+          setInfoText("Double fail");
+          doubleFailRef.current = true;
+          NextRoundReset();
+          playerTwoReadyCheckBox.current.focus();
+        }
       } else {
         //onnistunut laukaus
         const triggerTime = new Date();
@@ -225,6 +245,7 @@ export default function GameLocalSplitScreen({
 
   //keyboard player1
   const actionKey = (e) => {
+    console.log("1");
     setPlayerTwoReady(true);
     setShowLeaderBoard(false);
     setShowLeaderBoardInput(false);
@@ -236,12 +257,22 @@ export default function GameLocalSplitScreen({
       gun2Loaded === true &&
       shotFired === false
     ) {
+      console.log("2");
+
       if (ok2Shoot === false) {
+        console.log("3");
+
         //varaslähtö
         pistolShotFromLeftPlay();
         setPlayerAnim("shooting");
         setGun2Loaded(false);
         RicochetToRightPlay();
+        if (!gun1Loaded) {
+          setInfoText("Double fail");
+          doubleFailRef.current = true;
+
+          NextRoundReset();
+        }
       } else {
         //onnistunut laukaus
         const triggerTime = new Date();
