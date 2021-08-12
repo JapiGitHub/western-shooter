@@ -44,7 +44,7 @@ export default function GameMulti({
   const [gun1Loaded, setGun1Loaded] = useState(false);
   //const [player1Reaction, setPlayer1Reaction] = useState(88888);
   //const [player2Reaction, setPlayer2Reaction] = useState(88888);
-  const [score, setScore] = useState([0, 0]);
+  const [score, setScore] = useState([0, 0, 0]);
   const [shotFired, setShotFired] = useState(false);
 
   //reffi setTimeOuttia varten jotta saadaan päivitetty arvo, muuten setTimeout ottais sen ajastimen startissa olevan arvon eikä realtimea
@@ -58,6 +58,7 @@ export default function GameMulti({
 
   const [localOneClick, setLocalOneClick] = useState(true);
   const [bothPlayersVarasLahto, setBothPlayersVarasLahto] = useState(false);
+  const bothPlayersVarasLahtoRef = useRef(false);
 
   //päitten ylle reactio ajan nousu
   const [p1ReactText, setP1ReactText] = useState("");
@@ -101,6 +102,14 @@ export default function GameMulti({
   const [leaderBoard] = useCollectionData(sortedLeaderBoard, {
     idField: "id",
   });
+
+  useEffect(() => {
+    console.log("useeffect bothplavaraslatho muuttui", bothPlayersVarasLahto);
+    console.log(
+      "useeffect bothplavaraslatho REF",
+      bothPlayersVarasLahtoRef.current
+    );
+  }, [bothPlayersVarasLahto]);
 
   const checkLeaderBoardTimes = (leaderBoardTime) => {
     //vertaa vain tohon 15. aikaan jotta record history näkyy databasessa.
@@ -389,9 +398,8 @@ export default function GameMulti({
             };
             sendToDB(exportReadyData);
           }
-          bothPlayersVarasLahto
-            ? setInfoText("Double Fail!")
-            : setInfoText("Again?");
+
+          setInfoText("Again?");
           setBothPlayersVarasLahto(false);
           setGun1Loaded(true);
           setPlayerOneReady(false);
@@ -415,7 +423,7 @@ export default function GameMulti({
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [score, bothPlayersVarasLahto]);
+  }, [score]);
 
   //readyClick
   const playerOneReadyClick = async () => {
@@ -467,11 +475,12 @@ export default function GameMulti({
         setInfoText("Set ...");
         setGun1Loaded(true);
         setShotFired(false);
+        bothPlayersVarasLahtoRef.current = false;
       }, 1500);
 
       setTimeout((startTime) => {
-        bothPlayersVarasLahto
-          ? setInfoText("Double Fail")
+        bothPlayersVarasLahtoRef.current
+          ? setInfoText("Again?")
           : setInfoText("BANG!");
         setOk2Shoot(true);
 
@@ -520,7 +529,7 @@ export default function GameMulti({
       if (gun1Loaded === true && shotFired === false) {
         //varaslähtö
         if (ok2Shoot === false) {
-          loggi("varaslähtö");
+          console.log("varaslähtö");
 
           ricochetPlay();
           setPlayerAnim("shooting");
@@ -546,12 +555,12 @@ export default function GameMulti({
           }
         } else {
           //onnistunut laukaus
-          loggi("onnistunut laukaus");
+          console.log("onnistunut laukaus");
 
           //reaction time
           const pullTriggerTime = new Date();
           const reactTimeConst = pullTriggerTime - startTime;
-          loggi("reaction ms : ", reactTimeConst);
+          console.log("reaction ms : ", reactTimeConst);
           setInfoText("waiting for other");
 
           if (gameCreatorP1) {
@@ -568,7 +577,7 @@ export default function GameMulti({
             sendToDB(exportShootData);
           }
 
-          loggi("p1 reaction : ", reactTimeConst);
+          console.log("p1 reaction : ", reactTimeConst);
           setOk2Shoot(false);
 
           //tätä ei tule varaslähdössä. siinä tulee vaan gunLoaded(false)
@@ -605,8 +614,9 @@ export default function GameMulti({
         chosenServer.tooEarlyRicochetCreator &&
         chosenServer.tooEarlyRicochetJoined
       ) {
-        loggi("kumpikin teki varaslähdön!");
+        console.log("kumpikin teki varaslähdön!");
         setBothPlayersVarasLahto(true);
+        bothPlayersVarasLahtoRef.current = true;
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -625,13 +635,20 @@ export default function GameMulti({
       chosenServer.shotFiredCreator &&
       chosenServer.shotFiredJoined
     ) {
-      loggi("win check 1");
+      console.log("win check 1");
       if (
         chosenServer.lastReactionTimeCreator < 88888 &&
         chosenServer.lastReactionTimeJoined < 88888 &&
-        !bothPlayersVarasLahto
+        !bothPlayersVarasLahtoRef.current
       ) {
-        loggi("win check 2 : kumpikin ampunut");
+        console.log(
+          "win check 2 : kumpikin ampunut. varaslahto:",
+          bothPlayersVarasLahto
+        );
+        console.log(
+          "win check 2 : kumpikin ampunut. varaslahtoREF:",
+          bothPlayersVarasLahtoRef.current
+        );
         pistolShot2Play();
         if (
           chosenServer.lastReactionTimeCreator <
@@ -643,7 +660,7 @@ export default function GameMulti({
             setP1ReactText(chosenServer.lastReactionTimeCreator);
             setPlayerAnim("shooting");
             setPlayer2Anim("die");
-            setScore([score[0] + 1, score[1]]);
+            setScore([score[0] + 1, score[1], score[2]]);
 
             //leaderboardi
             setWinner(1);
@@ -659,7 +676,7 @@ export default function GameMulti({
             setPlayer2Anim("shooting");
             setPlayerAnim("die");
             //jos et ole creator, niin sulla päivittyy vain locaalisti score, jotta menee oikeinpäin ruudulla
-            setScore([score[0], score[1] + 1]);
+            setScore([score[0], score[1] + 1, score[2]]);
           }
 
           // [1]/joined = faster
@@ -669,14 +686,14 @@ export default function GameMulti({
             setP2ReactText(chosenServer.lastReactionTimeJoined);
             setPlayerAnim("die");
             setPlayer2Anim("shooting");
-            setScore([score[0], score[1] + 1]);
+            setScore([score[0], score[1] + 1, score[2]]);
           } else {
             setInfoText("You/joined won");
             setP1ReactText(chosenServer.lastReactionTimeJoined);
             setPlayer2Anim("die");
             setPlayerAnim("shooting");
             //jos et ole creator, niin sulla päivittyy vain locaalisti score, jotta menee oikeinpäin ruudulla
-            setScore([score[0] + 1, score[1]]);
+            setScore([score[0] + 1, score[1], score[2]]);
 
             //leaderboard
             setWinner(2);
@@ -714,7 +731,15 @@ export default function GameMulti({
         //NextRoundReset(); menee useEffectillä nykyään
         setShotFired(true);
       } else {
-        loggi("odottaa toista ampua");
+        console.log("odottaa toista ampua");
+      }
+      if (bothPlayersVarasLahtoRef.current && infoText !== "Again?") {
+        console.log("double fail state", bothPlayersVarasLahto);
+        console.log("double fail   REF", bothPlayersVarasLahtoRef.current);
+
+        setInfoText("Double Fail!");
+        //kolmas score on varaslähtöjä varten
+        setScore([score[0], score[1], score[2] + 1]);
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

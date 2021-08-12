@@ -60,7 +60,8 @@ export default function MultiPlayerLobby({
       open: true,
       readyCreator: false,
       readyJoined: false,
-      score: [0, 0],
+      //kolmas score on vaa double varaslahtöjä varten
+      score: [0, 0, 0],
       shotFiredCreator: false,
       shotFiredJoined: false,
       lastOnline: Date.now(),
