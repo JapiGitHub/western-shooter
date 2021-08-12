@@ -44,6 +44,5 @@ zombie survival easter egg mode xD!
 
 apple onClick events (a/button wrap div/inputs) & (cursoer: pointer) -> ei toimi vieläkään ehkä, en oo päässy testaa minnekkää..
 
-touchScreen screen flickering on clicks off & kumpiki liian ajoissa
-
 multipl: ampuminen socket.io:n kautta ja sit vasta tulokset firebase DBhen. lagi pienentyis huomattavasti.
+TÄMÄ ON EHKÄ SE ISOIN JA TÄRKEIN! ^
