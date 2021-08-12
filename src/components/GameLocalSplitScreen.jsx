@@ -100,10 +100,6 @@ export default function GameLocalSplitScreen({
     }
   };
 
-  useEffect(() => {
-    playerTwoReadyCheckBox.current.focus();
-  }, [player2Hero, player1Hero]);
-
   const NextRoundReset = () => {
     setTimeout(() => {
       setInfoText("Again?");
@@ -125,21 +121,17 @@ export default function GameLocalSplitScreen({
     setTimeout(() => {
       setReactTextFade(true);
     }, 800);
-
-    playerTwoReadyCheckBox.current.focus();
   };
 
   useEffect(() => {
     setRandomTime(3500 + Math.floor(Math.random() * 6000));
     setPlayerOneReady(false);
     setPlayerTwoReady(false);
-    playerTwoReadyCheckBox.current.focus();
   }, []);
 
   useEffect(() => {
     if (!showLeaderBoardInput) {
       setScreenSlide("game");
-      playerTwoReadyCheckBox.current.focus();
     } else {
       setScreenSlide("leaderboard");
     }
@@ -150,7 +142,6 @@ export default function GameLocalSplitScreen({
   useEffect(() => {
     if (!showLeaderBoard) {
       setScreenSlide("game");
-      playerTwoReadyCheckBox.current.focus();
     } else {
       setScreenSlide("leaderboard");
     }
@@ -171,12 +162,10 @@ export default function GameLocalSplitScreen({
 
       setTimeout((startTime) => {
         if (!doubleFailRef.current) {
-          console.log("doublefail", doubleFailRef.current);
           setInfoText("BANG!");
           setOk2Shoot(true);
           holsterPlay();
           setStartTime(new Date());
-          playerTwoReadyCheckBox.current.focus();
         }
       }, randomTime);
     }
@@ -191,7 +180,6 @@ export default function GameLocalSplitScreen({
 
   //mouse player2
   const actionClick = (e) => {
-    playerTwoReadyCheckBox.current.focus();
     setShowLeaderBoard(false);
     //setScreenSlide("game");
     //SHOOTING
@@ -207,12 +195,10 @@ export default function GameLocalSplitScreen({
         setPlayer2Anim("shooting");
         setGun1Loaded(false);
         RicochetToLeftPlay();
-        playerTwoReadyCheckBox.current.focus();
         if (!gun2Loaded) {
           setInfoText("Double fail");
           doubleFailRef.current = true;
           NextRoundReset();
-          playerTwoReadyCheckBox.current.focus();
         }
       } else {
         //onnistunut laukaus
@@ -241,7 +227,6 @@ export default function GameLocalSplitScreen({
         NextRoundReset();
       }
     }
-    playerTwoReadyCheckBox.current.focus();
   };
 
   //keyboard player1
@@ -301,8 +286,6 @@ export default function GameLocalSplitScreen({
   };
 
   const playerOneReadyClick = () => {
-    //focus takaisin p2 key listeneriin
-    playerTwoReadyCheckBox.current.focus();
     setPlayerOneReady(true);
     setShowLeaderBoard(false);
     //setScreenSlide("game");
